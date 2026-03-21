@@ -1,7 +1,4 @@
-fastapi
-uvicorn
-sqlalchemy
-pandas
-httpx
-rapidfuzz
-pydantic-settings
+pypdf
+PyMuPDF
+ocrmypdf
+pydantic
