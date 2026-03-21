@@ -7,13 +7,21 @@ Uses a multi-library approach for maximum extraction coverage:
 """
 
 import os
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
 
-import fitz  # PyMuPDF
 from pydantic import BaseModel, Field
 from pypdf import PdfReader
+
+try:
+    import fitz  # PyMuPDF
+except ImportError as exc:
+    fitz = None
+    FITZ_IMPORT_ERROR = exc
+else:
+    FITZ_IMPORT_ERROR = None
 
 
 # ── Pydantic Models ──────────────────────────────────────────────
@@ -60,6 +68,7 @@ class PDFParser:
 
     def parse(self, file_path: str | Path) -> ParsedReport:
         """Parse a PDF file and return structured content"""
+        self._require_pymupdf()
         file_path = Path(file_path)
         if not file_path.exists():
             raise FileNotFoundError(f"PDF not found: {file_path}")
@@ -75,24 +84,33 @@ class PDFParser:
             full_text=full_text,
         )
 
+    def _require_pymupdf(self) -> None:
+        """Raise a clear error if PyMuPDF is unavailable."""
+        if fitz is None:
+            raise ImportError(
+                "PyMuPDF is required for PDF parsing. Install dependencies with "
+                "`python -m pip install -r requirements.txt`."
+            ) from FITZ_IMPORT_ERROR
+
     # ── Metadata ─────────────────────────────────────────────────
 
     def _extract_metadata(self, file_path: Path) -> ReportMetadata:
         """Extract PDF metadata using PyMuPDF"""
         doc = fitz.open(str(file_path))
-        meta = doc.metadata or {}
-        size_mb = round(file_path.stat().st_size / (1024 * 1024), 2)
+        try:
+            meta = doc.metadata or {}
+            size_mb = round(file_path.stat().st_size / (1024 * 1024), 2)
 
-        report_meta = ReportMetadata(
-            title=meta.get("title", "") or "",
-            author=meta.get("author", "") or "",
-            subject=meta.get("subject", "") or "",
-            creation_date=meta.get("creationDate", "") or "",
-            page_count=len(doc),
-            file_size_mb=size_mb,
-        )
-        doc.close()
-        return report_meta
+            return ReportMetadata(
+                title=meta.get("title", "") or "",
+                author=meta.get("author", "") or "",
+                subject=meta.get("subject", "") or "",
+                creation_date=self._normalise_pdf_date(meta.get("creationDate", "") or ""),
+                page_count=len(doc),
+                file_size_mb=size_mb,
+            )
+        finally:
+            doc.close()
 
     # ── Page-by-page Extraction ──────────────────────────────────
 
@@ -101,30 +119,34 @@ class PDFParser:
         pages = []
 
         doc = fitz.open(str(file_path))
+        try:
+            for i, page in enumerate(doc):
+                text = page.get_text("text").strip()
+                is_scanned = self._page_needs_ocr(page, text)
 
-        for i, page in enumerate(doc):
-            text = page.get_text("text")
-            is_scanned = len(text.strip()) < 50
+                if is_scanned and self.ocr_enabled:
+                    ocr_text = self._ocr_page(file_path, i)
+                    if ocr_text:
+                        text = ocr_text.strip()
 
-            # If page looks scanned, try OCR
-            if is_scanned and self.ocr_enabled:
-                ocr_text = self._ocr_page(file_path, i)
-                if ocr_text:
-                    text = ocr_text
+                pages.append(PageContent(
+                    page_number=i + 1,
+                    text=text,
+                    is_scanned=is_scanned,
+                ))
+        finally:
+            doc.close()
 
-            pages.append(PageContent(
-                page_number=i + 1,
-                text=text.strip(),
-                is_scanned=is_scanned,
-            ))
-
-        doc.close()
         return pages
-
     # ── OCR Fallback ─────────────────────────────────────────────
 
     def _ocr_page(self, file_path: Path, page_index: int) -> str:
         """OCR a single page using ocrmypdf + Tesseract"""
+        if shutil.which("ocrmypdf") is None:
+            return ""
+
+        doc = None
+        single_page_doc = None
         try:
             doc = fitz.open(str(file_path))
             single_page_doc = fitz.open()
@@ -134,8 +156,6 @@ class PDFParser:
                 input_path = os.path.join(tmp_dir, "page.pdf")
                 output_path = os.path.join(tmp_dir, "page_ocr.pdf")
                 single_page_doc.save(input_path)
-                single_page_doc.close()
-                doc.close()
 
                 subprocess.run(
                     [
@@ -147,6 +167,8 @@ class PDFParser:
                         output_path,
                     ],
                     capture_output=True,
+                    check=True,
+                    text=True,
                     timeout=60,
                 )
 
@@ -155,11 +177,52 @@ class PDFParser:
                     if reader.pages:
                         return reader.pages[0].extract_text() or ""
 
-        except (subprocess.TimeoutExpired, FileNotFoundError, Exception) as e:
-            print(f"OCR failed for page {page_index + 1}: {e}")
+        except subprocess.TimeoutExpired as exc:
+            print(f"OCR timed out for page {page_index + 1}: {exc}")
+        except subprocess.CalledProcessError as exc:
+            stderr = (exc.stderr or "").strip()
+            print(f"OCR failed for page {page_index + 1}: {stderr or exc}")
+        except Exception as exc:
+            print(f"OCR failed for page {page_index + 1}: {exc}")
+        finally:
+            if single_page_doc is not None:
+                single_page_doc.close()
+            if doc is not None:
+                doc.close()
 
         return ""
 
+    def _page_needs_ocr(self, page, text: str) -> bool:
+        """Heuristic for image-heavy pages that appear to lack extractable text."""
+        if len(text) >= 50:
+            return False
+
+        has_images = bool(page.get_images(full=True))
+        return has_images or len(text) == 0
+
+    def _normalise_pdf_date(self, raw_date: str) -> str:
+        """Convert PDF date strings like D:20250321091500 into a readable form."""
+        if not raw_date.startswith("D:"):
+            return raw_date
+
+        digits = "".join(char for char in raw_date[2:] if char.isdigit())
+        if len(digits) < 8:
+            return raw_date
+
+        year = digits[0:4]
+        month = digits[4:6]
+        day = digits[6:8]
+        time_parts = []
+        if len(digits) >= 10:
+            time_parts.append(digits[8:10])
+        if len(digits) >= 12:
+            time_parts.append(digits[10:12])
+        if len(digits) >= 14:
+            time_parts.append(digits[12:14])
+
+        if time_parts:
+            return f"{year}-{month}-{day} {':'.join(time_parts)}"
+        return f"{year}-{month}-{day}"
 
 # ── Convenience function ─────────────────────────────────────────
 
