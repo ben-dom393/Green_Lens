@@ -1,0 +1,141 @@
+{
+  "version": "1.0.0",
+  "description": "Industry risk profiles for environmental claim scrutiny. Higher-risk sectors have greater inherent environmental impact and therefore require stronger substantiation of green claims. The 'lesser evil' problem means improvements within high-impact sectors may still be net harmful.",
+  "sectors": [
+    {
+      "sector_id": "fossil_fuels",
+      "display_name": "Fossil Fuels (Oil, Gas, Coal)",
+      "keywords": ["oil", "gas", "coal", "petroleum", "natural gas", "LNG", "crude", "fossil fuel", "drilling", "fracking", "upstream", "downstream", "refinery", "refining", "petrochemical", "bitumen", "tar sands", "oil sands", "shale"],
+      "risk_level": "very_high",
+      "primary_impacts": ["greenhouse gas emissions", "air pollution", "water contamination", "habitat destruction", "methane leakage", "oil spills"],
+      "lesser_evil_note": "Incremental efficiency improvements in fossil fuel extraction do not address the fundamental incompatibility with climate targets. Claims of 'clean gas' or 'responsible oil' are inherently misleading when the core product drives climate change. Any green marketing by fossil fuel companies should be scrutinized for the 'lesser evil' sin of greenwashing.",
+      "expected_material_topics": ["Scope 1+2+3 emissions", "methane leakage rates", "flaring volumes", "decommissioning plans", "stranded asset risk", "just transition plans", "lobbying alignment with climate policy"]
+    },
+    {
+      "sector_id": "tobacco",
+      "display_name": "Tobacco",
+      "keywords": ["tobacco", "cigarette", "smoking", "nicotine", "vaping", "e-cigarette", "cigar"],
+      "risk_level": "very_high",
+      "primary_impacts": ["public health harm", "deforestation for tobacco farming", "pesticide use", "cigarette butt pollution", "microplastic contamination", "child labor in supply chain"],
+      "lesser_evil_note": "The core product causes severe public health harm. Environmental sustainability claims by tobacco companies serve to distract from the fundamental harm of the product. ESG frameworks increasingly exclude tobacco entirely.",
+      "expected_material_topics": ["supply chain labor practices", "deforestation", "pesticide use", "product end-of-life pollution", "plastic filter waste"]
+    },
+    {
+      "sector_id": "mining",
+      "display_name": "Mining and Minerals",
+      "keywords": ["mining", "mineral", "ore", "extraction", "quarry", "copper", "gold", "silver", "lithium", "cobalt", "iron ore", "bauxite", "rare earth", "nickel", "zinc", "diamond"],
+      "risk_level": "high",
+      "primary_impacts": ["habitat destruction", "water contamination", "tailings dam risk", "biodiversity loss", "indigenous rights", "energy-intensive processing", "acid mine drainage"],
+      "lesser_evil_note": "While some minerals are necessary for the energy transition (lithium, cobalt, copper), mining operations carry significant inherent environmental and social risks. Claims of 'responsible mining' require robust evidence of impact mitigation across the full mine lifecycle including closure and rehabilitation.",
+      "expected_material_topics": ["tailings management", "water stewardship in water-stressed regions", "biodiversity action plans", "indigenous community consent (FPIC)", "mine closure and rehabilitation plans", "Scope 1+2 emissions", "worker safety"]
+    },
+    {
+      "sector_id": "cement",
+      "display_name": "Cement and Concrete",
+      "keywords": ["cement", "concrete", "clinker", "mortar", "aggregate", "ready-mix", "portland cement"],
+      "risk_level": "high",
+      "primary_impacts": ["process CO2 emissions from calcination", "energy-intensive kiln operations", "quarrying and habitat destruction", "particulate air pollution", "water use"],
+      "lesser_evil_note": "Cement production accounts for approximately 8% of global CO2 emissions. Process emissions from calcination are inherent to the chemistry and cannot be eliminated through energy efficiency alone. Claims of 'green cement' require evidence of clinker substitution ratios, alternative binder use, or carbon capture.",
+      "expected_material_topics": ["clinker-to-cement ratio", "alternative fuels percentage", "Scope 1 process emissions", "carbon capture plans", "quarry rehabilitation", "particulate matter emissions"]
+    },
+    {
+      "sector_id": "aviation",
+      "display_name": "Aviation",
+      "keywords": ["aviation", "airline", "aircraft", "flight", "airport", "aerospace", "air travel", "jet fuel", "aviation fuel", "SAF", "sustainable aviation fuel"],
+      "risk_level": "high",
+      "primary_impacts": ["greenhouse gas emissions", "contrail-induced cloudiness", "non-CO2 climate effects", "noise pollution", "air quality around airports", "growing demand negating efficiency gains"],
+      "lesser_evil_note": "Aviation emissions are growing rapidly and are extremely difficult to abate. Carbon offsetting for flights is widely criticized. Claims of 'carbon-neutral flights' or 'sustainable flying' require heavy scrutiny. SAF currently represents less than 1% of fuel use globally.",
+      "expected_material_topics": ["fleet fuel efficiency", "SAF procurement percentage and type", "non-CO2 effects acknowledgment", "offset quality and reliance", "absolute emission trajectory vs. growth", "CORSIA compliance"]
+    },
+    {
+      "sector_id": "fast_fashion",
+      "display_name": "Fast Fashion and Apparel",
+      "keywords": ["fast fashion", "apparel", "clothing", "textile", "garment", "fashion", "denim", "polyester", "cotton", "fabric", "footwear", "shoes"],
+      "risk_level": "high",
+      "primary_impacts": ["water pollution from dyeing", "microplastic shedding", "overproduction and waste", "exploitative labor", "cotton farming water use and pesticides", "synthetic fiber fossil fuel dependence"],
+      "lesser_evil_note": "The fast fashion business model is inherently unsustainable due to overproduction and disposability. A 'conscious collection' representing 5% of output does not offset the impact of the other 95%. Claims must be evaluated against total production volumes and business model trajectory.",
+      "expected_material_topics": ["production volumes and growth rate", "garment worker wages vs. living wage", "water use in supply chain", "chemical management (ZDHC)", "microfiber shedding", "textile waste and take-back programs", "material traceability"]
+    },
+    {
+      "sector_id": "agrochemicals",
+      "display_name": "Agrochemicals and Pesticides",
+      "keywords": ["agrochemical", "pesticide", "herbicide", "insecticide", "fungicide", "fertilizer", "crop protection", "seed treatment", "glyphosate", "neonicotinoid"],
+      "risk_level": "high",
+      "primary_impacts": ["pollinator decline", "soil degradation", "water contamination", "biodiversity loss", "human health effects", "nitrogen runoff and eutrophication"],
+      "lesser_evil_note": "The core products are designed to kill living organisms. Claims of 'sustainable agriculture solutions' from pesticide manufacturers require scrutiny of whether they promote genuine integrated pest management or simply rebrand conventional products.",
+      "expected_material_topics": ["pollinator impact assessments", "product toxicity profiles", "water contamination data", "investment in biological alternatives", "farmer safety programs", "regulatory compliance history"]
+    },
+    {
+      "sector_id": "steel_metals",
+      "display_name": "Steel and Metals Manufacturing",
+      "keywords": ["steel", "iron", "aluminum", "aluminium", "smelting", "foundry", "metallurgy", "stainless steel", "alloy", "metal manufacturing", "blast furnace", "electric arc furnace"],
+      "risk_level": "high",
+      "primary_impacts": ["very high energy consumption", "coal use in blast furnaces", "CO2 process emissions", "air pollution", "slag and waste generation", "water use"],
+      "lesser_evil_note": "Steel production accounts for 7-9% of global CO2 emissions. Blast furnace steelmaking is inherently carbon-intensive. Claims of 'green steel' should specify whether the route is hydrogen-based DRI, electric arc furnace with scrap, or merely incremental efficiency improvements on traditional blast furnaces.",
+      "expected_material_topics": ["production route (BF-BOF vs. EAF vs. DRI)", "scrap utilization rate", "Scope 1+2 emissions intensity", "hydrogen or CCUS roadmap", "renewable electricity sourcing", "air emissions (SOx, NOx, PM)"]
+    },
+    {
+      "sector_id": "shipping",
+      "display_name": "Shipping and Maritime",
+      "keywords": ["shipping", "maritime", "vessel", "cargo", "container ship", "tanker", "bulk carrier", "port", "marine fuel", "bunker fuel", "LNG carrier"],
+      "risk_level": "high",
+      "primary_impacts": ["heavy fuel oil emissions", "SOx and NOx pollution", "black carbon", "ballast water invasive species", "underwater noise", "oil spills", "scrubber wash water discharge"],
+      "lesser_evil_note": "International shipping accounts for approximately 3% of global GHG emissions and is heavily reliant on fossil fuels. The sector has limited near-term decarbonization options. Claims of 'green shipping' often rely on LNG, which may not deliver meaningful lifecycle GHG reductions due to methane slip.",
+      "expected_material_topics": ["fleet efficiency (EEXI/CII ratings)", "fuel type and transition plans", "methane slip measurement", "SOx scrubber discharge practices", "IMO compliance trajectory", "alternative fuel adoption timeline"]
+    },
+    {
+      "sector_id": "automotive_ice",
+      "display_name": "Automotive (Internal Combustion Engine)",
+      "keywords": ["automotive", "car manufacturer", "ICE vehicle", "internal combustion", "gasoline", "diesel", "petrol", "SUV", "pickup truck"],
+      "risk_level": "medium_high",
+      "primary_impacts": ["tailpipe emissions", "lifecycle manufacturing emissions", "tire and brake microplastics", "resource extraction for materials", "end-of-life vehicle waste"],
+      "lesser_evil_note": "This risk level applies specifically to ICE vehicle manufacturing and marketing. Incremental mpg improvements in ICE vehicles do not address the fundamental need to transition to zero-emission vehicles. Marketing ICE vehicles as 'eco' or 'green' based on marginal efficiency gains is misleading in the context of necessary transport decarbonization.",
+      "expected_material_topics": ["fleet average CO2 emissions (g/km)", "EV transition timeline and investment", "Scope 3 use-phase emissions", "supply chain emissions", "battery sourcing (if hybrid/EV)", "end-of-life vehicle recycling rates"]
+    },
+    {
+      "sector_id": "plastics_packaging",
+      "display_name": "Plastics and Packaging",
+      "keywords": ["plastic", "packaging", "polymer", "polyethylene", "polypropylene", "PET", "PVC", "single-use", "flexible packaging", "rigid packaging", "film", "wrap"],
+      "risk_level": "medium_high",
+      "primary_impacts": ["plastic pollution", "ocean contamination", "microplastics", "fossil fuel feedstock", "low recycling rates", "incineration emissions", "wildlife harm"],
+      "lesser_evil_note": "The plastics industry faces fundamental challenges with end-of-life management. Global plastic recycling rates remain below 10%. Claims of 'recyclable' packaging are often technically true but misleading when recycling infrastructure does not exist in practice. Chemical recycling claims require particular scrutiny.",
+      "expected_material_topics": ["actual recycling rates (not recyclability)", "post-consumer recycled content", "single-use reduction targets", "chemical recycling claims and yields", "Extended Producer Responsibility participation", "microplastic shedding data"]
+    },
+    {
+      "sector_id": "construction",
+      "display_name": "Construction and Real Estate",
+      "keywords": ["construction", "real estate", "building", "property", "infrastructure", "developer", "commercial real estate", "residential"],
+      "risk_level": "medium",
+      "primary_impacts": ["embodied carbon in materials", "operational energy use", "construction waste", "land use change", "habitat fragmentation", "urban heat island effect"],
+      "lesser_evil_note": "Buildings account for approximately 40% of global energy-related CO2 emissions (embodied + operational). 'Green building' certifications vary widely in rigor. A LEED-certified building may still have high absolute emissions if it is oversized or in a car-dependent location.",
+      "expected_material_topics": ["embodied carbon assessment", "operational energy performance", "building certification level and scope", "construction waste diversion", "whole-life carbon assessment", "climate resilience design"]
+    },
+    {
+      "sector_id": "banking_finance",
+      "display_name": "Banking and Financial Services",
+      "keywords": ["bank", "banking", "finance", "financial services", "investment", "asset management", "insurance", "lending", "underwriting", "private equity", "venture capital"],
+      "risk_level": "medium",
+      "primary_impacts": ["financed emissions from lending and investment portfolios", "underwriting fossil fuel projects", "enabling high-emission activities", "direct operational footprint (minor relative to financed emissions)"],
+      "lesser_evil_note": "Financial institutions' primary environmental impact is through their financed emissions, which can be 700x their operational footprint. Sustainability claims focused solely on operational emissions (office recycling, green buildings) while continuing to finance fossil fuels represent a significant greenwashing risk.",
+      "expected_material_topics": ["financed emissions (PCAF methodology)", "fossil fuel financing exposure", "portfolio alignment with climate targets", "exclusion policies", "engagement with high-emitting clients", "TCFD/TNFD reporting", "green bond/loan frameworks"]
+    },
+    {
+      "sector_id": "food_beverage",
+      "display_name": "Food and Beverage",
+      "keywords": ["food", "beverage", "dairy", "meat", "agriculture", "farming", "processed food", "snack", "drink", "restaurant", "fast food", "grocery"],
+      "risk_level": "medium",
+      "primary_impacts": ["agricultural emissions (methane, N2O)", "deforestation for commodities", "water use", "packaging waste", "food waste", "pesticide use", "biodiversity loss from monoculture"],
+      "lesser_evil_note": "Animal agriculture is a major source of GHG emissions. Companies marketing 'sustainable beef' or 'responsible dairy' should be scrutinized for whether claims address absolute emissions or merely intensity improvements that still result in high environmental impact.",
+      "expected_material_topics": ["Scope 3 agricultural emissions", "deforestation-free commodity sourcing", "water stewardship", "food loss and waste", "packaging sustainability", "animal welfare", "regenerative agriculture claims and evidence"]
+    },
+    {
+      "sector_id": "technology",
+      "display_name": "Technology and Digital Services",
+      "keywords": ["technology", "tech", "software", "hardware", "data center", "cloud", "AI", "semiconductor", "electronics", "digital", "SaaS", "internet"],
+      "risk_level": "medium_low",
+      "primary_impacts": ["data center energy consumption", "e-waste", "rare earth mineral sourcing", "water use for cooling", "supply chain labor and environmental conditions", "growing AI energy demand"],
+      "lesser_evil_note": "While direct operational impacts are lower than heavy industry, the tech sector's energy demand is growing rapidly due to AI and cloud computing. Claims of 'carbon-neutral cloud' often rely heavily on offsets and RECs. E-waste and supply chain issues (conflict minerals, factory conditions) are often underreported.",
+      "expected_material_topics": ["data center PUE and WUE", "renewable energy sourcing (24/7 vs. annual matching)", "Scope 3 supply chain emissions", "e-waste and circular economy programs", "conflict mineral due diligence", "AI energy consumption transparency"]
+    }
+  ]
+}

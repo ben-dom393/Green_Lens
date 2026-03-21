@@ -1,0 +1,111 @@
+{
+  "version": "1.0.0",
+  "description": "Knowledge base of claims that are technically true but carry no informational value because the substance or practice is already banned, required by law, or too vague to be meaningful. Detecting these helps identify the 'sin of irrelevance' in greenwashing.",
+  "entries": [
+    {
+      "pattern": "CFC-free",
+      "pattern_regex": "(?i)\\bCFC[- ]?free\\b",
+      "reason": "CFCs (chlorofluorocarbons) have been banned globally since 1987 under the Montreal Protocol. No legally sold product can contain CFCs, making this claim universally true and therefore meaningless.",
+      "regulation": "Montreal Protocol on Substances that Deplete the Ozone Layer (1987)",
+      "applies_to": ["aerosols", "refrigerants", "foam products", "solvents", "consumer products"]
+    },
+    {
+      "pattern": "lead-free paint",
+      "pattern_regex": "(?i)\\blead[- ]?free\\b.*\\b(paint|coating|finish)\\b",
+      "reason": "Lead in paint has been banned or severely restricted in most countries for decades. Claiming lead-free paint is stating compliance with the law, not a voluntary environmental benefit.",
+      "regulation": "US Consumer Product Safety Improvement Act (2008), EU REACH Regulation, WHO Global Alliance to Eliminate Lead Paint",
+      "applies_to": ["paints", "coatings", "finishes", "consumer products", "building materials"]
+    },
+    {
+      "pattern": "asbestos-free",
+      "pattern_regex": "(?i)\\basbestos[- ]?free\\b",
+      "reason": "Asbestos is banned or heavily restricted in over 60 countries. Claiming a product is asbestos-free in jurisdictions where it is banned provides no meaningful environmental or safety differentiation.",
+      "regulation": "EU Directive 1999/77/EC, Rotterdam Convention, national bans in 60+ countries",
+      "applies_to": ["building materials", "insulation", "automotive parts", "consumer products"]
+    },
+    {
+      "pattern": "mercury-free",
+      "pattern_regex": "(?i)\\bmercury[- ]?free\\b",
+      "reason": "The Minamata Convention (2013) phases out mercury in most products and processes. Claiming mercury-free status for products covered by the phase-out is stating regulatory compliance, not voluntary action.",
+      "regulation": "Minamata Convention on Mercury (2013), EU Mercury Regulation (EU) 2017/852",
+      "applies_to": ["batteries", "thermometers", "lighting", "cosmetics", "dental products", "electronics"]
+    },
+    {
+      "pattern": "ozone-friendly",
+      "pattern_regex": "(?i)\\b(ozone[- ]?friendly|ozone[- ]?safe|ozone[- ]?protective)\\b",
+      "reason": "Ozone-depleting substances (ODS) have been phased out under the Montreal Protocol. All products are effectively ozone-friendly by law, making this claim redundant.",
+      "regulation": "Montreal Protocol on Substances that Deplete the Ozone Layer (1987), Kigali Amendment (2016)",
+      "applies_to": ["aerosols", "refrigerants", "air conditioning", "cleaning products", "foam products"]
+    },
+    {
+      "pattern": "DDT-free",
+      "pattern_regex": "(?i)\\bDDT[- ]?free\\b",
+      "reason": "DDT is banned for agricultural use under the Stockholm Convention and most national laws. Claiming DDT-free status for agricultural products is stating compliance with existing bans.",
+      "regulation": "Stockholm Convention on Persistent Organic Pollutants (2001), US EPA ban (1972)",
+      "applies_to": ["agricultural products", "food products", "pesticides"]
+    },
+    {
+      "pattern": "PCB-free",
+      "pattern_regex": "(?i)\\bPCB[- ]?free\\b",
+      "reason": "PCBs (polychlorinated biphenyls) have been banned under the Stockholm Convention and by most countries since the 1970s-1980s. Manufacturing PCBs is illegal, making this claim vacuous.",
+      "regulation": "Stockholm Convention on Persistent Organic Pollutants (2001), US Toxic Substances Control Act (1979)",
+      "applies_to": ["electrical equipment", "industrial products", "building materials"]
+    },
+    {
+      "pattern": "phosphate-free detergent",
+      "pattern_regex": "(?i)\\bphosphate[- ]?free\\b",
+      "reason": "Phosphates in household detergents have been banned or restricted in the EU, US states, and many other jurisdictions. In these markets, claiming phosphate-free provides no meaningful differentiation.",
+      "regulation": "EU Regulation 259/2012, US state-level bans, Canada Phosphorus Concentration Regulations",
+      "applies_to": ["laundry detergent", "dishwasher detergent", "cleaning products"]
+    },
+    {
+      "pattern": "non-toxic",
+      "pattern_regex": "(?i)\\bnon[- ]?toxic\\b",
+      "reason": "The term 'non-toxic' is considered too vague to be meaningful by the FTC Green Guides. Almost everything is toxic at some dose. Without qualification of what substances are absent and under what exposure conditions, the claim is unfalsifiable.",
+      "regulation": "FTC Green Guides (16 CFR 260), EU Green Claims Directive (proposed)",
+      "applies_to": ["consumer products", "cleaning products", "personal care", "children's products"]
+    },
+    {
+      "pattern": "complies with environmental law",
+      "pattern_regex": "(?i)\\b(compli(es|ant) with|meets|follows|adheres to)\\b.{0,30}\\b(environmental|pollution|emission)\\b.{0,20}\\b(laws?|regulations?|legislation|standards?|requirements?)\\b",
+      "reason": "All legally sold products must comply with applicable environmental laws. Stating legal compliance as a marketing claim implies other products may not comply, which is misleading.",
+      "regulation": "General regulatory compliance principle; FTC Green Guides Section 260.2",
+      "applies_to": ["all products", "all sectors"]
+    },
+    {
+      "pattern": "meets minimum safety standards",
+      "pattern_regex": "(?i)\\b(meets|satisfies|passes|achieves)\\b.{0,20}\\b(minimum|basic|required)\\b.{0,20}\\b(safety|quality)\\b.{0,20}\\b(standards?|requirements?|regulations?)\\b",
+      "reason": "All legally sold products must meet minimum safety standards. This claim provides no information about environmental performance above the regulatory baseline.",
+      "regulation": "General regulatory compliance principle; applicable product safety legislation",
+      "applies_to": ["all products", "all sectors"]
+    },
+    {
+      "pattern": "BPA-free baby products",
+      "pattern_regex": "(?i)\\bBPA[- ]?free\\b",
+      "reason": "BPA is banned in baby bottles and children's food containers in the EU, US, Canada, and many other jurisdictions. For regulated product categories, BPA-free is a legal requirement, not a voluntary benefit. Note: for non-regulated product categories, BPA-free may still carry some informational value.",
+      "regulation": "EU Regulation 321/2011, US FDA ban on BPA in baby bottles (2012), Canada CEPA listing",
+      "applies_to": ["baby bottles", "infant formula containers", "children's food packaging", "sippy cups"]
+    },
+    {
+      "pattern": "biodegradable without qualification",
+      "pattern_regex": "(?i)\\bbiodegradable\\b(?!.{0,40}(day|week|month|year|hour|ASTM|EN 13432|ISO 14855|industrial|home compost|marine|soil|condition))",
+      "reason": "The term 'biodegradable' without specifying the timeframe, conditions, and testing standard is misleading per FTC Green Guides. Nearly everything biodegrades eventually. Claims must specify the disposal environment and rate.",
+      "regulation": "FTC Green Guides (16 CFR 260.8), EU Green Claims Directive (proposed), ACCC guidelines",
+      "applies_to": ["packaging", "consumer products", "plastics", "textiles", "cleaning products"]
+    },
+    {
+      "pattern": "formaldehyde-free",
+      "pattern_regex": "(?i)\\bformaldehyde[- ]?free\\b",
+      "reason": "Formaldehyde is restricted by regulation in many applications including building materials, textiles, and cosmetics. In regulated product categories, claiming formaldehyde-free is often stating compliance rather than voluntary action.",
+      "regulation": "EU REACH Regulation (restriction entry 77), US TSCA Title VI (formaldehyde standards for composite wood), EU Cosmetics Regulation",
+      "applies_to": ["building materials", "composite wood", "textiles", "cosmetics", "personal care"]
+    },
+    {
+      "pattern": "PFOS-free",
+      "pattern_regex": "(?i)\\bPFOS[- ]?free\\b",
+      "reason": "PFOS (perfluorooctane sulfonate) is banned under the Stockholm Convention and major national regulations. Claiming PFOS-free status is stating compliance with existing prohibitions.",
+      "regulation": "Stockholm Convention Annex B (2009), EU POP Regulation 2019/1021, US EPA PFAS Action Plan",
+      "applies_to": ["textiles", "firefighting foam", "coatings", "consumer products", "industrial products"]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+
+# Output
+output/
+*.parquet
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Models (large files)
+models/
+*.bin
+*.safetensors
+
+# ChromaDB
+chroma_db/
+backend/chroma_db/
+
+# Test result files
+*_results.json
+
+# Claude settings
+.claude/

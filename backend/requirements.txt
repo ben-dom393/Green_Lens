@@ -1,0 +1,33 @@
+# Web framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# NLP models
+transformers
+torch
+sentence-transformers
+setfit
+spacy
+
+# RAG
+chromadb
+bm25s
+PyStemmer
+
+# LLM
+ollama
+httpx
+
+# Data
+pandas
+pydantic
+pydantic-settings
+
+# Topic modeling & keyword extraction
+bertopic
+keybert
+
+# PDF parsing (teammate handles, but needed for integration)
+# unstructured
+# pymupdf
