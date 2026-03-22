@@ -646,3 +646,11 @@ async def list_reports():
         }
         for rid, r in reports_store.items()
     ]
+
+
+@app.get("/api/reports/{report_id}")
+async def get_report(report_id: str):
+    """Get full report data by ID."""
+    if report_id not in reports_store:
+        raise HTTPException(status_code=404, detail="Report not found")
+    return reports_store[report_id]
