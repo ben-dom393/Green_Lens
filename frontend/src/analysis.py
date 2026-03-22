@@ -1,4 +1,6 @@
+import json
 from dataclasses import dataclass
+from pathlib import Path
 
 import requests
 
@@ -57,14 +59,14 @@ def convert_backend_response(data: dict) -> AnalysisResult:
         for sin_name, score_100 in sin_scores.items():
             metric_name = SIN_TO_METRIC.get(sin_name)
             if metric_name:
-                scores_by_metric[metric_name] = round(score_100 / 20, 2)
+                scores_by_metric[metric_name] = round(score_100, 1)
     else:
-        # Fallback: use risk_heatmap (0-1) * 5
+        # Fallback: use risk_heatmap (0-1) * 100
         heatmap = data.get("risk_heatmap", {})
         for cat_name, ratio in heatmap.items():
             metric_name = CATEGORY_TO_METRIC.get(cat_name)
             if metric_name:
-                scores_by_metric[metric_name] = round(ratio * 5, 2)
+                scores_by_metric[metric_name] = round(ratio * 100, 1)
 
     # --- Build category lookup for explanations ---
     metric_to_category = {v: k for k, v in CATEGORY_TO_METRIC.items()}
@@ -88,17 +90,17 @@ def convert_backend_response(data: dict) -> AnalysisResult:
         for item in cat.get("items", []):
             if item.get("verdict") in ("flagged", "needs_verification"):
                 claim_text = item.get("claim_text", "")
-                snippet = claim_text[:300]
-
+                explanation = ""
                 judgment = item.get("judgment")
-                if isinstance(judgment, dict) and judgment.get("reasoning"):
-                    reasoning = judgment["reasoning"][:200]
-                    snippet = f"{snippet} — {reasoning}"
+                if isinstance(judgment, dict):
+                    explanation = judgment.get("reasoning", "") or judgment.get("explanation", "")
 
                 evidence_snippets.append({
                     "page": item.get("page", 0),
                     "metric": metric_name,
-                    "snippet": snippet,
+                    "claim_text": claim_text,
+                    "explanation": explanation,
+                    "verdict": item.get("verdict", "flagged"),
                 })
 
     # --- Derive metadata ---
@@ -136,9 +138,9 @@ def convert_backend_response(data: dict) -> AnalysisResult:
 
 
 def score_to_risk_label(score: float) -> str:
-    if score >= 3.5:
+    if score >= 60:
         return "High"
-    if score >= 2.5:
+    if score >= 30:
         return "Medium"
     return "Low"
 
@@ -175,5 +177,25 @@ def run_mock_analysis() -> AnalysisResult:
 def attach_company_context(company_name: str) -> list[dict]:
     enriched = []
     for item in EVIDENCE_SNIPPETS:
-        enriched.append({**item, "snippet": f"{company_name}: {item['snippet']}"})
+        enriched.append({**item, "claim_text": f"{company_name}: {item['claim_text']}"})
     return enriched
+
+
+# --- Load saved analysis from JSON file ---
+
+SAVED_RESULTS_DIR = Path(__file__).parent.parent.parent / "logs"
+
+
+def list_saved_results() -> list[str]:
+    """Return list of saved JSON result filenames."""
+    if not SAVED_RESULTS_DIR.exists():
+        return []
+    return [f.name for f in SAVED_RESULTS_DIR.glob("*_result.json")]
+
+
+def load_saved_analysis(filename: str) -> AnalysisResult:
+    """Load a previously saved analysis result from JSON file."""
+    filepath = SAVED_RESULTS_DIR / filename
+    with open(filepath, encoding="utf-8") as f:
+        data = json.load(f)
+    return convert_backend_response(data)

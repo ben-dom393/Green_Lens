@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from config import DATA_DIR
+from config import DATA_DIR, HF_DEVICE
 from pipeline.modules.base import BaseModule, Verdict
 
 logger = logging.getLogger(__name__)
@@ -101,6 +101,7 @@ class LesserEvilModule(BaseModule):
                     "text-classification",
                     model="yiyanghkust/finbert-esg-9-categories",
                     top_k=3,
+                    device=HF_DEVICE,
                 )
                 logger.info(
                     "Loaded ESG classifier: yiyanghkust/finbert-esg-9-categories"
@@ -114,7 +115,8 @@ class LesserEvilModule(BaseModule):
                 from transformers import pipeline as hf_pipeline
                 from config import CLIMATE_SENTIMENT_MODEL
                 self._sentiment_model = hf_pipeline(
-                    "text-classification", model=CLIMATE_SENTIMENT_MODEL, truncation=True
+                    "text-classification", model=CLIMATE_SENTIMENT_MODEL, truncation=True,
+                    device=HF_DEVICE,
                 )
                 logger.info("Loaded sentiment model: %s", CLIMATE_SENTIMENT_MODEL)
             except Exception as e:
@@ -126,7 +128,8 @@ class LesserEvilModule(BaseModule):
                 from transformers import pipeline as hf_pipeline
                 from config import CLIMATE_STANCE_MODEL
                 self._stance_model = hf_pipeline(
-                    "text-classification", model=CLIMATE_STANCE_MODEL, truncation=True
+                    "text-classification", model=CLIMATE_STANCE_MODEL, truncation=True,
+                    device=HF_DEVICE,
                 )
                 logger.info("Loaded stance model: %s", CLIMATE_STANCE_MODEL)
             except Exception as e:

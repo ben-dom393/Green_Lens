@@ -19,44 +19,58 @@ EVIDENCE_SNIPPETS = [
     {
         "page": 3,
         "metric": "Hidden Trade-Off",
-        "snippet": "The report celebrates recyclable packaging upgrades while offering little detail on the emissions increase from expedited logistics.",
+        "claim_text": "Our recyclable packaging program has reduced waste by 15% across our product lines.",
+        "explanation": "The report celebrates recyclable packaging upgrades while offering little detail on the emissions increase from expedited logistics.",
+        "verdict": "flagged",
     },
     {
         "page": 7,
         "metric": "No Proof",
-        "snippet": "A statement on low-carbon sourcing is presented prominently, but no supporting dataset or assurance note is shown nearby.",
+        "claim_text": "We source 80% of our materials from low-carbon suppliers.",
+        "explanation": "A statement on low-carbon sourcing is presented prominently, but no supporting dataset or assurance note is shown nearby.",
+        "verdict": "flagged",
     },
     {
         "page": 11,
         "metric": "Vagueness",
-        "snippet": "The company repeatedly describes its operations as eco-conscious without explaining what criteria qualify that label.",
+        "claim_text": "Our operations are eco-conscious and aligned with sustainable development principles.",
+        "explanation": "The company repeatedly describes its operations as eco-conscious without explaining what criteria qualify that label.",
+        "verdict": "flagged",
     },
     {
         "page": 18,
         "metric": "False Labels",
-        "snippet": "A green-style seal appears beside a product line, but the certifying body and audit standard are not clearly identified.",
+        "claim_text": "This product line carries our Green Certified seal of approval.",
+        "explanation": "A green-style seal appears beside a product line, but the certifying body and audit standard are not clearly identified.",
+        "verdict": "flagged",
     },
     {
         "page": 24,
         "metric": "Irrelevance",
-        "snippet": "The report emphasizes that one product is CFC-free, even though that feature is already expected and not decision-useful.",
+        "claim_text": "All our aerosol products are 100% CFC-free.",
+        "explanation": "The report emphasizes that one product is CFC-free, even though that feature is already expected and not decision-useful.",
+        "verdict": "needs_verification",
     },
     {
         "page": 29,
         "metric": "Lesser of Two Evils",
-        "snippet": "A reduced-emission fossil fuel offering is marketed as a climate-positive choice despite the category remaining materially harmful.",
+        "claim_text": "Our new low-emission fuel blend reduces carbon output by 10% compared to standard options.",
+        "explanation": "A reduced-emission fossil fuel offering is marketed as a climate-positive choice despite the category remaining materially harmful.",
+        "verdict": "flagged",
     },
     {
         "page": 36,
         "metric": "Fibbing",
-        "snippet": "One headline claim implies near-zero impact, but the surrounding disclosures suggest the statement is too absolute to trust as written.",
+        "claim_text": "We have achieved near-zero environmental impact across our global operations.",
+        "explanation": "One headline claim implies near-zero impact, but the surrounding disclosures suggest the statement is too absolute to trust as written.",
+        "verdict": "flagged",
     },
 ]
 
 DEFAULT_METRIC_SCORES = dict(
     zip(
         METRIC_NAMES,
-        [3.7, 3.1, 4.2, 2.7, 2.9, 3.8, 4.1],
+        [37, 31, 42, 27, 29, 38, 41],
     )
 )
 

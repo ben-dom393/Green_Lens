@@ -1,4 +1,4 @@
-APP_TITLE = "Greenwashing Risk Checker"
+APP_TITLE = "Green Lens"
 APP_SUBTITLE = "Upload an ESG report to analyze greenwashing risk across the 7 Sins framework."
 INFO_NOTE = "Analysis uses ClimateBERT, DeBERTa NLI, and Groq LLM Judge across 7 detection modules."
 
@@ -16,12 +16,12 @@ METRIC_NAMES = [
 ]
 
 METRIC_SCORE_MIN = 0
-METRIC_SCORE_MAX = 5
+METRIC_SCORE_MAX = 100
 
 RISK_LABEL_COLORS = {
-    "Low": "#1f7a4d",
-    "Medium": "#c58b00",
-    "High": "#b42318",
+    "Low": "#4caf50",
+    "Medium": "#ffa726",
+    "High": "#ff6b6b",
 }
 
 # Backend sin name -> frontend metric name

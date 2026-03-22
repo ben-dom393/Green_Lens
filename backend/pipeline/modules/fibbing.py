@@ -19,6 +19,7 @@ from config import (
     CLIMATE_SENTIMENT_MODEL,
     FACT_CHECK_MODEL,
     FACT_CHECK_THRESHOLD,
+    HF_DEVICE,
     NLI_MODEL,
     TABLE_FACT_MODEL,
     TOP_K_RERANK,
@@ -80,6 +81,7 @@ class FibbingModule(BaseModule):
                     "text-classification",
                     model=FACT_CHECK_MODEL,
                     truncation=True,
+                    device=HF_DEVICE,
                 )
                 logger.info("Loaded fact-check model: %s", FACT_CHECK_MODEL)
             except Exception:
@@ -110,6 +112,7 @@ class FibbingModule(BaseModule):
                     "text-classification",
                     model=CLIMATE_SENTIMENT_MODEL,
                     truncation=True,
+                    device=HF_DEVICE,
                 )
                 logger.info(
                     "Loaded climate sentiment model: %s",
@@ -369,11 +372,41 @@ class FibbingModule(BaseModule):
 
         verdicts: list[Verdict] = []
 
-        for claim in claim_list:
+        # Pre-filter: only run heavy models on claims with superlatives
+        # or environmental keywords. Pass the rest quickly.
+        _ENV_KEYWORDS = re.compile(
+            r"\b(?:emission|carbon|renewable|sustainab|green|eco|climate|"
+            r"neutral|zero|recycle|biodiversity|footprint|energy)\b",
+            re.IGNORECASE,
+        )
+
+        for idx, claim in enumerate(claim_list):
+            if idx % 50 == 0 and idx > 0:
+                logger.info("Fibbing: processed %d/%d claims", idx, len(claim_list))
+
             claim_text = claim.claim_text
 
-            # --- 1. Detect superlatives / absolute claims ------------------
+            # --- 0. Quick filter: skip claims with no env keywords AND
+            #        no superlatives — they can't be fibbing about the
+            #        environment if they don't mention it. ----------------
             superlatives = self._detect_superlatives(claim_text)
+            has_env_keyword = bool(_ENV_KEYWORDS.search(claim_text))
+
+            if not superlatives and not has_env_keyword:
+                verdicts.append(
+                    Verdict.create(
+                        module_name=self.name,
+                        claim_id=claim.claim_id,
+                        verdict="pass",
+                        explanation="No environmental keywords or absolute language detected.",
+                        page=claim.page,
+                        claim_text=claim.claim_text,
+                        section_path=getattr(claim, "section_path", []),
+                    )
+                )
+                continue
+
+            # --- 1. (superlatives already detected above) -----------------
 
             # --- 2. RAG retrieve evidence passages -------------------------
             evidence_texts: list[str] = []

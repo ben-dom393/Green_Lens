@@ -16,16 +16,16 @@ from config import GROQ_MODEL
 
 logger = logging.getLogger(__name__)
 
-# Groq free tier limits (as of 2025):
-# - 30 requests/minute, 14,400 requests/day for llama-3.3-70b-versatile
+# Groq limits (paid/upgraded tier):
+# - 500 requests/minute for llama-3.3-70b-versatile
 # - Rate limit resets every 60 seconds
 _MAX_RETRIES = 5
-_BASE_WAIT = 15  # seconds — short initial wait
-_MAX_WAIT = 65   # cap at ~1 minute (Groq rate limit resets every 60s)
+_BASE_WAIT = 3   # seconds — short initial wait
+_MAX_WAIT = 30   # cap at 30s (shorter since higher limit)
 
-# Proactive throttle: stay under 30 req/min by spacing calls
+# Proactive throttle: stay under 500 req/min by spacing calls
 _RATE_LIMIT_WINDOW = 60.0  # seconds
-_RATE_LIMIT_MAX_CALLS = 28  # leave 2-call buffer under the 30/min limit
+_RATE_LIMIT_MAX_CALLS = 480  # leave 20-call buffer under the 500/min limit
 
 
 class LLMClient:

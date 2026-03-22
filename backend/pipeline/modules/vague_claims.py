@@ -15,7 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from config import DATA_DIR, SPECIFICITY_MODEL, SPECIFICITY_THRESHOLD, ZEROSHOT_MODEL
+from config import DATA_DIR, HF_DEVICE, SPECIFICITY_MODEL, SPECIFICITY_THRESHOLD, ZEROSHOT_MODEL
 from pipeline.modules.base import BaseModule, Verdict
 
 logger = logging.getLogger(__name__)
@@ -101,6 +101,7 @@ class VagueClaimsModule(BaseModule):
                     "text-classification",
                     model=SPECIFICITY_MODEL,
                     truncation=True,
+                    device=HF_DEVICE,
                 )
                 logger.info("Loaded specificity model: %s", SPECIFICITY_MODEL)
             except Exception:
@@ -119,6 +120,7 @@ class VagueClaimsModule(BaseModule):
                     "text-classification",
                     model="climatebert/distilroberta-base-climate-commitment",
                     truncation=True,
+                    device=HF_DEVICE,
                 )
                 logger.info(
                     "Loaded commitment model: "
@@ -139,6 +141,7 @@ class VagueClaimsModule(BaseModule):
                 self._zs_classifier = hf_pipeline(
                     "zero-shot-classification",
                     model=ZEROSHOT_MODEL,
+                    device=HF_DEVICE,
                 )
                 logger.info("Loaded zero-shot classifier: %s", ZEROSHOT_MODEL)
             except Exception:

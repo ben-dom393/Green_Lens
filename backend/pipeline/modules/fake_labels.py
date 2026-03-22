@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from config import DATA_DIR, ZEROSHOT_MODEL
+from config import DATA_DIR, HF_DEVICE, ZEROSHOT_MODEL
 from pipeline.modules.base import BaseModule, Verdict
 
 logger = logging.getLogger(__name__)
@@ -109,7 +109,8 @@ class FakeLabelsModule(BaseModule):
             from transformers import pipeline as hf_pipeline
 
             self._zeroshot = hf_pipeline(
-                "zero-shot-classification", model=ZEROSHOT_MODEL
+                "zero-shot-classification", model=ZEROSHOT_MODEL,
+                device=HF_DEVICE,
             )
             logger.info("Loaded zero-shot model: %s", ZEROSHOT_MODEL)
         except Exception as exc:

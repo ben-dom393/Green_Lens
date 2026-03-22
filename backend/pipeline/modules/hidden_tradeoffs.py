@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from config import DATA_DIR, ESG_TOPIC_MODEL, TCFD_MODEL
+from config import DATA_DIR, ESG_TOPIC_MODEL, HF_DEVICE, TCFD_MODEL
 from pipeline.modules.base import BaseModule, Verdict
 
 logger = logging.getLogger(__name__)
@@ -121,6 +121,7 @@ class HiddenTradeoffsModule(BaseModule):
                     "text-classification",
                     model=ESG_TOPIC_MODEL,
                     top_k=3,
+                    device=HF_DEVICE,
                 )
                 logger.info("Loaded ESG classifier: %s", ESG_TOPIC_MODEL)
             except Exception as e:
@@ -136,6 +137,7 @@ class HiddenTradeoffsModule(BaseModule):
                     "text-classification",
                     model=TCFD_MODEL,
                     truncation=True,
+                    device=HF_DEVICE,
                 )
                 logger.info("Loaded TCFD classifier: %s", TCFD_MODEL)
             except Exception as e:

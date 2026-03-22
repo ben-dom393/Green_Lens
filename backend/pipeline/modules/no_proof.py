@@ -15,7 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from config import DATA_DIR, FACT_CHECK_MODEL, FACT_CHECK_THRESHOLD, TOP_K_RERANK
+from config import DATA_DIR, FACT_CHECK_MODEL, FACT_CHECK_THRESHOLD, HF_DEVICE, TOP_K_RERANK
 from pipeline.modules.base import BaseModule, Verdict
 
 logger = logging.getLogger(__name__)
@@ -66,6 +66,7 @@ class NoProofModule(BaseModule):
                     "text-classification",
                     model=FACT_CHECK_MODEL,
                     truncation=True,
+                    device=HF_DEVICE,
                 )
                 logger.info("Loaded fact-check model: %s", FACT_CHECK_MODEL)
             except Exception:
@@ -112,7 +113,7 @@ class NoProofModule(BaseModule):
             try:
                 from transformers import pipeline as hf_pipeline
                 from config import TCFD_MODEL
-                self._tcfd_model = hf_pipeline("text-classification", model=TCFD_MODEL, truncation=True)
+                self._tcfd_model = hf_pipeline("text-classification", model=TCFD_MODEL, truncation=True, device=HF_DEVICE)
                 logger.info("Loaded TCFD model: %s", TCFD_MODEL)
             except Exception as e:
                 logger.warning("TCFD model not available: %s", e)

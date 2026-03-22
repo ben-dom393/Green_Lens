@@ -2,6 +2,11 @@
 
 from pathlib import Path
 
+import torch
+
+# GPU device selection: 0 = first CUDA GPU, -1 = CPU
+HF_DEVICE = 0 if torch.cuda.is_available() else -1
+
 # Paths
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"

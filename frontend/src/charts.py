@@ -19,8 +19,8 @@ def build_radar_chart(result: AnalysisResult, selected_metric: str = "") -> go.F
             r=polar_scores,
             theta=polar_metrics,
             fill="toself",
-            name="Mock Score",
-            hovertemplate="%{theta}: %{r:.1f}/5<extra></extra>",
+            name="Risk Score",
+            hovertemplate="%{theta}: %{r:.0f}<extra></extra>",
             line={"color": "#1d6f5f", "width": 3},
             fillcolor="rgba(29, 111, 95, 0.18)" if is_highlighted else "rgba(29, 111, 95, 0.28)",
             marker={"size": 8, "color": "#0f5132"},
@@ -39,7 +39,7 @@ def build_radar_chart(result: AnalysisResult, selected_metric: str = "") -> go.F
                 theta=[selected_display_metric, selected_display_metric],
                 mode="lines+markers",
                 name="Selected Sin",
-                hovertemplate=f"{selected_metric}: {selected_score:.1f}/5<extra></extra>",
+                hovertemplate=f"{selected_metric}: {selected_score:.0f}<extra></extra>",
                 line={"color": "#d97706", "width": 5},
                 marker={
                     "size": [0, 18],
@@ -55,7 +55,7 @@ def build_radar_chart(result: AnalysisResult, selected_metric: str = "") -> go.F
                 theta=[selected_display_metric],
                 mode="markers",
                 name="Selected Point",
-                hovertemplate=f"{selected_metric}: {selected_score:.1f}/5<extra></extra>",
+                hovertemplate=f"{selected_metric}: {selected_score:.0f}<extra></extra>",
                 marker={
                     "size": 26,
                     "color": "rgba(217, 119, 6, 0.20)",
@@ -66,14 +66,14 @@ def build_radar_chart(result: AnalysisResult, selected_metric: str = "") -> go.F
         )
 
     figure.update_layout(
-        margin={"l": 36, "r": 36, "t": 24, "b": 24},
+        margin={"l": 60, "r": 60, "t": 40, "b": 60},
         paper_bgcolor="white",
         font={"color": "#10261d"},
         polar={
             "radialaxis": {
                 "visible": True,
                 "range": [METRIC_SCORE_MIN, METRIC_SCORE_MAX],
-                "tickvals": [0, 1, 2, 3, 4, 5],
+                "tickvals": [0, 20, 40, 60, 80, 100],
                 "gridcolor": "#c7d9d0",
                 "linecolor": "#8ba79b",
                 "tickfont": {"size": 12, "color": "#244338"},
@@ -81,7 +81,7 @@ def build_radar_chart(result: AnalysisResult, selected_metric: str = "") -> go.F
             "angularaxis": {
                 "gridcolor": "#e6efeb",
                 "linecolor": "#8ba79b",
-                "tickfont": {"size": 14, "color": "#0f241c", "family": "Arial Black, Arial, sans-serif"},
+                "tickfont": {"size": 13, "color": "#0f241c", "family": "Arial, sans-serif"},
             },
             "bgcolor": "#f7fbf9",
         },
@@ -90,9 +90,17 @@ def build_radar_chart(result: AnalysisResult, selected_metric: str = "") -> go.F
     return figure
 
 
+# Label mapping for radar chart — short enough to display without truncation
+_RADAR_LABELS = {
+    "Hidden Trade-Off": "Hidden<br>Trade-Off",
+    "No Proof": "No Proof",
+    "Vagueness": "Vagueness",
+    "False Labels": "False Labels",
+    "Irrelevance": "Irrelevance",
+    "Lesser of Two Evils": "Lesser of<br>Two Evils",
+    "Fibbing": "Fibbing",
+}
+
+
 def _wrap_metric_label(metric_name: str) -> str:
-    words = metric_name.split()
-    if len(words) <= 1:
-        return metric_name
-    midpoint = len(words) // 2
-    return "<br>".join([" ".join(words[:midpoint]), " ".join(words[midpoint:])])
+    return _RADAR_LABELS.get(metric_name, metric_name)
