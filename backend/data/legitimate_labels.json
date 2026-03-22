@@ -1,0 +1,664 @@
+{
+  "version": "1.0.0",
+  "description": "Registry of legitimate environmental certifications and eco-labels. Used by the Fake Labels detector to distinguish real certifications from fabricated ones.",
+  "labels": [
+    {
+      "name": "ISO 14001",
+      "short_names": ["ISO 14001", "ISO14001", "14001 certified"],
+      "issuing_body": "International Organization for Standardization",
+      "category": "environmental_management",
+      "what_it_certifies": "Environmental management systems"
+    },
+    {
+      "name": "ISO 14064",
+      "short_names": ["ISO 14064", "ISO14064"],
+      "issuing_body": "International Organization for Standardization",
+      "category": "carbon_accounting",
+      "what_it_certifies": "Greenhouse gas accounting and verification"
+    },
+    {
+      "name": "ISO 50001",
+      "short_names": ["ISO 50001", "ISO50001"],
+      "issuing_body": "International Organization for Standardization",
+      "category": "energy_management",
+      "what_it_certifies": "Energy management systems"
+    },
+    {
+      "name": "ISO 14020",
+      "short_names": ["ISO 14020"],
+      "issuing_body": "International Organization for Standardization",
+      "category": "ecolabel_standard",
+      "what_it_certifies": "Environmental labels and declarations principles"
+    },
+    {
+      "name": "ISO 14024",
+      "short_names": ["ISO 14024", "Type I ecolabel"],
+      "issuing_body": "International Organization for Standardization",
+      "category": "ecolabel_standard",
+      "what_it_certifies": "Type I environmental labelling"
+    },
+    {
+      "name": "ISO 14025",
+      "short_names": ["ISO 14025", "Type III declaration", "EPD"],
+      "issuing_body": "International Organization for Standardization",
+      "category": "ecolabel_standard",
+      "what_it_certifies": "Type III environmental declarations"
+    },
+    {
+      "name": "ISO 14040",
+      "short_names": ["ISO 14040", "LCA standard"],
+      "issuing_body": "International Organization for Standardization",
+      "category": "lifecycle_assessment",
+      "what_it_certifies": "Life cycle assessment principles and framework"
+    },
+    {
+      "name": "ISO 14044",
+      "short_names": ["ISO 14044"],
+      "issuing_body": "International Organization for Standardization",
+      "category": "lifecycle_assessment",
+      "what_it_certifies": "Life cycle assessment requirements and guidelines"
+    },
+    {
+      "name": "Forest Stewardship Council (FSC)",
+      "short_names": ["FSC", "FSC Certified", "FSC Mix", "FSC 100%", "FSC Recycled"],
+      "issuing_body": "Forest Stewardship Council",
+      "category": "forestry",
+      "what_it_certifies": "Responsible forest management and chain of custody"
+    },
+    {
+      "name": "Programme for the Endorsement of Forest Certification (PEFC)",
+      "short_names": ["PEFC", "PEFC Certified"],
+      "issuing_body": "PEFC International",
+      "category": "forestry",
+      "what_it_certifies": "Sustainable forest management"
+    },
+    {
+      "name": "Sustainable Forestry Initiative (SFI)",
+      "short_names": ["SFI", "SFI Certified"],
+      "issuing_body": "Sustainable Forestry Initiative",
+      "category": "forestry",
+      "what_it_certifies": "Sustainable forestry practices in North America"
+    },
+    {
+      "name": "ENERGY STAR",
+      "short_names": ["ENERGY STAR", "Energy Star", "EnergyStar"],
+      "issuing_body": "U.S. Environmental Protection Agency",
+      "category": "energy_efficiency",
+      "what_it_certifies": "Energy-efficient products, homes, and buildings"
+    },
+    {
+      "name": "EPEAT",
+      "short_names": ["EPEAT", "EPEAT Gold", "EPEAT Silver", "EPEAT Bronze"],
+      "issuing_body": "Global Electronics Council",
+      "category": "electronics",
+      "what_it_certifies": "Sustainable electronics"
+    },
+    {
+      "name": "Green-e",
+      "short_names": ["Green-e", "Green-e Certified", "Green-e Energy"],
+      "issuing_body": "Center for Resource Solutions",
+      "category": "renewable_energy",
+      "what_it_certifies": "Renewable energy and carbon offset products"
+    },
+    {
+      "name": "LEED",
+      "short_names": ["LEED", "LEED Certified", "LEED Gold", "LEED Silver", "LEED Platinum"],
+      "issuing_body": "U.S. Green Building Council",
+      "category": "building",
+      "what_it_certifies": "Green building design, construction, and operations"
+    },
+    {
+      "name": "BREEAM",
+      "short_names": ["BREEAM", "BREEAM Certified", "BREEAM Excellent", "BREEAM Outstanding"],
+      "issuing_body": "BRE Group",
+      "category": "building",
+      "what_it_certifies": "Sustainable building assessment"
+    },
+    {
+      "name": "Green Globes",
+      "short_names": ["Green Globes"],
+      "issuing_body": "Green Building Initiative",
+      "category": "building",
+      "what_it_certifies": "Green building certification"
+    },
+    {
+      "name": "WELL Building Standard",
+      "short_names": ["WELL", "WELL Certified", "WELL Gold", "WELL Platinum"],
+      "issuing_body": "International WELL Building Institute",
+      "category": "building",
+      "what_it_certifies": "Building features that support human health and wellness"
+    },
+    {
+      "name": "Living Building Challenge",
+      "short_names": ["Living Building Challenge", "LBC"],
+      "issuing_body": "International Living Future Institute",
+      "category": "building",
+      "what_it_certifies": "Regenerative building design"
+    },
+    {
+      "name": "USDA Organic",
+      "short_names": ["USDA Organic", "Certified Organic", "USDA Certified Organic"],
+      "issuing_body": "United States Department of Agriculture",
+      "category": "agriculture",
+      "what_it_certifies": "Organic farming and handling practices"
+    },
+    {
+      "name": "Fair Trade Certified",
+      "short_names": ["Fair Trade", "Fair Trade Certified", "Fairtrade", "Fair Trade USA"],
+      "issuing_body": "Fair Trade USA / Fairtrade International",
+      "category": "agriculture",
+      "what_it_certifies": "Fair labor practices and sustainable farming"
+    },
+    {
+      "name": "Rainforest Alliance Certified",
+      "short_names": ["Rainforest Alliance", "Rainforest Alliance Certified", "RA Certified"],
+      "issuing_body": "Rainforest Alliance",
+      "category": "agriculture",
+      "what_it_certifies": "Sustainable agriculture, forestry, and tourism"
+    },
+    {
+      "name": "UTZ Certified",
+      "short_names": ["UTZ", "UTZ Certified"],
+      "issuing_body": "Rainforest Alliance (merged)",
+      "category": "agriculture",
+      "what_it_certifies": "Sustainable farming for coffee, cocoa, tea, hazelnuts"
+    },
+    {
+      "name": "GlobalG.A.P.",
+      "short_names": ["GlobalG.A.P.", "GlobalGAP", "GLOBALG.A.P."],
+      "issuing_body": "GlobalG.A.P.",
+      "category": "agriculture",
+      "what_it_certifies": "Good agricultural practices"
+    },
+    {
+      "name": "Demeter Biodynamic",
+      "short_names": ["Demeter", "Biodynamic", "Demeter Certified"],
+      "issuing_body": "Demeter International",
+      "category": "agriculture",
+      "what_it_certifies": "Biodynamic agriculture"
+    },
+    {
+      "name": "Marine Stewardship Council (MSC)",
+      "short_names": ["MSC", "MSC Certified", "Marine Stewardship Council"],
+      "issuing_body": "Marine Stewardship Council",
+      "category": "marine",
+      "what_it_certifies": "Sustainable wild-catch fisheries"
+    },
+    {
+      "name": "Aquaculture Stewardship Council (ASC)",
+      "short_names": ["ASC", "ASC Certified"],
+      "issuing_body": "Aquaculture Stewardship Council",
+      "category": "marine",
+      "what_it_certifies": "Responsible aquaculture"
+    },
+    {
+      "name": "Friend of the Sea",
+      "short_names": ["Friend of the Sea", "FOS"],
+      "issuing_body": "World Sustainability Organization",
+      "category": "marine",
+      "what_it_certifies": "Sustainable fishing and aquaculture"
+    },
+    {
+      "name": "Global Organic Textile Standard (GOTS)",
+      "short_names": ["GOTS", "GOTS Certified", "Global Organic Textile Standard"],
+      "issuing_body": "Global Organic Textile Standard International",
+      "category": "textiles",
+      "what_it_certifies": "Organic textiles processing"
+    },
+    {
+      "name": "OEKO-TEX Standard 100",
+      "short_names": ["OEKO-TEX", "OEKO-TEX Standard 100", "Oeko-Tex"],
+      "issuing_body": "International Association for Research and Testing in the Field of Textile and Leather Ecology",
+      "category": "textiles",
+      "what_it_certifies": "Textiles tested for harmful substances"
+    },
+    {
+      "name": "bluesign",
+      "short_names": ["bluesign", "bluesign approved", "bluesign system partner"],
+      "issuing_body": "bluesign technologies",
+      "category": "textiles",
+      "what_it_certifies": "Sustainable textile production"
+    },
+    {
+      "name": "Better Cotton Initiative (BCI)",
+      "short_names": ["BCI", "Better Cotton", "Better Cotton Initiative"],
+      "issuing_body": "Better Cotton",
+      "category": "textiles",
+      "what_it_certifies": "Sustainable cotton farming"
+    },
+    {
+      "name": "Cradle to Cradle Certified",
+      "short_names": ["Cradle to Cradle", "C2C", "C2C Certified", "Cradle to Cradle Certified"],
+      "issuing_body": "Cradle to Cradle Products Innovation Institute",
+      "category": "circular_economy",
+      "what_it_certifies": "Product design for circular economy"
+    },
+    {
+      "name": "EU Ecolabel",
+      "short_names": ["EU Ecolabel", "EU Flower", "European Ecolabel"],
+      "issuing_body": "European Commission",
+      "category": "general_environmental",
+      "what_it_certifies": "Products and services meeting high environmental standards"
+    },
+    {
+      "name": "Blue Angel (Der Blaue Engel)",
+      "short_names": ["Blue Angel", "Blauer Engel", "Der Blaue Engel"],
+      "issuing_body": "German Federal Ministry for the Environment",
+      "category": "general_environmental",
+      "what_it_certifies": "Environmentally friendly products and services"
+    },
+    {
+      "name": "Nordic Swan Ecolabel",
+      "short_names": ["Nordic Swan", "Svanen", "Nordic Ecolabel"],
+      "issuing_body": "Nordic Council of Ministers",
+      "category": "general_environmental",
+      "what_it_certifies": "Environmentally preferable products in Nordic countries"
+    },
+    {
+      "name": "Green Seal",
+      "short_names": ["Green Seal", "Green Seal Certified"],
+      "issuing_body": "Green Seal",
+      "category": "general_environmental",
+      "what_it_certifies": "Products and services meeting environmental standards"
+    },
+    {
+      "name": "EcoLogo",
+      "short_names": ["EcoLogo", "UL EcoLogo", "EcoLogo Certified"],
+      "issuing_body": "UL Environment",
+      "category": "general_environmental",
+      "what_it_certifies": "Products with reduced environmental impact"
+    },
+    {
+      "name": "Taiwan Green Mark",
+      "short_names": ["Green Mark", "Taiwan Green Mark"],
+      "issuing_body": "Taiwan Environmental Protection Administration",
+      "category": "general_environmental",
+      "what_it_certifies": "Environmentally preferable products in Taiwan"
+    },
+    {
+      "name": "Gold Standard",
+      "short_names": ["Gold Standard", "Gold Standard Certified", "Gold Standard VER"],
+      "issuing_body": "Gold Standard Foundation",
+      "category": "carbon_offset",
+      "what_it_certifies": "High-quality carbon offset projects"
+    },
+    {
+      "name": "Verified Carbon Standard (Verra VCS)",
+      "short_names": ["VCS", "Verra", "Verified Carbon Standard", "Verra VCS"],
+      "issuing_body": "Verra",
+      "category": "carbon_offset",
+      "what_it_certifies": "Verified carbon emission reductions"
+    },
+    {
+      "name": "Climate Action Reserve (CAR)",
+      "short_names": ["CAR", "Climate Action Reserve"],
+      "issuing_body": "Climate Action Reserve",
+      "category": "carbon_offset",
+      "what_it_certifies": "North American carbon offset projects"
+    },
+    {
+      "name": "American Carbon Registry (ACR)",
+      "short_names": ["ACR", "American Carbon Registry"],
+      "issuing_body": "Winrock International",
+      "category": "carbon_offset",
+      "what_it_certifies": "Voluntary carbon offset standards"
+    },
+    {
+      "name": "Climate Neutral Certified",
+      "short_names": ["Climate Neutral", "Climate Neutral Certified"],
+      "issuing_body": "Climate Neutral",
+      "category": "carbon_neutral",
+      "what_it_certifies": "Brand-level carbon neutrality"
+    },
+    {
+      "name": "CarbonNeutral",
+      "short_names": ["CarbonNeutral", "Carbon Neutral certification"],
+      "issuing_body": "Natural Capital Partners",
+      "category": "carbon_neutral",
+      "what_it_certifies": "Carbon neutral products, services, organizations"
+    },
+    {
+      "name": "PAS 2060",
+      "short_names": ["PAS 2060", "BSI PAS 2060"],
+      "issuing_body": "British Standards Institution",
+      "category": "carbon_neutral",
+      "what_it_certifies": "Carbon neutrality specification"
+    },
+    {
+      "name": "Carbon Trust Standard",
+      "short_names": ["Carbon Trust", "Carbon Trust Standard", "Carbon Trust Certified"],
+      "issuing_body": "Carbon Trust",
+      "category": "carbon_management",
+      "what_it_certifies": "Carbon footprint measurement and reduction"
+    },
+    {
+      "name": "CDP (Carbon Disclosure Project)",
+      "short_names": ["CDP", "CDP A List", "CDP Score"],
+      "issuing_body": "CDP",
+      "category": "disclosure",
+      "what_it_certifies": "Environmental disclosure and scoring"
+    },
+    {
+      "name": "Science Based Targets initiative (SBTi)",
+      "short_names": ["SBTi", "Science Based Targets", "SBT approved", "SBTi validated"],
+      "issuing_body": "Science Based Targets initiative",
+      "category": "climate_target",
+      "what_it_certifies": "Climate targets aligned with Paris Agreement"
+    },
+    {
+      "name": "Global Reporting Initiative (GRI)",
+      "short_names": ["GRI", "GRI Standards", "GRI compliant"],
+      "issuing_body": "Global Reporting Initiative",
+      "category": "reporting",
+      "what_it_certifies": "Sustainability reporting standards"
+    },
+    {
+      "name": "Task Force on Climate-related Financial Disclosures (TCFD)",
+      "short_names": ["TCFD", "TCFD aligned", "TCFD reporting"],
+      "issuing_body": "Financial Stability Board",
+      "category": "reporting",
+      "what_it_certifies": "Climate-related financial risk disclosure"
+    },
+    {
+      "name": "Sustainability Accounting Standards Board (SASB)",
+      "short_names": ["SASB", "SASB Standards"],
+      "issuing_body": "IFRS Foundation (Value Reporting Foundation)",
+      "category": "reporting",
+      "what_it_certifies": "Industry-specific sustainability disclosure"
+    },
+    {
+      "name": "B Corp Certification",
+      "short_names": ["B Corp", "B Corporation", "Certified B Corp", "B Corp Certified"],
+      "issuing_body": "B Lab",
+      "category": "corporate",
+      "what_it_certifies": "Meeting high standards of social and environmental performance"
+    },
+    {
+      "name": "UN Global Compact",
+      "short_names": ["UN Global Compact", "UNGC", "Global Compact"],
+      "issuing_body": "United Nations",
+      "category": "corporate",
+      "what_it_certifies": "Commitment to UN sustainability principles"
+    },
+    {
+      "name": "EcoVadis",
+      "short_names": ["EcoVadis", "EcoVadis Gold", "EcoVadis Silver", "EcoVadis Platinum"],
+      "issuing_body": "EcoVadis",
+      "category": "corporate",
+      "what_it_certifies": "Business sustainability ratings"
+    },
+    {
+      "name": "Responsible Jewellery Council (RJC)",
+      "short_names": ["RJC", "Responsible Jewellery Council", "RJC Certified"],
+      "issuing_body": "Responsible Jewellery Council",
+      "category": "mining",
+      "what_it_certifies": "Responsible practices in jewellery supply chain"
+    },
+    {
+      "name": "Fairmined",
+      "short_names": ["Fairmined", "Fairmined Certified"],
+      "issuing_body": "Alliance for Responsible Mining",
+      "category": "mining",
+      "what_it_certifies": "Responsibly mined gold and precious metals"
+    },
+    {
+      "name": "Initiative for Responsible Mining Assurance (IRMA)",
+      "short_names": ["IRMA", "IRMA Standard"],
+      "issuing_body": "IRMA",
+      "category": "mining",
+      "what_it_certifies": "Responsible mining practices"
+    },
+    {
+      "name": "TCO Certified",
+      "short_names": ["TCO", "TCO Certified"],
+      "issuing_body": "TCO Development",
+      "category": "electronics",
+      "what_it_certifies": "Sustainable IT products"
+    },
+    {
+      "name": "RoHS Compliant",
+      "short_names": ["RoHS", "RoHS Compliant", "RoHS Certified"],
+      "issuing_body": "European Union",
+      "category": "electronics",
+      "what_it_certifies": "Restriction of hazardous substances in electronics"
+    },
+    {
+      "name": "REACH Compliant",
+      "short_names": ["REACH", "REACH Compliant", "REACH Registered"],
+      "issuing_body": "European Chemicals Agency (ECHA)",
+      "category": "chemicals",
+      "what_it_certifies": "Registration and evaluation of chemical substances"
+    },
+    {
+      "name": "How2Recycle",
+      "short_names": ["How2Recycle"],
+      "issuing_body": "Sustainable Packaging Coalition",
+      "category": "packaging",
+      "what_it_certifies": "Recyclability labelling for packaging"
+    },
+    {
+      "name": "OK Compost",
+      "short_names": ["OK Compost", "OK compost HOME", "OK compost INDUSTRIAL"],
+      "issuing_body": "TUV Austria",
+      "category": "packaging",
+      "what_it_certifies": "Compostability of packaging"
+    },
+    {
+      "name": "Seedling Logo (EN 13432)",
+      "short_names": ["Seedling", "Seedling Logo", "EN 13432"],
+      "issuing_body": "European Bioplastics",
+      "category": "packaging",
+      "what_it_certifies": "Industrial compostability of packaging"
+    },
+    {
+      "name": "Alliance for Water Stewardship (AWS)",
+      "short_names": ["AWS", "AWS Certified", "Alliance for Water Stewardship"],
+      "issuing_body": "Alliance for Water Stewardship",
+      "category": "water",
+      "what_it_certifies": "Responsible water use"
+    },
+    {
+      "name": "WaterSense",
+      "short_names": ["WaterSense", "EPA WaterSense"],
+      "issuing_body": "U.S. Environmental Protection Agency",
+      "category": "water",
+      "what_it_certifies": "Water-efficient products"
+    },
+    {
+      "name": "Roundtable on Sustainable Palm Oil (RSPO)",
+      "short_names": ["RSPO", "RSPO Certified", "Certified Sustainable Palm Oil"],
+      "issuing_body": "RSPO",
+      "category": "agriculture",
+      "what_it_certifies": "Sustainable palm oil production"
+    },
+    {
+      "name": "Roundtable on Responsible Soy (RTRS)",
+      "short_names": ["RTRS", "RTRS Certified"],
+      "issuing_body": "RTRS",
+      "category": "agriculture",
+      "what_it_certifies": "Responsible soy production"
+    },
+    {
+      "name": "Bonsucro",
+      "short_names": ["Bonsucro", "Bonsucro Certified"],
+      "issuing_body": "Bonsucro",
+      "category": "agriculture",
+      "what_it_certifies": "Sustainable sugarcane production"
+    },
+    {
+      "name": "Certified Humane",
+      "short_names": ["Certified Humane", "Humane Farm Animal Care"],
+      "issuing_body": "Humane Farm Animal Care",
+      "category": "animal_welfare",
+      "what_it_certifies": "Humane treatment of farm animals"
+    },
+    {
+      "name": "Animal Welfare Approved",
+      "short_names": ["Animal Welfare Approved", "AWA"],
+      "issuing_body": "A Greener World",
+      "category": "animal_welfare",
+      "what_it_certifies": "Highest animal welfare standards for farms"
+    },
+    {
+      "name": "Responsible Care",
+      "short_names": ["Responsible Care"],
+      "issuing_body": "International Council of Chemical Associations",
+      "category": "chemicals",
+      "what_it_certifies": "Chemical industry health, safety, environment performance"
+    },
+    {
+      "name": "GreenCircle Certified",
+      "short_names": ["GreenCircle", "GreenCircle Certified"],
+      "issuing_body": "GreenCircle Certified",
+      "category": "general_environmental",
+      "what_it_certifies": "Environmental claims verification"
+    },
+    {
+      "name": "SCS Global Services Certified",
+      "short_names": ["SCS Certified", "SCS Global Services"],
+      "issuing_body": "SCS Global Services",
+      "category": "general_environmental",
+      "what_it_certifies": "Third-party environmental and sustainability certification"
+    },
+    {
+      "name": "TRUE Zero Waste",
+      "short_names": ["TRUE", "TRUE Zero Waste", "TRUE Certified"],
+      "issuing_body": "Green Business Certification Inc. (GBCI)",
+      "category": "waste",
+      "what_it_certifies": "Zero waste facilities and programs"
+    },
+    {
+      "name": "UL GREENGUARD",
+      "short_names": ["GREENGUARD", "UL GREENGUARD", "GREENGUARD Gold"],
+      "issuing_body": "UL Environment",
+      "category": "indoor_air_quality",
+      "what_it_certifies": "Low chemical emissions products"
+    },
+    {
+      "name": "ISEAL Code Compliant",
+      "short_names": ["ISEAL", "ISEAL member", "ISEAL Code"],
+      "issuing_body": "ISEAL Alliance",
+      "category": "meta_standard",
+      "what_it_certifies": "Credibility of sustainability standards"
+    },
+    {
+      "name": "RE100",
+      "short_names": ["RE100"],
+      "issuing_body": "Climate Group",
+      "category": "renewable_energy",
+      "what_it_certifies": "Commitment to 100% renewable electricity"
+    },
+    {
+      "name": "EP100",
+      "short_names": ["EP100"],
+      "issuing_body": "Climate Group",
+      "category": "energy_efficiency",
+      "what_it_certifies": "Commitment to energy productivity"
+    },
+    {
+      "name": "EV100",
+      "short_names": ["EV100"],
+      "issuing_body": "Climate Group",
+      "category": "transport",
+      "what_it_certifies": "Commitment to electric vehicle fleets"
+    },
+    {
+      "name": "Race to Zero",
+      "short_names": ["Race to Zero", "UNFCCC Race to Zero"],
+      "issuing_body": "UNFCCC",
+      "category": "climate_target",
+      "what_it_certifies": "Net-zero commitment by 2050"
+    },
+    {
+      "name": "Net Zero Asset Managers Initiative (NZAM)",
+      "short_names": ["NZAM", "Net Zero Asset Managers"],
+      "issuing_body": "Net Zero Asset Managers Initiative",
+      "category": "finance",
+      "what_it_certifies": "Asset manager net-zero commitments"
+    },
+    {
+      "name": "Principles for Responsible Investment (PRI)",
+      "short_names": ["PRI", "UN PRI", "Principles for Responsible Investment"],
+      "issuing_body": "UN-supported PRI",
+      "category": "finance",
+      "what_it_certifies": "Responsible investment practices"
+    },
+    {
+      "name": "Equator Principles",
+      "short_names": ["Equator Principles", "EP"],
+      "issuing_body": "Equator Principles Association",
+      "category": "finance",
+      "what_it_certifies": "Environmental and social risk in project finance"
+    },
+    {
+      "name": "Green Bond Principles",
+      "short_names": ["Green Bond Principles", "GBP", "ICMA Green Bond"],
+      "issuing_body": "International Capital Market Association (ICMA)",
+      "category": "finance",
+      "what_it_certifies": "Green bond issuance standards"
+    },
+    {
+      "name": "Climate Bonds Standard",
+      "short_names": ["Climate Bonds", "CBI Certified", "Climate Bonds Standard"],
+      "issuing_body": "Climate Bonds Initiative",
+      "category": "finance",
+      "what_it_certifies": "Climate bond certification"
+    },
+    {
+      "name": "GHG Protocol",
+      "short_names": ["GHG Protocol", "Greenhouse Gas Protocol"],
+      "issuing_body": "World Resources Institute / WBCSD",
+      "category": "carbon_accounting",
+      "what_it_certifies": "Greenhouse gas emissions accounting and reporting"
+    },
+    {
+      "name": "IFRS S1 / S2 (ISSB)",
+      "short_names": ["IFRS S1", "IFRS S2", "ISSB Standards", "ISSB"],
+      "issuing_body": "IFRS Foundation / International Sustainability Standards Board",
+      "category": "reporting",
+      "what_it_certifies": "Sustainability and climate-related financial disclosures"
+    },
+    {
+      "name": "Certified Carbon Neutral (PAS 2060)",
+      "short_names": ["Carbon Neutral", "PAS 2060 Certified"],
+      "issuing_body": "Various accredited certification bodies",
+      "category": "carbon_neutral",
+      "what_it_certifies": "Carbon neutrality to PAS 2060 specification"
+    },
+    {
+      "name": "SmartWay",
+      "short_names": ["SmartWay", "EPA SmartWay"],
+      "issuing_body": "U.S. Environmental Protection Agency",
+      "category": "transport",
+      "what_it_certifies": "Freight transport environmental performance"
+    },
+    {
+      "name": "Green-e Climate",
+      "short_names": ["Green-e Climate"],
+      "issuing_body": "Center for Resource Solutions",
+      "category": "carbon_offset",
+      "what_it_certifies": "Certified carbon offsets for voluntary market"
+    },
+    {
+      "name": "Leaping Bunny",
+      "short_names": ["Leaping Bunny", "Cruelty Free"],
+      "issuing_body": "Coalition for Consumer Information on Cosmetics",
+      "category": "animal_welfare",
+      "what_it_certifies": "Cruelty-free products (no animal testing)"
+    },
+    {
+      "name": "Forest Carbon Partnership Facility (FCPF)",
+      "short_names": ["FCPF"],
+      "issuing_body": "World Bank",
+      "category": "carbon_offset",
+      "what_it_certifies": "REDD+ forest carbon programs"
+    },
+    {
+      "name": "1% for the Planet",
+      "short_names": ["1% for the Planet"],
+      "issuing_body": "1% for the Planet",
+      "category": "corporate",
+      "what_it_certifies": "Donating 1% of sales to environmental nonprofits"
+    }
+  ]
+}

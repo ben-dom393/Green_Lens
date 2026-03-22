@@ -1,0 +1,264 @@
+{
+  "version": "1.0.0",
+  "description": "Evidence checklists defining what substantiation is required for each type of environmental claim. Claims lacking required evidence fields are flagged as potentially unsubstantiated.",
+  "claim_types": [
+    {
+      "type": "emissions_reduction",
+      "description": "Claims about reducing greenhouse gas emissions (e.g., 'We reduced emissions by 30%').",
+      "required_evidence": [
+        {
+          "field": "scope",
+          "description": "Which GHG Protocol scopes are included (Scope 1, Scope 2, Scope 3, or combination). Omitting Scope 3 for a company with significant supply chain emissions is a red flag."
+        },
+        {
+          "field": "boundary",
+          "description": "Organizational and operational boundary of the claim (e.g., which facilities, business units, geographies are included or excluded)."
+        },
+        {
+          "field": "base_year",
+          "description": "The reference year against which reductions are measured. Must be a specific year, not a vague period."
+        },
+        {
+          "field": "methodology",
+          "description": "The measurement and calculation methodology used (e.g., GHG Protocol Corporate Standard, ISO 14064, specific emission factors applied)."
+        },
+        {
+          "field": "verification",
+          "description": "Whether the data has been independently verified or assured by a third party, and to what standard (e.g., ISAE 3410, ISO 14064-3)."
+        },
+        {
+          "field": "absolute_vs_intensity",
+          "description": "Whether the reduction is absolute (total emissions) or intensity-based (per unit of revenue, production, etc.). Intensity reductions can mask rising absolute emissions."
+        },
+        {
+          "field": "exclusions",
+          "description": "Any sources, gases, facilities, or operations explicitly excluded from the claim boundary. Material exclusions undermine the claim."
+        }
+      ],
+      "source": "GHG Protocol Corporate Standard, ISO 14064-1, SBTi Corporate Net-Zero Standard"
+    },
+    {
+      "type": "net_zero_target",
+      "description": "Claims about achieving or committing to net-zero emissions (e.g., 'Net zero by 2050').",
+      "required_evidence": [
+        {
+          "field": "target_year",
+          "description": "The specific year by which net zero will be achieved. Must be a concrete date."
+        },
+        {
+          "field": "interim_targets",
+          "description": "Short- and medium-term milestones (e.g., 2025, 2030 targets) that demonstrate a credible trajectory. A 2050 target without interim targets lacks accountability."
+        },
+        {
+          "field": "scope_coverage",
+          "description": "Which emission scopes (1, 2, 3) are included in the net-zero commitment. Excluding Scope 3 for high-supply-chain-impact sectors is a major gap."
+        },
+        {
+          "field": "offset_methodology",
+          "description": "The role and type of carbon offsets or removals in the strategy. Over-reliance on offsets rather than absolute reductions is a red flag."
+        },
+        {
+          "field": "residual_emissions_plan",
+          "description": "How residual emissions that cannot be eliminated will be addressed (e.g., permanent carbon removal, high-quality offsets)."
+        },
+        {
+          "field": "base_year",
+          "description": "The emissions baseline year from which progress is measured."
+        }
+      ],
+      "source": "SBTi Corporate Net-Zero Standard, ISO Net Zero Guidelines (IWA 42:2022), UNFCCC Race to Zero criteria"
+    },
+    {
+      "type": "renewable_energy",
+      "description": "Claims about using or sourcing renewable energy (e.g., '100% renewable electricity').",
+      "required_evidence": [
+        {
+          "field": "percentage",
+          "description": "The specific percentage of energy consumption that is renewable, and whether this covers electricity only or all energy (including thermal, transport)."
+        },
+        {
+          "field": "source_type",
+          "description": "The types of renewable energy sourced (solar, wind, hydro, biomass, etc.)."
+        },
+        {
+          "field": "recs_vs_onsite_vs_ppa",
+          "description": "The procurement mechanism: unbundled RECs/GOs, on-site generation, or power purchase agreements (PPAs). Unbundled RECs are the weakest form of claim."
+        },
+        {
+          "field": "additionality",
+          "description": "Whether the procurement leads to new renewable capacity being built (additional), or merely re-labels existing generation."
+        },
+        {
+          "field": "timeframe",
+          "description": "Whether the matching is annual or 24/7 hourly. Annual matching may mean fossil fuel use during many hours of the year."
+        }
+      ],
+      "source": "RE100 Technical Criteria, GHG Protocol Scope 2 Guidance, 24/7 Carbon-free Energy Compact"
+    },
+    {
+      "type": "recycled_content",
+      "description": "Claims about products containing recycled materials (e.g., 'Made with 50% recycled plastic').",
+      "required_evidence": [
+        {
+          "field": "percentage",
+          "description": "The specific percentage of recycled content by weight or volume."
+        },
+        {
+          "field": "pre_vs_post_consumer",
+          "description": "Whether the recycled content is pre-consumer (manufacturing scrap) or post-consumer (recovered from end-of-life products). Post-consumer is generally more impactful."
+        },
+        {
+          "field": "certification",
+          "description": "Third-party certification verifying the recycled content claim (e.g., SCS Recycled Content, UL ECVP 2809)."
+        },
+        {
+          "field": "methodology",
+          "description": "How recycled content percentage is calculated, including mass balance vs. physical traceability approaches."
+        }
+      ],
+      "source": "FTC Green Guides (16 CFR 260.13), ISO 14021, EU Green Claims Directive"
+    },
+    {
+      "type": "water_reduction",
+      "description": "Claims about reducing water consumption or improving water efficiency (e.g., 'Reduced water use by 20%').",
+      "required_evidence": [
+        {
+          "field": "baseline",
+          "description": "The base year and baseline volume from which the reduction is measured."
+        },
+        {
+          "field": "boundary",
+          "description": "Which operations, facilities, and supply chain stages are included in the measurement boundary."
+        },
+        {
+          "field": "measurement_methodology",
+          "description": "How water use is measured and reported (e.g., direct metering, water balance calculations, CDP Water methodology)."
+        },
+        {
+          "field": "region_context",
+          "description": "Whether the water reduction occurs in water-stressed regions. Reductions in water-abundant areas may have limited environmental benefit."
+        }
+      ],
+      "source": "CDP Water Security, CEO Water Mandate, AWS Standard, WRI Aqueduct"
+    },
+    {
+      "type": "carbon_offset",
+      "description": "Claims about offsetting emissions through carbon credits (e.g., 'Carbon neutral through offsets').",
+      "required_evidence": [
+        {
+          "field": "registry",
+          "description": "The carbon credit registry used (e.g., Verra VCS, Gold Standard, ACR, CAR) and credit serial numbers or project IDs."
+        },
+        {
+          "field": "project_type",
+          "description": "The type of offset project (e.g., avoided deforestation, reforestation, direct air capture, methane destruction, renewable energy)."
+        },
+        {
+          "field": "verification_standard",
+          "description": "The verification standard applied (e.g., VCS, Gold Standard, ISO 14064-2) and the verification body."
+        },
+        {
+          "field": "additionality",
+          "description": "Evidence that the emission reductions would not have occurred without the offset project funding."
+        },
+        {
+          "field": "permanence",
+          "description": "How long the carbon is sequestered and what mechanisms exist to address reversal risk (e.g., buffer pools, insurance)."
+        }
+      ],
+      "source": "ICVCM Core Carbon Principles, Oxford Offsetting Principles, ICROA Code of Best Practice"
+    },
+    {
+      "type": "waste_reduction",
+      "description": "Claims about reducing waste generation or achieving zero waste (e.g., 'Zero waste to landfill').",
+      "required_evidence": [
+        {
+          "field": "definition",
+          "description": "How 'waste' and 'zero waste' are defined. TRUE's Zero Waste standard requires 90%+ diversion; some companies use looser definitions."
+        },
+        {
+          "field": "boundary",
+          "description": "Which operations, waste streams, and facilities are included in the claim boundary."
+        },
+        {
+          "field": "diversion_rate_methodology",
+          "description": "How the diversion rate is calculated, including what counts as 'diverted' (recycling, composting, waste-to-energy, etc.)."
+        },
+        {
+          "field": "landfill_vs_incineration",
+          "description": "Whether waste-to-energy incineration is counted as 'diversion' or 'disposal.' Counting incineration as diversion inflates the rate."
+        }
+      ],
+      "source": "TRUE Zero Waste Certification, UL 2799, EPA Waste Management Hierarchy"
+    },
+    {
+      "type": "sustainable_packaging",
+      "description": "Claims about sustainable, recyclable, or compostable packaging (e.g., '100% recyclable packaging').",
+      "required_evidence": [
+        {
+          "field": "material_sourcing",
+          "description": "Source and certification of packaging materials (e.g., FSC for paper, recycled content percentage, bio-based feedstock)."
+        },
+        {
+          "field": "recyclability_testing",
+          "description": "Whether recyclability has been tested per recognized protocols (e.g., APR Design Guide, OPRL, Ellen MacArthur recyclability criteria). 'Technically recyclable' vs. 'actually recycled in practice' distinction."
+        },
+        {
+          "field": "end_of_life_infrastructure",
+          "description": "Whether the recycling or composting infrastructure exists in the markets where the product is sold. Compostable packaging is meaningless without industrial composting access."
+        }
+      ],
+      "source": "FTC Green Guides (16 CFR 260.12), Ellen MacArthur Foundation New Plastics Economy, EU Packaging and Packaging Waste Regulation"
+    },
+    {
+      "type": "biodiversity",
+      "description": "Claims about protecting or restoring biodiversity (e.g., 'Our operations are nature-positive').",
+      "required_evidence": [
+        {
+          "field": "baseline_assessment",
+          "description": "A documented baseline biodiversity assessment using recognized frameworks (e.g., species surveys, habitat mapping, ecosystem condition assessment)."
+        },
+        {
+          "field": "metrics",
+          "description": "Specific, measurable biodiversity metrics being tracked (e.g., species abundance, habitat area, ecosystem integrity indices, Mean Species Abundance)."
+        },
+        {
+          "field": "location",
+          "description": "Geographic scope and site-specific information, including proximity to protected areas, Key Biodiversity Areas, or critical habitats."
+        },
+        {
+          "field": "methodology",
+          "description": "The assessment and monitoring methodology (e.g., TNFD LEAP approach, SBTN, Biodiversity Net Gain calculations, mitigation hierarchy application)."
+        },
+        {
+          "field": "monitoring_plan",
+          "description": "Ongoing monitoring and reporting commitments with defined frequency, duration, and responsible parties."
+        }
+      ],
+      "source": "TNFD Recommendations, SBTN, Kunming-Montreal Global Biodiversity Framework, CSBI Mitigation Hierarchy"
+    },
+    {
+      "type": "supply_chain",
+      "description": "Claims about sustainable or responsible supply chain practices (e.g., 'Sustainably sourced supply chain').",
+      "required_evidence": [
+        {
+          "field": "scope_tier",
+          "description": "How many tiers of the supply chain are covered (Tier 1 direct suppliers only, or Tier 2+). Tier 1 only is often insufficient for high-risk commodities."
+        },
+        {
+          "field": "audit_methodology",
+          "description": "The audit or assessment methodology used (e.g., SMETA, SA8000, BSCI, announced vs. unannounced audits, self-assessment vs. third-party)."
+        },
+        {
+          "field": "coverage_percentage",
+          "description": "What percentage of suppliers (by spend, volume, or count) are covered by the program."
+        },
+        {
+          "field": "standards_referenced",
+          "description": "The specific standards or codes of conduct applied (e.g., UN Guiding Principles, OECD Guidelines, sector-specific standards like RSPO, MSC, FSC)."
+        }
+      ],
+      "source": "UN Guiding Principles on Business and Human Rights, OECD Due Diligence Guidance, EU Corporate Sustainability Due Diligence Directive"
+    }
+  ]
+}
