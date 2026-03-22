@@ -52,6 +52,7 @@ user download report/
 
 # Server logs
 backend/server.log
+backend/logs/
 
 # External datasets and regulatory docs (large)
 backend/data/external/datasets/

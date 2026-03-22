@@ -3,8 +3,12 @@
 import sys
 import json
 import uuid
+import asyncio
+import logging
 import tempfile
+from datetime import datetime
 from pathlib import Path
+from logging.handlers import RotatingFileHandler
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -13,6 +17,45 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from config import DATA_DIR
+
+# ── Logging setup ─────────────────────────────────────────────────────
+LOG_DIR = Path(__file__).parent / "logs"
+LOG_DIR.mkdir(exist_ok=True)
+
+def setup_logging():
+    """Configure logging to both console and rotating log files."""
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+
+    fmt = logging.Formatter(
+        "%(asctime)s | %(levelname)-7s | %(name)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
+    # Console handler
+    console = logging.StreamHandler(sys.stdout)
+    console.setLevel(logging.INFO)
+    console.setFormatter(fmt)
+    root.addHandler(console)
+
+    # Main log file — rotates at 10 MB, keeps 5 backups
+    main_handler = RotatingFileHandler(
+        LOG_DIR / "green_lens.log", maxBytes=10_000_000, backupCount=5, encoding="utf-8",
+    )
+    main_handler.setLevel(logging.INFO)
+    main_handler.setFormatter(fmt)
+    root.addHandler(main_handler)
+
+    # Error-only log file — easy to scan for failures
+    error_handler = RotatingFileHandler(
+        LOG_DIR / "errors.log", maxBytes=5_000_000, backupCount=3, encoding="utf-8",
+    )
+    error_handler.setLevel(logging.ERROR)
+    error_handler.setFormatter(fmt)
+    root.addHandler(error_handler)
+
+setup_logging()
+logger = logging.getLogger("green_lens")
 
 app = FastAPI(title="Green Lens API", version="0.1.0")
 
@@ -25,6 +68,9 @@ app.add_middleware(
 
 # In-memory store for reports (MVP — no database)
 reports_store: dict[str, dict] = {}
+
+# Progress tracking for active analyses
+progress_store: dict[str, dict] = {}
 
 
 # ── Pipeline components (lazy-loaded) ──────────────────────────────────
@@ -200,6 +246,15 @@ async def health():
     return {"status": "ok", "version": "0.1.0"}
 
 
+@app.get("/api/progress")
+async def get_progress():
+    """Return progress of the most recent active analysis."""
+    if not progress_store:
+        return {"active": False}
+    latest_id = list(progress_store.keys())[-1]
+    return {"active": True, **progress_store[latest_id]}
+
+
 @app.post("/api/analyze")
 async def analyze_report(file: UploadFile = File(...)):
     """Upload an ESG report PDF and run greenwashing detection."""
@@ -212,18 +267,39 @@ async def analyze_report(file: UploadFile = File(...)):
         tmp.write(content)
         tmp_path = tmp.name
 
-    try:
-        report_id = str(uuid.uuid4())
+    filename = file.filename
+    report_id = str(uuid.uuid4())
+    log_prefix = report_id[:8]
 
-        # Step 1: Parse PDF → document elements
-        print(f"[{report_id[:8]}] Parsing PDF: {file.filename}")
+    # Run the heavy pipeline in a thread so the event loop stays free
+    # (this lets /api/progress respond while analysis runs)
+    result = await asyncio.to_thread(
+        _run_pipeline_sync, tmp_path, filename, report_id, log_prefix
+    )
+    return result
+
+
+def _run_pipeline_sync(tmp_path: str, filename: str, report_id: str, log_prefix: str):
+    """Synchronous pipeline — called via asyncio.to_thread()."""
+    try:
+        def update_progress(step: int, total: int, message: str):
+            progress_store[report_id] = {
+                "report_id": report_id,
+                "step": step,
+                "total_steps": total,
+                "message": message,
+                "percent": round(step / total * 100),
+            }
+
+        TOTAL_STEPS = 16
+
+        # Step 1: Parse PDF
+        update_progress(1, TOTAL_STEPS, "Parsing PDF...")
+        logger.info("[%s] Parsing PDF: %s", log_prefix, filename)
         raw_elements = simple_text_extract(tmp_path)
         if not raw_elements or raw_elements[0].get("element_id") == "notice_0":
-            raise HTTPException(
-                status_code=500,
-                detail="PDF parsing failed. Install pymupdf: pip install pymupdf",
-            )
-        print(f"[{report_id[:8]}] Extracted {len(raw_elements)} text elements")
+            raise RuntimeError("PDF parsing failed. Install pymupdf: pip install pymupdf")
+        logger.info("[%s] Extracted %d text elements", log_prefix, len(raw_elements))
 
         # Step 2: Convert to DocumentElement objects
         from pipeline.claim_extractor import DocumentElement
@@ -240,26 +316,25 @@ async def analyze_report(file: UploadFile = File(...)):
         ]
 
         # Step 3: Index document for RAG
-        print(f"[{report_id[:8]}] Building search index...")
+        update_progress(2, TOTAL_STEPS, "Building search index...")
+        logger.info("[%s] Building search index...", log_prefix)
         indexer = get_indexer()
         indexer.index_document(raw_elements)
 
-        # Step 4: Extract claims (grouped by paragraph for better context)
-        print(f"[{report_id[:8]}] Extracting environmental claims...")
+        # Step 4: Extract claims
+        update_progress(3, TOTAL_STEPS, "Extracting environmental claims...")
+        logger.info("[%s] Extracting environmental claims...", log_prefix)
         extractor = get_claim_extractor()
         claims = extractor.extract_claims(elements, return_groups=True)
-        # total_claims = number of analysis units (groups)
-        # Each group may contain multiple sentences from the same paragraph
         total_sentence_claims = sum(
             len(c.claims) if hasattr(c, "claims") else 1 for c in claims
         )
-        print(f"[{report_id[:8]}] Found {len(claims)} claim groups ({total_sentence_claims} sentences)")
+        logger.info("[%s] Found %d claim groups (%d sentences)", log_prefix, len(claims), total_sentence_claims)
 
         if not claims:
-            # No claims found — return empty report
             report_data = {
                 "run_id": report_id,
-                "doc_name": file.filename,
+                "doc_name": filename,
                 "total_claims": 0,
                 "total_flagged": 0,
                 "categories": [],
@@ -270,7 +345,8 @@ async def analyze_report(file: UploadFile = File(...)):
             reports_store[report_id] = report_data
             return report_data
 
-        # Step 5: Pre-analysis — BERTopic + table data + LLM Judge
+        # Step 5: BERTopic
+        update_progress(4, TOTAL_STEPS, "Running topic analysis (BERTopic)...")
         document_topics = []
         try:
             from bertopic import BERTopic
@@ -284,9 +360,9 @@ async def analyze_report(file: UploadFile = File(...)):
                     for t in topic_info["Topic"].tolist()
                     if t != -1
                 ]
-                print(f"[{report_id[:8]}] BERTopic found {len(document_topics)} topics")
+                logger.info("[%s] BERTopic found %d topics", log_prefix, len(document_topics))
         except Exception as e:
-            print(f"[{report_id[:8]}] BERTopic skipped: {e}")
+            logger.warning("[%s] BERTopic skipped: %s", log_prefix, e)
 
         table_data = [e for e in raw_elements if e.get("table_data")]
         judge = get_llm_judge()
@@ -296,90 +372,44 @@ async def analyze_report(file: UploadFile = File(...)):
         # Step 6: Run detection modules
         all_verdicts = []
 
-        # Module 1: Vague Claims
-        print(f"[{report_id[:8]}] Running Module 1: Vague Claims...")
-        vague_mod = get_vague_module()
-        vague_verdicts = vague_mod.analyze(claims, llm_judge=judge)
-        all_verdicts.extend(vague_verdicts)
-        print(f"[{report_id[:8]}]   → {sum(1 for v in vague_verdicts if v.verdict == 'flagged')} flagged")
+        modules = [
+            (5, "Module 1/7: Analyzing Vague Claims...", "Vague Claims",
+             lambda: get_vague_module().analyze(claims, llm_judge=judge)),
+            (6, "Module 2/7: Checking for No Proof...", "No Proof",
+             lambda: get_no_proof_module().analyze(claims, retriever=retriever, regulatory_retriever=reg_retriever, llm_judge=judge)),
+            (7, "Module 3/7: Detecting Irrelevant Claims...", "Irrelevant Claims",
+             lambda: get_irrelevant_module().analyze(claims, regulatory_retriever=reg_retriever, llm_judge=judge)),
+            (8, "Module 4/7: Checking Lesser of Two Evils...", "Lesser of Two Evils",
+             lambda: get_lesser_evil_module().analyze(claims, llm_judge=judge)),
+            (9, "Module 5/7: Detecting Hidden Tradeoffs...", "Hidden Tradeoffs",
+             lambda: get_hidden_tradeoffs_module().analyze(claims, retriever=retriever, document_topics=document_topics, llm_judge=judge)),
+            (10, "Module 6/7: Checking Fake Labels...", "Fake Labels",
+             lambda: get_fake_labels_module().analyze(claims, regulatory_retriever=reg_retriever, llm_judge=judge)),
+            (11, "Module 7/7: Detecting Fibbing...", "Fibbing",
+             lambda: get_fibbing_module().analyze(claims, retriever=retriever, table_data=table_data, llm_judge=judge)),
+        ]
 
-        # Module 2: No Proof
-        print(f"[{report_id[:8]}] Running Module 2: No Proof...")
-        no_proof_mod = get_no_proof_module()
-        no_proof_verdicts = no_proof_mod.analyze(
-            claims,
-            retriever=retriever,
-            regulatory_retriever=reg_retriever,
-            llm_judge=judge,
-        )
-        all_verdicts.extend(no_proof_verdicts)
-        print(f"[{report_id[:8]}]   → {sum(1 for v in no_proof_verdicts if v.verdict == 'flagged')} flagged")
-
-        # Module 3: Irrelevant Claims
-        print(f"[{report_id[:8]}] Running Module 3: Irrelevant Claims...")
-        irr_mod = get_irrelevant_module()
-        irr_verdicts = irr_mod.analyze(
-            claims,
-            regulatory_retriever=reg_retriever,
-            llm_judge=judge,
-        )
-        all_verdicts.extend(irr_verdicts)
-        print(f"[{report_id[:8]}]   → {sum(1 for v in irr_verdicts if v.verdict == 'flagged')} flagged")
-
-        # Module 4: Lesser of Two Evils
-        print(f"[{report_id[:8]}] Running Module 4: Lesser of Two Evils...")
-        lesser_mod = get_lesser_evil_module()
-        lesser_verdicts = lesser_mod.analyze(claims, llm_judge=judge)
-        all_verdicts.extend(lesser_verdicts)
-        print(f"[{report_id[:8]}]   → {sum(1 for v in lesser_verdicts if v.verdict == 'flagged')} flagged")
-
-        # Module 5: Hidden Tradeoffs
-        print(f"[{report_id[:8]}] Running Module 5: Hidden Tradeoffs...")
-        hidden_mod = get_hidden_tradeoffs_module()
-        hidden_verdicts = hidden_mod.analyze(
-            claims,
-            retriever=retriever,
-            document_topics=document_topics,
-            llm_judge=judge,
-        )
-        all_verdicts.extend(hidden_verdicts)
-        print(f"[{report_id[:8]}]   → {sum(1 for v in hidden_verdicts if v.verdict == 'flagged')} flagged")
-
-        # Module 6: Fake Labels
-        print(f"[{report_id[:8]}] Running Module 6: Fake Labels...")
-        fake_mod = get_fake_labels_module()
-        fake_verdicts = fake_mod.analyze(
-            claims,
-            regulatory_retriever=reg_retriever,
-            llm_judge=judge,
-        )
-        all_verdicts.extend(fake_verdicts)
-        print(f"[{report_id[:8]}]   → {sum(1 for v in fake_verdicts if v.verdict == 'flagged')} flagged")
-
-        # Module 7: Fibbing
-        print(f"[{report_id[:8]}] Running Module 7: Fibbing...")
-        fib_mod = get_fibbing_module()
-        fib_verdicts = fib_mod.analyze(
-            claims,
-            retriever=retriever,
-            table_data=table_data,
-            llm_judge=judge,
-        )
-        all_verdicts.extend(fib_verdicts)
-        print(f"[{report_id[:8]}]   → {sum(1 for v in fib_verdicts if v.verdict == 'flagged')} flagged")
+        for step_num, progress_msg, module_name, run_fn in modules:
+            update_progress(step_num, TOTAL_STEPS, progress_msg)
+            logger.info("[%s] Running %s...", log_prefix, module_name)
+            try:
+                verdicts = run_fn()
+                all_verdicts.extend(verdicts)
+                flagged = sum(1 for v in verdicts if v.verdict == "flagged")
+                logger.info("[%s]   → %d flagged", log_prefix, flagged)
+            except Exception as e:
+                logger.error("[%s] %s module failed: %s", log_prefix, module_name, e, exc_info=True)
 
         # Step 7: Aggregate
-        print(f"[{report_id[:8]}] Aggregating results...")
+        update_progress(12, TOTAL_STEPS, "Aggregating module results...")
+        logger.info("[%s] Aggregating results...", log_prefix)
         aggregator = get_aggregator()
-        report = aggregator.aggregate(all_verdicts, len(claims), file.filename)
+        report = aggregator.aggregate(all_verdicts, len(claims), filename)
         report_data = report.to_dict()
 
         # Enrich report items with ClaimGroup constituent info
-        claim_map = {c.claim_id: c for c in claims}
         for cat in report_data.get("categories", []):
             for item in cat.get("items", []):
-                cid = item.get("item_id")  # verdict item_id != claim_id
-                # Match by claim_text (ClaimGroups have joined text)
                 for c in claims:
                     if hasattr(c, "claims") and c.claim_text == item.get("claim_text"):
                         item["constituent_sentences"] = [
@@ -391,9 +421,9 @@ async def analyze_report(file: UploadFile = File(...)):
                         break
 
         # Step 8: Stage 2 Sin Scoring
-        print(f"[{report_id[:8]}] Stage 2: Scoring claims against 7 Sins...")
+        update_progress(13, TOTAL_STEPS, "Stage 2: Scoring claims (LLM)...")
+        logger.info("[%s] Stage 2: Scoring claims against 7 Sins...", log_prefix)
         scorer = get_llm_scorer()
-        # Build per-claim judgment map: claim_text → {module_name: judgment_dict}
         claim_judgments: dict[str, dict[str, dict]] = {}
         for cat in report_data.get("categories", []):
             module_name = cat.get("category", "")
@@ -405,25 +435,21 @@ async def analyze_report(file: UploadFile = File(...)):
                 if judgment:
                     claim_judgments[ct][module_name] = judgment
 
-        # Score each unique claim
         scored_count = 0
-        claim_scores: dict[str, dict] = {}  # claim_text → score result dict
+        claim_scores: dict[str, dict] = {}
         for ct, judgments in claim_judgments.items():
             try:
                 result = scorer.score_claim(ct, judgments)
                 if result is not None:
                     claim_scores[ct] = result.to_dict()
                     scored_count += 1
-                    print(
-                        f"[{report_id[:8]}]   Scored claim ({scored_count}/{len(claim_judgments)}): "
-                        f"risk={result.claim_risk}"
-                    )
+                    logger.info("[%s]   Scored claim (%d/%d): risk=%s",
+                                log_prefix, scored_count, len(claim_judgments), result.claim_risk)
             except Exception:
-                import traceback
-                traceback.print_exc()
+                logger.error("[%s] Scoring failed for claim: %s...", log_prefix, ct[:80], exc_info=True)
                 continue
 
-        # Attach scores to each verdict item across all categories
+        # Attach scores to verdict items
         for cat in report_data.get("categories", []):
             for item in cat.get("items", []):
                 ct = item.get("claim_text", "")
@@ -433,9 +459,10 @@ async def analyze_report(file: UploadFile = File(...)):
                     item["claim_risk"] = claim_scores[ct]["claim_risk"]
                     item["top_drivers"] = claim_scores[ct]["top_drivers"]
 
-        print(f"[{report_id[:8]}] Scoring complete. {scored_count}/{len(claim_judgments)} claims scored.")
+        update_progress(15, TOTAL_STEPS, f"Scoring complete ({scored_count}/{len(claim_judgments)} claims).")
+        logger.info("[%s] Scoring complete. %d/%d claims scored.", log_prefix, scored_count, len(claim_judgments))
 
-        # Compute scoring summary: average claim risk + average per-sin scores
+        # Compute scoring summary
         if claim_scores:
             sin_names = [
                 "hidden_tradeoff", "no_proof", "vagueness", "false_labels",
@@ -444,9 +471,7 @@ async def analyze_report(file: UploadFile = File(...)):
             n_scored = len(claim_scores)
             sin_averages = {}
             for sin in sin_names:
-                total = sum(
-                    cs["sin_scores"].get(sin, 0) for cs in claim_scores.values()
-                )
+                total = sum(cs["sin_scores"].get(sin, 0) for cs in claim_scores.values())
                 sin_averages[sin] = round(total / n_scored, 1)
             avg_risk = round(
                 sum(cs["claim_risk"] for cs in claim_scores.values()) / n_scored, 1
@@ -456,26 +481,23 @@ async def analyze_report(file: UploadFile = File(...)):
                 "average_claim_risk": avg_risk,
                 "average_sin_scores": sin_averages,
             }
-            print(
-                f"[{report_id[:8]}] Average claim risk: {avg_risk}/100 "
-                f"| Top sin: {max(sin_averages, key=sin_averages.get)} "
-                f"({max(sin_averages.values())}/100)"
-            )
+            logger.info("[%s] Average claim risk: %s/100 | Top sin: %s (%s/100)",
+                        log_prefix, avg_risk,
+                        max(sin_averages, key=sin_averages.get),
+                        max(sin_averages.values()))
 
         # Store report
         reports_store[report_id] = report_data
-        print(f"[{report_id[:8]}] Analysis complete. {report.total_flagged} total flags.")
+        update_progress(16, TOTAL_STEPS, "Analysis complete!")
+        logger.info("[%s] Analysis complete. %d total flags.", log_prefix, report.total_flagged)
+        progress_store.pop(report_id, None)
 
         return report_data
 
-    except HTTPException:
-        raise
     except Exception as e:
-        import traceback
-        traceback.print_exc()
+        logger.error("[%s] Analysis failed: %s", log_prefix, e, exc_info=True)
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
     finally:
-        # Clean up temp file
         Path(tmp_path).unlink(missing_ok=True)
 
 

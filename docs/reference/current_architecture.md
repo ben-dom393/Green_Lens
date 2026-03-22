@@ -1,7 +1,7 @@
-# Green Lens — Current Architecture (v2: LLM Judge + 7 Modules)
+# Green Lens — Current Architecture (v3: Full-Stack Connected)
 
-> Updated 2026-03-21. This supersedes `mvp_architecture.md` (original MVP plan).
-> `model_structure.md` remains as the original Chinese design reference.
+> Updated 2026-03-22. This supersedes v2 (LLM Judge + 7 Modules, 2026-03-21).
+> Changes: Frontend-backend integration, async pipeline, logging, sin scoring, progress bar.
 
 ---
 
@@ -81,9 +81,23 @@ ESG Report (PDF)
 └──────┬───────┘
        │
        ▼
-┌──────────────┐     ┌────────────┐
-│ FastAPI API  │ ──▶ │  Frontend  │  (not yet built)
-└──────────────┘     └────────────┘
+┌──────────────────────────────────────────────────────────┐
+│  Stage 2: LLM Scorer (per-sin 0-100 scoring)           │
+│  ├─ 7 sin-specific prompts, signals rated 0/0.5/1      │
+│  ├─ Materiality multiplier: Low=1.0, Med=1.5, High=2.0 │
+│  └─ Risk bands: Low(0-29), Moderate(30-59),            │
+│     High(60-79), Critical(80+)                          │
+└──────┬───────────────────────────────────────────────────┘
+       │  scoring_summary with average_sin_scores (0-100)
+       ▼
+┌──────────────┐     ┌─────────────────────────────────────┐
+│ FastAPI API  │ ──▶ │  Streamlit Frontend (port 8501)     │
+│ (port 8000)  │     │  ├─ convert_backend_response()      │
+│              │ ◀── │  │  sin_scores / 20 → 0-5 scale     │
+│ GET /progress│     │  ├─ Radar chart + evidence cards     │
+└──────────────┘     │  ├─ Progress bar (polls /progress)  │
+                     │  └─ Demo mode (mock data fallback)   │
+                     └─────────────────────────────────────┘
 ```
 
 ---
@@ -162,14 +176,37 @@ Output is a structured JSON with verdict, confidence, explanation, and evidence 
 ## API Endpoints
 
 ```
-POST /api/analyze         — Upload PDF, full analysis with all 7 modules
+POST /api/analyze         — Upload PDF, full analysis (runs in asyncio.to_thread)
 POST /api/analyze/text    — Submit raw text for analysis
+GET  /api/progress        — Poll analysis progress (step, total, percent, message)
 GET  /api/report/{id}     — Full report with all verdicts + LLM judgments
 GET  /api/report/{id}/category/{name} — Verdicts for one category
 GET  /api/report/{id}/summary — Risk heatmap + verification tasks
 GET  /api/reports         — List all analyzed reports
 GET  /health              — Server health check
 ```
+
+### Async Pipeline
+
+The `/api/analyze` endpoint uses `asyncio.to_thread()` to run the pipeline synchronously
+in a worker thread. This keeps the FastAPI event loop free so `/api/progress` can respond
+during analysis. Without this, the server blocks all requests while processing a report.
+
+### Logging
+
+Rotating log files in `backend/logs/`:
+- `green_lens.log` — all INFO+ messages (10MB max, 5 backups)
+- `errors.log` — ERROR-only (5MB max, 3 backups)
+
+All pipeline steps use `logger.info/warning/error` with `exc_info=True` for stack traces.
+Per-module try/except ensures one failing module doesn't crash the whole pipeline.
+
+### Frontend Integration
+
+Score conversion: `scoring_summary.average_sin_scores[sin] / 20` (0-100 → 0-5).
+Three naming systems bridged via dicts in `frontend/src/config.py`:
+- `SIN_TO_METRIC`: backend sin names → frontend metric names
+- `CATEGORY_TO_METRIC`: backend category names → frontend metric names
 
 ---
 
@@ -210,9 +247,13 @@ The `judgment` dict is the key asset for future interactive UI — it contains t
 ```
 Green_Lens/
 ├── backend/
-│   ├── app.py                    # FastAPI server
+│   ├── app.py                    # FastAPI server (async pipeline + progress)
 │   ├── config.py                 # Model IDs, thresholds, paths
+│   ├── .env                      # GROQ_API_KEY (gitignored)
 │   ├── requirements.txt          # Python dependencies
+│   ├── logs/                     # Rotating log files (gitignored)
+│   │   ├── green_lens.log        # All INFO+ messages (10MB, 5 backups)
+│   │   └── errors.log            # ERROR-only (5MB, 3 backups)
 │   ├── pipeline/
 │   │   ├── pdf_parser.py         # PyMuPDF PDF parsing
 │   │   ├── claim_extractor.py    # ClimateBERT + ClaimGroup + artifacts
@@ -228,7 +269,8 @@ Green_Lens/
 │   │   │   └── fibbing.py        # M7: Fibbing
 │   │   ├── llm/
 │   │   │   ├── client.py         # Groq API client (rate-limit retry)
-│   │   │   ├── judge.py          # Central LLM Judge with 7 prompt templates
+│   │   │   ├── judge.py          # Stage 1: LLM Judge (7 prompt templates)
+│   │   │   ├── scorer.py         # Stage 2: LLM Scorer (per-sin 0-100)
 │   │   │   └── explainer.py      # (deprecated, replaced by judge.py)
 │   │   └── rag/
 │   │       ├── indexer.py        # ChromaDB + BM25S indexing
@@ -243,6 +285,15 @@ Green_Lens/
 │   │   ├── label_registry.json
 │   │   └── external/             # Regulatory PDFs, datasets
 │   └── test_results/             # Test output JSONs
+├── frontend/
+│   ├── app.py                    # Streamlit main (upload + progress bar)
+│   ├── requirements.txt          # streamlit, plotly, requests
+│   └── src/
+│       ├── analysis.py           # run_analysis() + convert_backend_response()
+│       ├── config.py             # API_URL, SIN_TO_METRIC, CATEGORY_TO_METRIC
+│       ├── charts.py             # Plotly radar chart
+│       ├── ui_components.py      # Render functions (header, cards, evidence)
+│       └── sample_data.py        # Mock data for demo mode
 ├── docs/
 │   └── reference/
 │       ├── current_architecture.md   # ← THIS FILE (current state)
@@ -250,8 +301,8 @@ Green_Lens/
 │       ├── model_structure.md        # Original Chinese design doc (historical)
 │       ├── knowledge_bases.md        # KB specification
 │       └── research_notes.md         # Research findings
-├── ESG report/                   # 72 test ESG report PDFs
-└── .env.example                  # Environment variable template
+├── ESG report/                   # 72+ test ESG report PDFs
+└── .gitignore                    # Excludes .env, logs/, ESG reports
 ```
 
 ---
