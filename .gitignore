@@ -43,3 +43,17 @@ backend/chroma_db/
 
 # Claude settings
 .claude/
+
+# ESG reports (large PDFs)
+ESG report/
+
+# User downloads
+user download report/
+
+# Server logs
+backend/server.log
+
+# External datasets and regulatory docs (large)
+backend/data/external/datasets/
+backend/data/external/regulatory/
+backend/data/external/cases/

@@ -1,8 +1,9 @@
 # Green Lens — MVP Architecture (Case B: Local LLM + Free API + NLP)
 
-> This document captures all architecture decisions made for the MVP.
-> It supersedes `model_structure.md` for implementation purposes.
-> `model_structure.md` remains as the original design reference.
+> **SUPERSEDED** by `current_architecture.md` as of 2026-03-21.
+> This document is kept as historical reference for the original MVP plan.
+> Key changes since this doc: Ollama removed (Groq-only), all 7 modules built,
+> LLM Judge architecture added, ClaimGroup aggregation added.
 
 ---
 

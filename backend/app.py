@@ -157,6 +157,16 @@ def get_llm_judge():
     return _llm_judge
 
 
+_llm_scorer = None
+
+def get_llm_scorer():
+    global _llm_scorer
+    if _llm_scorer is None:
+        from pipeline.llm.scorer import LLMScorer
+        _llm_scorer = LLMScorer()
+    return _llm_scorer
+
+
 # ── Helper: parse PDF text ──────────────────────────────────────────────
 
 def simple_text_extract(pdf_path: str) -> list[dict]:
@@ -224,6 +234,7 @@ async def analyze_report(file: UploadFile = File(...)):
                 page=e["page"],
                 element_type=e["element_type"],
                 section_path=e.get("section_path", []),
+                element_role=e.get("element_role", "claim_candidate"),
             )
             for e in raw_elements
         ]
@@ -233,11 +244,16 @@ async def analyze_report(file: UploadFile = File(...)):
         indexer = get_indexer()
         indexer.index_document(raw_elements)
 
-        # Step 4: Extract claims
+        # Step 4: Extract claims (grouped by paragraph for better context)
         print(f"[{report_id[:8]}] Extracting environmental claims...")
         extractor = get_claim_extractor()
-        claims = extractor.extract_claims(elements)
-        print(f"[{report_id[:8]}] Found {len(claims)} environmental claims")
+        claims = extractor.extract_claims(elements, return_groups=True)
+        # total_claims = number of analysis units (groups)
+        # Each group may contain multiple sentences from the same paragraph
+        total_sentence_claims = sum(
+            len(c.claims) if hasattr(c, "claims") else 1 for c in claims
+        )
+        print(f"[{report_id[:8]}] Found {len(claims)} claim groups ({total_sentence_claims} sentences)")
 
         if not claims:
             # No claims found — return empty report
@@ -358,6 +374,94 @@ async def analyze_report(file: UploadFile = File(...)):
         report = aggregator.aggregate(all_verdicts, len(claims), file.filename)
         report_data = report.to_dict()
 
+        # Enrich report items with ClaimGroup constituent info
+        claim_map = {c.claim_id: c for c in claims}
+        for cat in report_data.get("categories", []):
+            for item in cat.get("items", []):
+                cid = item.get("item_id")  # verdict item_id != claim_id
+                # Match by claim_text (ClaimGroups have joined text)
+                for c in claims:
+                    if hasattr(c, "claims") and c.claim_text == item.get("claim_text"):
+                        item["constituent_sentences"] = [
+                            {"text": sc.claim_text, "confidence": sc.confidence,
+                             "offset": sc.sentence_offset}
+                            for sc in c.claims
+                        ]
+                        item["representative_sentence"] = c.representative_sentence
+                        break
+
+        # Step 8: Stage 2 Sin Scoring
+        print(f"[{report_id[:8]}] Stage 2: Scoring claims against 7 Sins...")
+        scorer = get_llm_scorer()
+        # Build per-claim judgment map: claim_text → {module_name: judgment_dict}
+        claim_judgments: dict[str, dict[str, dict]] = {}
+        for cat in report_data.get("categories", []):
+            module_name = cat.get("category", "")
+            for item in cat.get("items", []):
+                ct = item.get("claim_text", "")
+                if ct not in claim_judgments:
+                    claim_judgments[ct] = {}
+                judgment = item.get("judgment")
+                if judgment:
+                    claim_judgments[ct][module_name] = judgment
+
+        # Score each unique claim
+        scored_count = 0
+        claim_scores: dict[str, dict] = {}  # claim_text → score result dict
+        for ct, judgments in claim_judgments.items():
+            try:
+                result = scorer.score_claim(ct, judgments)
+                if result is not None:
+                    claim_scores[ct] = result.to_dict()
+                    scored_count += 1
+                    print(
+                        f"[{report_id[:8]}]   Scored claim ({scored_count}/{len(claim_judgments)}): "
+                        f"risk={result.claim_risk}"
+                    )
+            except Exception:
+                import traceback
+                traceback.print_exc()
+                continue
+
+        # Attach scores to each verdict item across all categories
+        for cat in report_data.get("categories", []):
+            for item in cat.get("items", []):
+                ct = item.get("claim_text", "")
+                if ct in claim_scores:
+                    item["sin_scores"] = claim_scores[ct]["sin_scores"]
+                    item["signal_breakdowns"] = claim_scores[ct]["signal_breakdowns"]
+                    item["claim_risk"] = claim_scores[ct]["claim_risk"]
+                    item["top_drivers"] = claim_scores[ct]["top_drivers"]
+
+        print(f"[{report_id[:8]}] Scoring complete. {scored_count}/{len(claim_judgments)} claims scored.")
+
+        # Compute scoring summary: average claim risk + average per-sin scores
+        if claim_scores:
+            sin_names = [
+                "hidden_tradeoff", "no_proof", "vagueness", "false_labels",
+                "irrelevance", "lesser_of_two_evils", "fibbing",
+            ]
+            n_scored = len(claim_scores)
+            sin_averages = {}
+            for sin in sin_names:
+                total = sum(
+                    cs["sin_scores"].get(sin, 0) for cs in claim_scores.values()
+                )
+                sin_averages[sin] = round(total / n_scored, 1)
+            avg_risk = round(
+                sum(cs["claim_risk"] for cs in claim_scores.values()) / n_scored, 1
+            )
+            report_data["scoring_summary"] = {
+                "total_claims_scored": n_scored,
+                "average_claim_risk": avg_risk,
+                "average_sin_scores": sin_averages,
+            }
+            print(
+                f"[{report_id[:8]}] Average claim risk: {avg_risk}/100 "
+                f"| Top sin: {max(sin_averages, key=sin_averages.get)} "
+                f"({max(sin_averages.values())}/100)"
+            )
+
         # Store report
         reports_store[report_id] = report_data
         print(f"[{report_id[:8]}] Analysis complete. {report.total_flagged} total flags.")
@@ -412,9 +516,9 @@ async def analyze_text(body: dict):
                      for e in elements]
     indexer.index_document(raw_elements)
 
-    # Extract claims
+    # Extract claims (grouped)
     extractor = get_claim_extractor()
-    claims = extractor.extract_claims(elements)
+    claims = extractor.extract_claims(elements, return_groups=True)
 
     if not claims:
         return {"message": "No environmental claims detected.", "total_claims": 0}

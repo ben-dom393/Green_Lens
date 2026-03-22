@@ -36,11 +36,7 @@ CLIMATE_STANCE_MODEL = "rldekkers/bert-base-uncased-finetuned-climate-stance-det
 # --- Table fact verification ---
 TABLE_FACT_MODEL = "google/tapas-base-finetuned-tabfact"
 
-# Ollama
-OLLAMA_BASE_URL = "http://localhost:11434"
-OLLAMA_MODEL = "qwen3:8b"
-
-# Groq fallback (free tier)
+# LLM — Groq API (free tier, primary and only)
 GROQ_API_KEY = ""  # Set via environment variable GROQ_API_KEY
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
@@ -51,6 +47,6 @@ TOP_K_RETRIEVE = 20
 TOP_K_RERANK = 5
 
 # Detection thresholds
-CLAIM_DETECTION_THRESHOLD = 0.5
+CLAIM_DETECTION_THRESHOLD = 0.7
 SPECIFICITY_THRESHOLD = 0.5
 FACT_CHECK_THRESHOLD = 0.5

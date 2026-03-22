@@ -8,6 +8,8 @@ Pipeline
 4. For every sentence above the confidence threshold, extract structured
    information (named entities, quantities) with spaCy.
 5. Return a list of ``Claim`` objects ready for downstream detection modules.
+6. Optionally group co-located claims into ``ClaimGroup`` objects that
+   preserve sentence-level highlights while providing paragraph-level context.
 """
 
 from __future__ import annotations
@@ -15,9 +17,10 @@ from __future__ import annotations
 import re
 import sys
 import uuid
+from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 # ---------------------------------------------------------------------------
 # Make sure the backend package root is importable regardless of cwd.
@@ -53,6 +56,9 @@ class DocumentElement:
     section_path : list[str]
         Hierarchical section headers leading to this element,
         e.g. ``["Environment", "Climate Change", "GHG Emissions"]``.
+    element_role : str
+        Advisory role tag from the PDF parser. One of
+        ``"claim_candidate"``, ``"evidence"``, ``"context"``, ``"skip"``.
     """
 
     element_id: str
@@ -60,6 +66,7 @@ class DocumentElement:
     page: int
     element_type: str
     section_path: list[str] = field(default_factory=list)
+    element_role: str = "claim_candidate"
 
 
 @dataclass
@@ -89,6 +96,10 @@ class Claim:
     quantities : list[dict]
         Numeric quantities extracted from the sentence.  Each dict has
         keys ``value``, ``unit``, ``text``.
+    element_role : str
+        Advisory role tag inherited from the source element.
+    sentence_offset : int
+        Character offset of this sentence within the source paragraph.
     """
 
     claim_id: str
@@ -100,6 +111,101 @@ class Claim:
     confidence: float = 0.0
     entities: list[dict] = field(default_factory=list)
     quantities: list[dict] = field(default_factory=list)
+    element_role: str = "claim_candidate"
+    sentence_offset: int = 0
+    artifact_signals: list[str] = field(default_factory=list)
+
+
+@dataclass
+class ClaimGroup:
+    """A group of co-located claims from the same paragraph.
+
+    Aggregates sentence-level claims while preserving per-sentence data
+    for highlighting. Duck-types as ``Claim`` so downstream modules
+    (M1-M7, LLM Judge) work without changes.
+    """
+
+    group_id: str
+    claims: list[Claim]
+    claim_text: str                    # Sentences joined with space
+    representative_sentence: str       # Highest-confidence sentence
+    representative_confidence: float
+    page: int
+    section_path: list[str] = field(default_factory=list)
+    element_id: str = ""
+    element_role: str = "claim_candidate"
+    entities: list[dict] = field(default_factory=list)
+    quantities: list[dict] = field(default_factory=list)
+    full_context: str = ""
+    confidence: float = 0.0            # = representative_confidence
+    claim_id: str = ""                 # = group_id (duck-typing)
+    sentence_offset: int = 0           # From first constituent
+    artifact_signals: list[str] = field(default_factory=list)
+
+    @classmethod
+    def from_claims(cls, claims: list["Claim"]) -> "ClaimGroup":
+        """Create a ClaimGroup from one or more Claims sharing element_id."""
+        assert len(claims) >= 1
+
+        # Sort by sentence offset (character position in original paragraph)
+        sorted_claims = sorted(claims, key=lambda c: c.sentence_offset)
+
+        # Representative = highest ClimateBERT confidence; tie-break: earliest
+        rep = max(sorted_claims, key=lambda c: (c.confidence, -c.sentence_offset))
+
+        # Join claim texts with space
+        joined_text = " ".join(c.claim_text.strip() for c in sorted_claims)
+
+        # Merge entities — deduplicate by (text, label)
+        seen_ents: set[tuple[str, str]] = set()
+        merged_entities: list[dict] = []
+        for c in sorted_claims:
+            for e in c.entities:
+                key = (e["text"], e["label"])
+                if key not in seen_ents:
+                    seen_ents.add(key)
+                    merged_entities.append(e)
+
+        # Merge quantities — deduplicate by (value, unit)
+        seen_qty: set[tuple[str, str]] = set()
+        merged_quantities: list[dict] = []
+        for c in sorted_claims:
+            for q in c.quantities:
+                key = (q["value"], q["unit"])
+                if key not in seen_qty:
+                    seen_qty.add(key)
+                    merged_quantities.append(q)
+
+        # Merge artifact_signals — union of all constituents
+        merged_artifacts: list[str] = []
+        seen_artifacts: set[str] = set()
+        for c in sorted_claims:
+            for sig in getattr(c, "artifact_signals", []):
+                if sig not in seen_artifacts:
+                    seen_artifacts.add(sig)
+                    merged_artifacts.append(sig)
+
+        gid = str(uuid.uuid4())
+        first = sorted_claims[0]
+
+        return cls(
+            group_id=gid,
+            claims=sorted_claims,
+            claim_text=joined_text,
+            representative_sentence=rep.claim_text,
+            representative_confidence=rep.confidence,
+            page=first.page,
+            section_path=list(first.section_path),
+            element_id=first.element_id,
+            element_role=first.element_role,
+            entities=merged_entities,
+            quantities=merged_quantities,
+            full_context=first.full_context,
+            confidence=rep.confidence,
+            claim_id=gid,
+            sentence_offset=first.sentence_offset,
+            artifact_signals=merged_artifacts,
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -115,6 +221,29 @@ _QUANTITY_RE = re.compile(
     r"USD|EUR|GBP|\$|billion|million|thousand|bn|mn|m|k)(?:\b|(?=\s|$)))",
     re.IGNORECASE,
 )
+
+
+# ---------------------------------------------------------------------------
+# Artifact patterns for soft tagging (never delete text, just flag)
+# ---------------------------------------------------------------------------
+ARTIFACT_PATTERNS: list[tuple[str, re.Pattern]] = [
+    ("pipe_nav", re.compile(
+        r"(?:^|\n)\s*[\w\s]+(?:\s*\|\s*[\w\s]+){2,}", re.MULTILINE
+    )),
+    ("embedded_page_num", re.compile(
+        r"(?<=[a-z.,;])\s+\d{1,3}\s+(?=[A-Z])"
+    )),
+    ("nav_keywords", re.compile(
+        r"(?i)\b(?:click here|learn more|see page|back to top|table of contents"
+        r"|download|visit|homepage|skip to)\b"
+    )),
+    ("toc_entry", re.compile(
+        r"(?m)^[A-Z][\w\s]{5,50}\s{2,}\d{1,3}\s*$"
+    )),
+    ("concatenated_headers", re.compile(
+        r"(?:[A-Z][a-z]+(?:\s[A-Z][a-z]+)*\s*){3,}"
+    )),
+]
 
 
 class ClaimExtractor:
@@ -176,24 +305,51 @@ class ClaimExtractor:
         self._models_loaded = True
 
     # ------------------------------------------------------------------
+    # Artifact detection (soft tagging — never deletes text)
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _detect_artifacts(text: str) -> list[str]:
+        """Detect PDF parsing artifacts in paragraph text.
+
+        Runs on the FULL paragraph (not individual sentences) to catch
+        cross-sentence artifacts.  Returns a list of matched pattern
+        names (e.g. ``["pipe_nav", "embedded_page_num"]``).
+
+        These are advisory signals — they never cause text deletion.
+        """
+        found: list[str] = []
+        for name, pattern in ARTIFACT_PATTERNS:
+            if pattern.search(text):
+                found.append(name)
+        return found
+
+    # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
 
     def extract_claims(
         self,
         elements: list[DocumentElement],
-    ) -> list[Claim]:
+        return_groups: bool = False,
+    ) -> Union[list[Claim], list[ClaimGroup]]:
         """Run the full extraction pipeline on a list of document elements.
 
         Parameters
         ----------
         elements:
             Parsed paragraphs / sections from the PDF parser.
+        return_groups:
+            If *True*, aggregate co-located sentence claims into
+            ``ClaimGroup`` objects grouped by source paragraph.
+            If *False* (default), return individual ``Claim`` objects
+            (original behaviour).
 
         Returns
         -------
-        list[Claim]
-            Claims that exceed the detection confidence threshold.
+        list[Claim] | list[ClaimGroup]
+            Claims (or groups) that exceed the detection confidence
+            threshold.
         """
         self._load_models()
 
@@ -212,16 +368,22 @@ class ClaimExtractor:
             if len(text) < 30:
                 continue
 
-            # 1. Split paragraph into sentences
-            sentences = self._split_sentences(text)
-            if not sentences:
+            # 0. Detect PDF artifacts (soft tagging on full paragraph)
+            artifacts = self._detect_artifacts(text)
+
+            # 1. Split paragraph into sentences (with character offsets)
+            sentence_pairs = self._split_sentences(text)
+            if not sentence_pairs:
                 continue
+
+            sentences = [s for s, _ in sentence_pairs]
+            offsets = [o for _, o in sentence_pairs]
 
             # 2. Classify all sentences in one batch
             classified = self._classify_sentences(sentences)
 
             # 3. Build Claim objects for sentences above the threshold
-            for sentence, confidence in classified:
+            for (sentence, confidence), offset in zip(classified, offsets):
                 if confidence < CLAIM_DETECTION_THRESHOLD:
                     continue
 
@@ -237,17 +399,45 @@ class ClaimExtractor:
                     confidence=round(confidence, 4),
                     entities=entities,
                     quantities=quantities,
+                    element_role=getattr(element, "element_role", "claim_candidate"),
+                    sentence_offset=offset,
+                    artifact_signals=list(artifacts),
                 )
                 claims.append(claim)
 
+        if return_groups:
+            return self._group_claims(claims)
         return claims
+
+    # ------------------------------------------------------------------
+    # Grouping
+    # ------------------------------------------------------------------
+
+    def _group_claims(self, claims: list[Claim]) -> list[ClaimGroup]:
+        """Aggregate sentence-level claims by source paragraph.
+
+        Claims sharing the same ``element_id`` (i.e. originating from
+        the same ``DocumentElement`` / PDF paragraph) are merged into a
+        single ``ClaimGroup``.
+        """
+        by_element: dict[str, list[Claim]] = defaultdict(list)
+        for claim in claims:
+            by_element[claim.element_id].append(claim)
+
+        groups: list[ClaimGroup] = []
+        for _eid, element_claims in by_element.items():
+            groups.append(ClaimGroup.from_claims(element_claims))
+
+        # Sort groups by page then sentence_offset for deterministic order
+        groups.sort(key=lambda g: (g.page, g.sentence_offset))
+        return groups
 
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
 
-    def _split_sentences(self, text: str) -> list[str]:
-        """Split a paragraph into sentences.
+    def _split_sentences(self, text: str) -> list[tuple[str, int]]:
+        """Split a paragraph into sentences with character offsets.
 
         Uses spaCy's built-in sentencizer when available for more
         accurate sentence boundary detection.  Falls back to a
@@ -255,14 +445,29 @@ class ClaimExtractor:
 
         Sentences shorter than 8 characters are dropped as they are
         unlikely to be meaningful claims.
+
+        Returns
+        -------
+        list[tuple[str, int]]
+            Each tuple is ``(sentence_text, char_offset)`` where
+            *char_offset* is the start position in the original *text*.
         """
         if self._nlp is not None:
             doc = self._nlp(text)
-            sentences = [sent.text.strip() for sent in doc.sents if len(sent.text.strip()) >= 8]
-            return sentences
-        # Fallback to simple splitting if spaCy not available
-        raw = re.split(r"(?<=[.!?])\s+(?=[A-Z])", text)
-        return [s.strip() for s in raw if len(s.strip()) >= 8]
+            return [
+                (sent.text.strip(), sent.start_char)
+                for sent in doc.sents
+                if len(sent.text.strip()) >= 8
+            ]
+        # Fallback: regex splitting with offset tracking
+        results: list[tuple[str, int]] = []
+        boundaries = [0] + [m.end() for m in re.finditer(r"(?<=[.!?])\s+(?=[A-Z])", text)]
+        for i, start in enumerate(boundaries):
+            end = boundaries[i + 1] if i + 1 < len(boundaries) else len(text)
+            sentence = text[start:end].strip()
+            if len(sentence) >= 8:
+                results.append((sentence, start))
+        return results
 
     def _classify_sentences(
         self,

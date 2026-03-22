@@ -1,0 +1,2044 @@
+{
+  "document": "NVIDIA-Sustainability-Report-Fiscal-Year-2025.pdf",
+  "before_sentence_count": 35,
+  "after_group_count": 21,
+  "before_claims": [
+    {
+      "claim_id": "8d8a7cad-c37d-4373-b91f-dd35e7c8fd36",
+      "element_id": "p5_17",
+      "page": 5,
+      "claim_text": "We are applying our technology to one of\nthe greatest challenges of our time:\nclimate change.",
+      "confidence": 0.8979,
+      "section_path": [
+        "NVIDIA Sustainability Report Fiscal Year 2025",
+        "Accelerating Climate Action With AI"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [
+        {
+          "text": "one",
+          "label": "CARDINAL",
+          "start_char": 34,
+          "end_char": 37
+        }
+      ],
+      "quantities": [
+        {
+          "value": "one",
+          "unit": "",
+          "text": "one"
+        }
+      ]
+    },
+    {
+      "claim_id": "356568dd-da17-4a31-8059-715b23ae6479",
+      "element_id": "p5_17",
+      "page": 5,
+      "claim_text": "> NVIDIA Earth-2 delivers AI-driven global\nclimate simulations 500x faster and 10,000x\nmore energy efficient than traditional\nmodels.",
+      "confidence": 0.9733,
+      "section_path": [
+        "NVIDIA Sustainability Report Fiscal Year 2025",
+        "Accelerating Climate Action With AI"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 94,
+      "entities": [
+        {
+          "text": "500x",
+          "label": "PRODUCT",
+          "start_char": 63,
+          "end_char": 67
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "65354739-eb13-4244-a44f-ce813d8ea4a3",
+      "element_id": "p5_19",
+      "page": 5,
+      "claim_text": "This year, our team\nachieved a major milestone: 100% of NVIDIA’s\nglobal electricity consumption is powered\nby or matched with renewable energy.",
+      "confidence": 0.9093,
+      "section_path": [
+        "NVIDIA Sustainability Report Fiscal Year 2025",
+        "Our Commitment to Sustainability"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 67,
+      "entities": [
+        {
+          "text": "This year",
+          "label": "DATE",
+          "start_char": 0,
+          "end_char": 9
+        },
+        {
+          "text": "100%",
+          "label": "PERCENT",
+          "start_char": 48,
+          "end_char": 52
+        }
+      ],
+      "quantities": [
+        {
+          "value": "100",
+          "unit": "%",
+          "text": "100%"
+        }
+      ]
+    },
+    {
+      "claim_id": "05b714f3-40e4-47e3-8b8b-becb798d2410",
+      "element_id": "p5_19",
+      "page": 5,
+      "claim_text": "We are working to reduce emissions wherever\nwe can.",
+      "confidence": 0.9928,
+      "section_path": [
+        "NVIDIA Sustainability Report Fiscal Year 2025",
+        "Our Commitment to Sustainability"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 211,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "722df0c3-50e2-4dc2-83e3-6a15dff2c245",
+      "element_id": "p8_37",
+      "page": 8,
+      "claim_text": "AI is improving the\nefficiency of energy-intensive sectors like\nmanufacturing, helping utilities increase grid\nresilience and power generation, and even\nenhancing data center energy efficiency.",
+      "confidence": 0.6634,
+      "section_path": [
+        "1 in 5",
+        "Our Impact",
+        "Energy and Climate"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 154,
+      "entities": [
+        {
+          "text": "AI",
+          "label": "GPE",
+          "start_char": 0,
+          "end_char": 2
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "bb3c969d-2847-4772-8c38-7f8b2a881838",
+      "element_id": "p11_53",
+      "page": 11,
+      "claim_text": "By delivering on\nthis commitment, we continue to aim to\nreduce our Scope 1 and 2 emissions in line\nwith prevalent climate science standards.",
+      "confidence": 0.9795,
+      "section_path": [
+        "50X+",
+        "Achieving our Climate Targets",
+        "Scope 1 and 2:"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 336,
+      "entities": [
+        {
+          "text": "2",
+          "label": "CARDINAL",
+          "start_char": 79,
+          "end_char": 80
+        }
+      ],
+      "quantities": [
+        {
+          "value": "2",
+          "unit": "",
+          "text": "2"
+        }
+      ]
+    },
+    {
+      "claim_id": "8970ce1d-9ea4-47b3-a585-0dad51080d59",
+      "element_id": "p11_55",
+      "page": 11,
+      "claim_text": "We’ve achieved our goal ahead of \nschedule, to engage manufacturing\nsuppliers comprising at least 67% \nof NVIDIA’s scope 3 category 1 GHG\nemissions, with the goal of effecting \nsupplier adoption of science-based\ntargets.",
+      "confidence": 0.9742,
+      "section_path": [
+        "50X+",
+        "Achieving our Climate Targets",
+        "Scope 3:"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [
+        {
+          "text": "at least 67%",
+          "label": "PERCENT",
+          "start_char": 89,
+          "end_char": 101
+        },
+        {
+          "text": "NVIDIA",
+          "label": "ORG",
+          "start_char": 106,
+          "end_char": 112
+        },
+        {
+          "text": "3",
+          "label": "CARDINAL",
+          "start_char": 121,
+          "end_char": 122
+        },
+        {
+          "text": "1",
+          "label": "CARDINAL",
+          "start_char": 132,
+          "end_char": 133
+        }
+      ],
+      "quantities": [
+        {
+          "value": "67",
+          "unit": "%",
+          "text": "67%"
+        },
+        {
+          "value": "3",
+          "unit": "",
+          "text": "3"
+        },
+        {
+          "value": "1",
+          "unit": "",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "claim_id": "f9d584c5-4cad-4edc-9262-a00d19873a98",
+      "element_id": "p11_57",
+      "page": 11,
+      "claim_text": "Renewable electricity, reducing\nour GHG footprint to zero Scope\n2 market-based emissions",
+      "confidence": 0.9921,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [
+        {
+          "text": "GHG",
+          "label": "ORG",
+          "start_char": 36,
+          "end_char": 39
+        },
+        {
+          "text": "zero",
+          "label": "CARDINAL",
+          "start_char": 53,
+          "end_char": 57
+        },
+        {
+          "text": "Scope",
+          "label": "PRODUCT",
+          "start_char": 58,
+          "end_char": 63
+        },
+        {
+          "text": "2",
+          "label": "CARDINAL",
+          "start_char": 64,
+          "end_char": 65
+        }
+      ],
+      "quantities": [
+        {
+          "value": "zero",
+          "unit": "",
+          "text": "zero"
+        },
+        {
+          "value": "2",
+          "unit": "",
+          "text": "2"
+        }
+      ]
+    },
+    {
+      "claim_id": "e2cefbce-5e6b-4976-93bc-c7e70bdb360f",
+      "element_id": "p12_60",
+      "page": 12,
+      "claim_text": "Both targets were \nvalidated by the Science Based Targets \ninitiative (SBTi) as reducing greenhouse \ngas emissions in line with the goal of \nlimiting global warming to 1.5°C.",
+      "confidence": 0.9817,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Progress on Our Renewable Electricity Target"
+      ],
+      "element_role": "context",
+      "sentence_offset": 93,
+      "entities": [
+        {
+          "text": "the Science Based Targets",
+          "label": "ORG",
+          "start_char": 32,
+          "end_char": 57
+        },
+        {
+          "text": "1.5",
+          "label": "CARDINAL",
+          "start_char": 168,
+          "end_char": 171
+        }
+      ],
+      "quantities": [
+        {
+          "value": "1.5",
+          "unit": "",
+          "text": "1.5"
+        }
+      ]
+    },
+    {
+      "claim_id": "3bfbc034-10a6-4ad5-8621-abeb1c847da0",
+      "element_id": "p12_60",
+      "page": 12,
+      "claim_text": "We commit to the following sciencebased targets from a FY23 base year:\nReducing energy and emissions per \ncomputation represents NVIDIA’s biggest \nopportunity to reduce emissions and \nto support global sustainability efforts.",
+      "confidence": 0.9867,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Progress on Our Renewable Electricity Target"
+      ],
+      "element_role": "context",
+      "sentence_offset": 268,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "2e20ed74-2bbe-4d27-8cc1-e3354a870925",
+      "element_id": "p12_60",
+      "page": 12,
+      "claim_text": "To manage the greenhouse gas (GHG) emissions\nfootprint of our data centers, labs, and offices, we\nstrategically focus on locating new sites, selecting\nfacilities to expand, managing our operations\nefficiently, and sourcing renewable energy.",
+      "confidence": 0.9564,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Progress on Our Renewable Electricity Target"
+      ],
+      "element_role": "context",
+      "sentence_offset": 868,
+      "entities": [
+        {
+          "text": "GHG",
+          "label": "ORG",
+          "start_char": 30,
+          "end_char": 33
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "b2b138b2-2f9f-4767-862b-40e38538b955",
+      "element_id": "p12_62",
+      "page": 12,
+      "claim_text": "To bring a more structured approach to\nmanaging energy efficiency at several of\nour key data center locations, we have an\nenergy management system certified to\nthe ISO 50001 standard, which covered\napproximately 41% of our data center\nenergy use in FY25.",
+      "confidence": 0.9767,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 689,
+      "entities": [
+        {
+          "text": "ISO",
+          "label": "ORG",
+          "start_char": 164,
+          "end_char": 167
+        },
+        {
+          "text": "approximately 41%",
+          "label": "PERCENT",
+          "start_char": 198,
+          "end_char": 215
+        }
+      ],
+      "quantities": [
+        {
+          "value": "41",
+          "unit": "%",
+          "text": "41%"
+        }
+      ]
+    },
+    {
+      "claim_id": "a6246c5e-e9dd-4d36-833f-e604584e74d9",
+      "element_id": "p12_62",
+      "page": 12,
+      "claim_text": "Our certification to\nthe ISO 50001 standard recognizes our\nefforts to properly measure and reduce\nenergy consumption in our data centers.",
+      "confidence": 0.9846,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 944,
+      "entities": [
+        {
+          "text": "ISO",
+          "label": "ORG",
+          "start_char": 25,
+          "end_char": 28
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "c4a7d777-3c08-4932-b725-886d0a66c1e5",
+      "element_id": "p12_64",
+      "page": 12,
+      "claim_text": "In FY25, we increased the amount of our \nrenewable electricity use to 100% for offices\nand data centers under our operational control,\nResponsible \nBusiness\nachieving our target.",
+      "confidence": 0.8205,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Energy-Efficient Operations"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 618,
+      "entities": [
+        {
+          "text": "100%",
+          "label": "PERCENT",
+          "start_char": 70,
+          "end_char": 74
+        }
+      ],
+      "quantities": [
+        {
+          "value": "100",
+          "unit": "%",
+          "text": "100%"
+        }
+      ]
+    },
+    {
+      "claim_id": "16c292fd-e169-4af2-85a2-cff32da94267",
+      "element_id": "p12_66",
+      "page": 12,
+      "claim_text": "We aim to reduce the amount of waste we \nsend to landfill through waste reduction, reuse,\nand recycling initiatives.",
+      "confidence": 0.9939,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "fadc1e24-3f85-4bdf-9ed7-4e3fcec2d5fd",
+      "element_id": "p12_66",
+      "page": 12,
+      "claim_text": "We engaged a vendor \nto complete a gap analysis of our Santa Clara\ncampus to better understand opportunities \nto increase our landfill diversion rate and\nminimize the amount of waste generated.",
+      "confidence": 0.8872,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 117,
+      "entities": [
+        {
+          "text": "Santa Clara",
+          "label": "GPE",
+          "start_char": 55,
+          "end_char": 66
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "65cbb6a2-7e08-43f6-bb77-885eac9621f1",
+      "element_id": "p13_67",
+      "page": 13,
+      "claim_text": "water demand and potable water use for \nsewage conveyance when compared with\nNVIDIA Sustainability | Energy, Efficiency, and Climate\n13\nwater in cooling towers and landscape irrigation\nsystems and capture rainwater in bioswales.",
+      "confidence": 0.6011,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [
+        {
+          "text": "13",
+          "label": "CARDINAL",
+          "start_char": 133,
+          "end_char": 135
+        }
+      ],
+      "quantities": [
+        {
+          "value": "13",
+          "unit": "",
+          "text": "13"
+        }
+      ]
+    },
+    {
+      "claim_id": "fa6e1081-d610-4002-9892-e1cdbf054685",
+      "element_id": "p13_67",
+      "page": 13,
+      "claim_text": "The three-acre park that connects the two\nbuildings is planted with drought-tolerant trees\nand the greenery is irrigated by reclaimed water.",
+      "confidence": 0.9669,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 229,
+      "entities": [
+        {
+          "text": "three-acre",
+          "label": "QUANTITY",
+          "start_char": 4,
+          "end_char": 14
+        },
+        {
+          "text": "two",
+          "label": "CARDINAL",
+          "start_char": 38,
+          "end_char": 41
+        },
+        {
+          "text": "greenery",
+          "label": "ORG",
+          "start_char": 99,
+          "end_char": 107
+        }
+      ],
+      "quantities": [
+        {
+          "value": "three-acre",
+          "unit": "",
+          "text": "three-acre"
+        },
+        {
+          "value": "two",
+          "unit": "",
+          "text": "two"
+        }
+      ]
+    },
+    {
+      "claim_id": "472ac4c0-b8ca-419a-a933-25744005ff5d",
+      "element_id": "p13_67",
+      "page": 13,
+      "claim_text": "At our Santa Clara headquarters, our Voyager and Endeavor buildings are LEED Gold certified and connected by a three-acre park that’s irrigated with reclaimed water and shaded by a trellis that houses solar panels.",
+      "confidence": 0.9176,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 517,
+      "entities": [
+        {
+          "text": "Santa Clara",
+          "label": "GPE",
+          "start_char": 7,
+          "end_char": 18
+        },
+        {
+          "text": "Voyager",
+          "label": "PRODUCT",
+          "start_char": 37,
+          "end_char": 44
+        },
+        {
+          "text": "LEED Gold",
+          "label": "WORK_OF_ART",
+          "start_char": 72,
+          "end_char": 81
+        },
+        {
+          "text": "three-acre",
+          "label": "QUANTITY",
+          "start_char": 111,
+          "end_char": 121
+        }
+      ],
+      "quantities": [
+        {
+          "value": "three-acre",
+          "unit": "",
+          "text": "three-acre"
+        }
+      ]
+    },
+    {
+      "claim_id": "fa9c8bb7-2f45-4fc9-8cad-dc186443a760",
+      "element_id": "p13_67",
+      "page": 13,
+      "claim_text": "We’re introducing closed-loop liquid cooling\nsystems across our data centers to reduce\nwater usage and improve cooling efficiency.",
+      "confidence": 0.991,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 732,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "1046c167-6e9d-44f9-b365-29987a063bd5",
+      "element_id": "p13_67",
+      "page": 13,
+      "claim_text": "It packs unprecedented compute\ndensity into each server rack, delivering\n30x higher throughput, 25x more energy\nefficiency, and 300x more water efficiency\nthan traditional air-cooled architectures.",
+      "confidence": 0.6178,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 1273,
+      "entities": [
+        {
+          "text": "30x",
+          "label": "CARDINAL",
+          "start_char": 73,
+          "end_char": 76
+        },
+        {
+          "text": "25x",
+          "label": "CARDINAL",
+          "start_char": 96,
+          "end_char": 99
+        },
+        {
+          "text": "300x",
+          "label": "PRODUCT",
+          "start_char": 128,
+          "end_char": 132
+        }
+      ],
+      "quantities": [
+        {
+          "value": "30",
+          "unit": "x",
+          "text": "30x"
+        },
+        {
+          "value": "25",
+          "unit": "x",
+          "text": "25x"
+        }
+      ]
+    },
+    {
+      "claim_id": "2d2338ec-d454-497b-bc01-22d77983b787",
+      "element_id": "p14_68",
+      "page": 14,
+      "claim_text": "Additionally, we have increased\nour focus on diversity recruiting",
+      "confidence": 0.8811,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 337,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "adeee42d-e007-4fff-968d-738c768c55df",
+      "element_id": "p17_88",
+      "page": 17,
+      "claim_text": "Our allyship program is established and facilitated by employees to build a network\nof allies who model inclusive behaviors, amplify the work of others, and advocate for\nchanges that lead to increased equity.",
+      "confidence": 0.9627,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Community Resource Groups",
+        "Allyship"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "cad6fcc9-3396-4694-82a7-5f0d8e67f21d",
+      "element_id": "p18_93",
+      "page": 18,
+      "claim_text": "We support, contribute\nNVIDIA Sustainability | Product Value Chain\n18\nvalidate the source of minerals used in our\nproducts, aiming to ensure that they come\nfrom socially responsible sources and don’t\ncontribute to human conflict.",
+      "confidence": 0.9793,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Community Resource Groups",
+        "Leadership"
+      ],
+      "element_role": "context",
+      "sentence_offset": 62,
+      "entities": [
+        {
+          "text": "18",
+          "label": "CARDINAL",
+          "start_char": 67,
+          "end_char": 69
+        }
+      ],
+      "quantities": [
+        {
+          "value": "18",
+          "unit": "",
+          "text": "18"
+        }
+      ]
+    },
+    {
+      "claim_id": "10d9f30a-74cc-464f-b361-f6705aaedf4f",
+      "element_id": "p18_93",
+      "page": 18,
+      "claim_text": "Our goal is\nto use only conflict-free gold, tantalum,\ntungsten, and tin (3TG) in our products and to\nachieve 100% Responsible Minerals Assurance\nProcess-compliant 3TG processing facilities.",
+      "confidence": 0.9182,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Community Resource Groups",
+        "Leadership"
+      ],
+      "element_role": "context",
+      "sentence_offset": 292,
+      "entities": [
+        {
+          "text": "100%",
+          "label": "PERCENT",
+          "start_char": 109,
+          "end_char": 113
+        },
+        {
+          "text": "3TG",
+          "label": "CARDINAL",
+          "start_char": 163,
+          "end_char": 166
+        }
+      ],
+      "quantities": [
+        {
+          "value": "100",
+          "unit": "%",
+          "text": "100%"
+        },
+        {
+          "value": "3",
+          "unit": "TG",
+          "text": "3TG"
+        }
+      ]
+    },
+    {
+      "claim_id": "cbc6f33f-8f7f-454e-ac94-66a32f6c385f",
+      "element_id": "p20_103",
+      "page": 20,
+      "claim_text": "We accomplished our goal to engage\nmanufacturing suppliers to effect supplier\nadoption of science-based targets.",
+      "confidence": 0.8558,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "Manufacturing"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 595,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "0e2dd031-e90e-4b52-a0db-9d17e83fd7ed",
+      "element_id": "p20_105",
+      "page": 20,
+      "claim_text": "We continue to optimize the balance\nbetween ensuring that customers receive\nproducts in a protected, like-new condition\nwhile also minimizing our impact on the\nenvironment.",
+      "confidence": 0.9866,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "Packaging"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "7957be36-7ff5-4c79-91ea-9b354a673d24",
+      "element_id": "p20_105",
+      "page": 20,
+      "claim_text": "We actively seek opportunities\nand implement appropriate solutions \nto reduce our usage of non-recyclable \nmaterials and packaging materials in general,\nMessage From \nOur CEO\nIntroduction\nEnergy, Efficiency, \nand Climate\nPeople, Diversity, \nand Inclusion\nResponsible \nBusiness\nProduct Value \nChain",
+      "confidence": 0.948,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "Packaging"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 173,
+      "entities": [
+        {
+          "text": "Inclusion\nResponsible \nBusiness\nProduct Value \nChain",
+          "label": "ORG",
+          "start_char": 245,
+          "end_char": 297
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "50089129-4144-4265-ad29-529ad26ea495",
+      "element_id": "p21_108",
+      "page": 21,
+      "claim_text": "We plan, pack, and execute our raw\nmaterial, work-in-progress, and finished\ngoods shipments to optimize transport\nand logistics, which results in reduced fuel\nuse and less impact on the environment.",
+      "confidence": 0.9809,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "Transport and Logistics"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [],
+      "quantities": []
+    },
+    {
+      "claim_id": "e2d1d704-5075-48b8-8a33-e2b696c11437",
+      "element_id": "p21_110",
+      "page": 21,
+      "claim_text": "In key regions such as the\nU.S. and Europe, we’ve established recycling\nprograms in partnership with reputable\nthird parties and provide information to\nconsumers about how to recycle our branded\nproducts through labeling and our website.",
+      "confidence": 0.9625,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "End-of-Life Management"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 179,
+      "entities": [
+        {
+          "text": "U.S.",
+          "label": "GPE",
+          "start_char": 27,
+          "end_char": 31
+        },
+        {
+          "text": "Europe",
+          "label": "LOC",
+          "start_char": 36,
+          "end_char": 42
+        },
+        {
+          "text": "third",
+          "label": "ORDINAL",
+          "start_char": 111,
+          "end_char": 116
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "700c0512-1afb-4b0e-973e-c32474b1e190",
+      "element_id": "p22_117",
+      "page": 22,
+      "claim_text": "In addition to employee cybersecurity\ntrainings, our Santa Clara headquarters is\ncertified to ISO 27001.",
+      "confidence": 0.843,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Our Code",
+        "Ethics and Cybersecurity"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 536,
+      "entities": [
+        {
+          "text": "Santa Clara",
+          "label": "GPE",
+          "start_char": 53,
+          "end_char": 64
+        },
+        {
+          "text": "ISO 27001",
+          "label": "PRODUCT",
+          "start_char": 94,
+          "end_char": 103
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "685d3330-9f8f-4d2e-bf64-09502aae2bd9",
+      "element_id": "p26_144",
+      "page": 26,
+      "claim_text": "We believe AI will enhance human welfare and\nrespects human rights in numerous ways.",
+      "confidence": 0.6284,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Human Rights",
+        "Product Due Diligence"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [
+        {
+          "text": "AI",
+          "label": "GPE",
+          "start_char": 11,
+          "end_char": 13
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "c7ab470d-9e5a-45cd-82c4-1aaf85acc960",
+      "element_id": "p39_166",
+      "page": 39,
+      "claim_text": "We continue to align our business activities to the UN Sustainable Development Goals.",
+      "confidence": 0.9642,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "U.N. Sustainable Development Goals"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 0,
+      "entities": [
+        {
+          "text": "the UN Sustainable Development Goals",
+          "label": "ORG",
+          "start_char": 48,
+          "end_char": 84
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "9be9a7dc-981f-4e03-8724-292b636b7bfa",
+      "element_id": "p39_166",
+      "page": 39,
+      "claim_text": "To manage the GHG emissions footprint of our data centers, labs, and offices, we focus on \nsiting expansions strategically, managing our operations efficiently, and sourcing renewable \nenergy.",
+      "confidence": 0.9858,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "U.N. Sustainable Development Goals"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 1831,
+      "entities": [
+        {
+          "text": "GHG",
+          "label": "ORG",
+          "start_char": 14,
+          "end_char": 17
+        }
+      ],
+      "quantities": []
+    },
+    {
+      "claim_id": "60023041-4275-47c4-a719-424df8ff0bd9",
+      "element_id": "p39_166",
+      "page": 39,
+      "claim_text": "We achieved our goal of 100% renewable electricity, reducing our GHG footprint to zero\nNVIDIA Sustainability | Sustainability Indicators\n39\nNVIDIA supported Evo 2, the largest publicly available AI model for genomic data, that was built on \nthe NVIDIA DGX Cloud platform in a collaboration led by nonprofit biomedical research organization \nArc Institute and Stanford University.",
+      "confidence": 0.9285,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "U.N. Sustainable Development Goals"
+      ],
+      "element_role": "claim_candidate",
+      "sentence_offset": 2024,
+      "entities": [
+        {
+          "text": "100%",
+          "label": "PERCENT",
+          "start_char": 24,
+          "end_char": 28
+        },
+        {
+          "text": "GHG",
+          "label": "ORG",
+          "start_char": 65,
+          "end_char": 68
+        },
+        {
+          "text": "zero",
+          "label": "CARDINAL",
+          "start_char": 82,
+          "end_char": 86
+        },
+        {
+          "text": "39",
+          "label": "CARDINAL",
+          "start_char": 137,
+          "end_char": 139
+        },
+        {
+          "text": "2",
+          "label": "CARDINAL",
+          "start_char": 161,
+          "end_char": 162
+        },
+        {
+          "text": "DGX Cloud",
+          "label": "PERSON",
+          "start_char": 252,
+          "end_char": 261
+        },
+        {
+          "text": "Arc Institute",
+          "label": "ORG",
+          "start_char": 341,
+          "end_char": 354
+        },
+        {
+          "text": "Stanford University",
+          "label": "ORG",
+          "start_char": 359,
+          "end_char": 378
+        }
+      ],
+      "quantities": [
+        {
+          "value": "100",
+          "unit": "%",
+          "text": "100%"
+        },
+        {
+          "value": "zero",
+          "unit": "",
+          "text": "zero"
+        },
+        {
+          "value": "39",
+          "unit": "",
+          "text": "39"
+        },
+        {
+          "value": "2",
+          "unit": "",
+          "text": "2"
+        }
+      ]
+    }
+  ],
+  "after_groups": [
+    {
+      "group_id": "8b3589b6-7889-4428-adf6-6994f9f121cf",
+      "element_id": "p5_17",
+      "page": 5,
+      "num_sentences": 2,
+      "claim_text": "We are applying our technology to one of\nthe greatest challenges of our time:\nclimate change. > NVIDIA Earth-2 delivers AI-driven global\nclimate simulations 500x faster and 10,000x\nmore energy efficient than traditional\nmodels.",
+      "representative_sentence": "> NVIDIA Earth-2 delivers AI-driven global\nclimate simulations 500x faster and 10,000x\nmore energy efficient than traditional\nmodels.",
+      "confidence": 0.9733,
+      "section_path": [
+        "NVIDIA Sustainability Report Fiscal Year 2025",
+        "Accelerating Climate Action With AI"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "one",
+          "label": "CARDINAL",
+          "start_char": 34,
+          "end_char": 37
+        },
+        {
+          "text": "500x",
+          "label": "PRODUCT",
+          "start_char": 63,
+          "end_char": 67
+        }
+      ],
+      "quantities": [
+        {
+          "value": "one",
+          "unit": "",
+          "text": "one"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "We are applying our technology to one of\nthe greatest challenges of our time:\nclimate change.",
+          "confidence": 0.8979,
+          "sentence_offset": 0
+        },
+        {
+          "claim_text": "> NVIDIA Earth-2 delivers AI-driven global\nclimate simulations 500x faster and 10,000x\nmore energy efficient than traditional\nmodels.",
+          "confidence": 0.9733,
+          "sentence_offset": 94
+        }
+      ]
+    },
+    {
+      "group_id": "1039abd1-5e36-455e-80d3-a149b5796bc1",
+      "element_id": "p5_19",
+      "page": 5,
+      "num_sentences": 2,
+      "claim_text": "This year, our team\nachieved a major milestone: 100% of NVIDIA’s\nglobal electricity consumption is powered\nby or matched with renewable energy. We are working to reduce emissions wherever\nwe can.",
+      "representative_sentence": "We are working to reduce emissions wherever\nwe can.",
+      "confidence": 0.9928,
+      "section_path": [
+        "NVIDIA Sustainability Report Fiscal Year 2025",
+        "Our Commitment to Sustainability"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "This year",
+          "label": "DATE",
+          "start_char": 0,
+          "end_char": 9
+        },
+        {
+          "text": "100%",
+          "label": "PERCENT",
+          "start_char": 48,
+          "end_char": 52
+        }
+      ],
+      "quantities": [
+        {
+          "value": "100",
+          "unit": "%",
+          "text": "100%"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "This year, our team\nachieved a major milestone: 100% of NVIDIA’s\nglobal electricity consumption is powered\nby or matched with renewable energy.",
+          "confidence": 0.9093,
+          "sentence_offset": 67
+        },
+        {
+          "claim_text": "We are working to reduce emissions wherever\nwe can.",
+          "confidence": 0.9928,
+          "sentence_offset": 211
+        }
+      ]
+    },
+    {
+      "group_id": "e53c5070-926f-4494-a95b-4c16f65d2d95",
+      "element_id": "p8_37",
+      "page": 8,
+      "num_sentences": 1,
+      "claim_text": "AI is improving the\nefficiency of energy-intensive sectors like\nmanufacturing, helping utilities increase grid\nresilience and power generation, and even\nenhancing data center energy efficiency.",
+      "representative_sentence": "AI is improving the\nefficiency of energy-intensive sectors like\nmanufacturing, helping utilities increase grid\nresilience and power generation, and even\nenhancing data center energy efficiency.",
+      "confidence": 0.6634,
+      "section_path": [
+        "1 in 5",
+        "Our Impact",
+        "Energy and Climate"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "AI",
+          "label": "GPE",
+          "start_char": 0,
+          "end_char": 2
+        }
+      ],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "AI is improving the\nefficiency of energy-intensive sectors like\nmanufacturing, helping utilities increase grid\nresilience and power generation, and even\nenhancing data center energy efficiency.",
+          "confidence": 0.6634,
+          "sentence_offset": 154
+        }
+      ]
+    },
+    {
+      "group_id": "a5d5f952-e2d5-4b6c-a025-8711e1b07582",
+      "element_id": "p11_55",
+      "page": 11,
+      "num_sentences": 1,
+      "claim_text": "We’ve achieved our goal ahead of \nschedule, to engage manufacturing\nsuppliers comprising at least 67% \nof NVIDIA’s scope 3 category 1 GHG\nemissions, with the goal of effecting \nsupplier adoption of science-based\ntargets.",
+      "representative_sentence": "We’ve achieved our goal ahead of \nschedule, to engage manufacturing\nsuppliers comprising at least 67% \nof NVIDIA’s scope 3 category 1 GHG\nemissions, with the goal of effecting \nsupplier adoption of science-based\ntargets.",
+      "confidence": 0.9742,
+      "section_path": [
+        "50X+",
+        "Achieving our Climate Targets",
+        "Scope 3:"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "at least 67%",
+          "label": "PERCENT",
+          "start_char": 89,
+          "end_char": 101
+        },
+        {
+          "text": "NVIDIA",
+          "label": "ORG",
+          "start_char": 106,
+          "end_char": 112
+        },
+        {
+          "text": "3",
+          "label": "CARDINAL",
+          "start_char": 121,
+          "end_char": 122
+        },
+        {
+          "text": "1",
+          "label": "CARDINAL",
+          "start_char": 132,
+          "end_char": 133
+        }
+      ],
+      "quantities": [
+        {
+          "value": "67",
+          "unit": "%",
+          "text": "67%"
+        },
+        {
+          "value": "3",
+          "unit": "",
+          "text": "3"
+        },
+        {
+          "value": "1",
+          "unit": "",
+          "text": "1"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "We’ve achieved our goal ahead of \nschedule, to engage manufacturing\nsuppliers comprising at least 67% \nof NVIDIA’s scope 3 category 1 GHG\nemissions, with the goal of effecting \nsupplier adoption of science-based\ntargets.",
+          "confidence": 0.9742,
+          "sentence_offset": 0
+        }
+      ]
+    },
+    {
+      "group_id": "36dd8251-14f9-4828-93e4-e4b67cba54f3",
+      "element_id": "p11_57",
+      "page": 11,
+      "num_sentences": 1,
+      "claim_text": "Renewable electricity, reducing\nour GHG footprint to zero Scope\n2 market-based emissions",
+      "representative_sentence": "Renewable electricity, reducing\nour GHG footprint to zero Scope\n2 market-based emissions",
+      "confidence": 0.9921,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "GHG",
+          "label": "ORG",
+          "start_char": 36,
+          "end_char": 39
+        },
+        {
+          "text": "zero",
+          "label": "CARDINAL",
+          "start_char": 53,
+          "end_char": 57
+        },
+        {
+          "text": "Scope",
+          "label": "PRODUCT",
+          "start_char": 58,
+          "end_char": 63
+        },
+        {
+          "text": "2",
+          "label": "CARDINAL",
+          "start_char": 64,
+          "end_char": 65
+        }
+      ],
+      "quantities": [
+        {
+          "value": "zero",
+          "unit": "",
+          "text": "zero"
+        },
+        {
+          "value": "2",
+          "unit": "",
+          "text": "2"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "Renewable electricity, reducing\nour GHG footprint to zero Scope\n2 market-based emissions",
+          "confidence": 0.9921,
+          "sentence_offset": 0
+        }
+      ]
+    },
+    {
+      "group_id": "1a49189f-4c76-40ba-bd91-1b68ebd8db56",
+      "element_id": "p11_53",
+      "page": 11,
+      "num_sentences": 1,
+      "claim_text": "By delivering on\nthis commitment, we continue to aim to\nreduce our Scope 1 and 2 emissions in line\nwith prevalent climate science standards.",
+      "representative_sentence": "By delivering on\nthis commitment, we continue to aim to\nreduce our Scope 1 and 2 emissions in line\nwith prevalent climate science standards.",
+      "confidence": 0.9795,
+      "section_path": [
+        "50X+",
+        "Achieving our Climate Targets",
+        "Scope 1 and 2:"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "2",
+          "label": "CARDINAL",
+          "start_char": 79,
+          "end_char": 80
+        }
+      ],
+      "quantities": [
+        {
+          "value": "2",
+          "unit": "",
+          "text": "2"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "By delivering on\nthis commitment, we continue to aim to\nreduce our Scope 1 and 2 emissions in line\nwith prevalent climate science standards.",
+          "confidence": 0.9795,
+          "sentence_offset": 336
+        }
+      ]
+    },
+    {
+      "group_id": "ec66eaaa-e5fe-4954-9973-5408d0a8873e",
+      "element_id": "p12_66",
+      "page": 12,
+      "num_sentences": 2,
+      "claim_text": "We aim to reduce the amount of waste we \nsend to landfill through waste reduction, reuse,\nand recycling initiatives. We engaged a vendor \nto complete a gap analysis of our Santa Clara\ncampus to better understand opportunities \nto increase our landfill diversion rate and\nminimize the amount of waste generated.",
+      "representative_sentence": "We aim to reduce the amount of waste we \nsend to landfill through waste reduction, reuse,\nand recycling initiatives.",
+      "confidence": 0.9939,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "Santa Clara",
+          "label": "GPE",
+          "start_char": 55,
+          "end_char": 66
+        }
+      ],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "We aim to reduce the amount of waste we \nsend to landfill through waste reduction, reuse,\nand recycling initiatives.",
+          "confidence": 0.9939,
+          "sentence_offset": 0
+        },
+        {
+          "claim_text": "We engaged a vendor \nto complete a gap analysis of our Santa Clara\ncampus to better understand opportunities \nto increase our landfill diversion rate and\nminimize the amount of waste generated.",
+          "confidence": 0.8872,
+          "sentence_offset": 117
+        }
+      ]
+    },
+    {
+      "group_id": "1bc4c589-e126-4b19-b1ef-cc20fcb3bc02",
+      "element_id": "p12_60",
+      "page": 12,
+      "num_sentences": 3,
+      "claim_text": "Both targets were \nvalidated by the Science Based Targets \ninitiative (SBTi) as reducing greenhouse \ngas emissions in line with the goal of \nlimiting global warming to 1.5°C. We commit to the following sciencebased targets from a FY23 base year:\nReducing energy and emissions per \ncomputation represents NVIDIA’s biggest \nopportunity to reduce emissions and \nto support global sustainability efforts. To manage the greenhouse gas (GHG) emissions\nfootprint of our data centers, labs, and offices, we\nstrategically focus on locating new sites, selecting\nfacilities to expand, managing our operations\nefficiently, and sourcing renewable energy.",
+      "representative_sentence": "We commit to the following sciencebased targets from a FY23 base year:\nReducing energy and emissions per \ncomputation represents NVIDIA’s biggest \nopportunity to reduce emissions and \nto support global sustainability efforts.",
+      "confidence": 0.9867,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Progress on Our Renewable Electricity Target"
+      ],
+      "element_role": "context",
+      "entities": [
+        {
+          "text": "the Science Based Targets",
+          "label": "ORG",
+          "start_char": 32,
+          "end_char": 57
+        },
+        {
+          "text": "1.5",
+          "label": "CARDINAL",
+          "start_char": 168,
+          "end_char": 171
+        },
+        {
+          "text": "GHG",
+          "label": "ORG",
+          "start_char": 30,
+          "end_char": 33
+        }
+      ],
+      "quantities": [
+        {
+          "value": "1.5",
+          "unit": "",
+          "text": "1.5"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "Both targets were \nvalidated by the Science Based Targets \ninitiative (SBTi) as reducing greenhouse \ngas emissions in line with the goal of \nlimiting global warming to 1.5°C.",
+          "confidence": 0.9817,
+          "sentence_offset": 93
+        },
+        {
+          "claim_text": "We commit to the following sciencebased targets from a FY23 base year:\nReducing energy and emissions per \ncomputation represents NVIDIA’s biggest \nopportunity to reduce emissions and \nto support global sustainability efforts.",
+          "confidence": 0.9867,
+          "sentence_offset": 268
+        },
+        {
+          "claim_text": "To manage the greenhouse gas (GHG) emissions\nfootprint of our data centers, labs, and offices, we\nstrategically focus on locating new sites, selecting\nfacilities to expand, managing our operations\nefficiently, and sourcing renewable energy.",
+          "confidence": 0.9564,
+          "sentence_offset": 868
+        }
+      ]
+    },
+    {
+      "group_id": "7a2f52f6-1303-484d-92e9-beb4007d5a40",
+      "element_id": "p12_64",
+      "page": 12,
+      "num_sentences": 1,
+      "claim_text": "In FY25, we increased the amount of our \nrenewable electricity use to 100% for offices\nand data centers under our operational control,\nResponsible \nBusiness\nachieving our target.",
+      "representative_sentence": "In FY25, we increased the amount of our \nrenewable electricity use to 100% for offices\nand data centers under our operational control,\nResponsible \nBusiness\nachieving our target.",
+      "confidence": 0.8205,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Energy-Efficient Operations"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "100%",
+          "label": "PERCENT",
+          "start_char": 70,
+          "end_char": 74
+        }
+      ],
+      "quantities": [
+        {
+          "value": "100",
+          "unit": "%",
+          "text": "100%"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "In FY25, we increased the amount of our \nrenewable electricity use to 100% for offices\nand data centers under our operational control,\nResponsible \nBusiness\nachieving our target.",
+          "confidence": 0.8205,
+          "sentence_offset": 618
+        }
+      ]
+    },
+    {
+      "group_id": "874ffdfc-2016-4a1c-bc47-015b361a2e27",
+      "element_id": "p12_62",
+      "page": 12,
+      "num_sentences": 2,
+      "claim_text": "To bring a more structured approach to\nmanaging energy efficiency at several of\nour key data center locations, we have an\nenergy management system certified to\nthe ISO 50001 standard, which covered\napproximately 41% of our data center\nenergy use in FY25. Our certification to\nthe ISO 50001 standard recognizes our\nefforts to properly measure and reduce\nenergy consumption in our data centers.",
+      "representative_sentence": "Our certification to\nthe ISO 50001 standard recognizes our\nefforts to properly measure and reduce\nenergy consumption in our data centers.",
+      "confidence": 0.9846,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "ISO",
+          "label": "ORG",
+          "start_char": 164,
+          "end_char": 167
+        },
+        {
+          "text": "approximately 41%",
+          "label": "PERCENT",
+          "start_char": 198,
+          "end_char": 215
+        }
+      ],
+      "quantities": [
+        {
+          "value": "41",
+          "unit": "%",
+          "text": "41%"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "To bring a more structured approach to\nmanaging energy efficiency at several of\nour key data center locations, we have an\nenergy management system certified to\nthe ISO 50001 standard, which covered\napproximately 41% of our data center\nenergy use in FY25.",
+          "confidence": 0.9767,
+          "sentence_offset": 689
+        },
+        {
+          "claim_text": "Our certification to\nthe ISO 50001 standard recognizes our\nefforts to properly measure and reduce\nenergy consumption in our data centers.",
+          "confidence": 0.9846,
+          "sentence_offset": 944
+        }
+      ]
+    },
+    {
+      "group_id": "db4f2d0b-2bba-468c-b1be-cfdf947f4496",
+      "element_id": "p13_67",
+      "page": 13,
+      "num_sentences": 5,
+      "claim_text": "water demand and potable water use for \nsewage conveyance when compared with\nNVIDIA Sustainability | Energy, Efficiency, and Climate\n13\nwater in cooling towers and landscape irrigation\nsystems and capture rainwater in bioswales. The three-acre park that connects the two\nbuildings is planted with drought-tolerant trees\nand the greenery is irrigated by reclaimed water. At our Santa Clara headquarters, our Voyager and Endeavor buildings are LEED Gold certified and connected by a three-acre park that’s irrigated with reclaimed water and shaded by a trellis that houses solar panels. We’re introducing closed-loop liquid cooling\nsystems across our data centers to reduce\nwater usage and improve cooling efficiency. It packs unprecedented compute\ndensity into each server rack, delivering\n30x higher throughput, 25x more energy\nefficiency, and 300x more water efficiency\nthan traditional air-cooled architectures.",
+      "representative_sentence": "We’re introducing closed-loop liquid cooling\nsystems across our data centers to reduce\nwater usage and improve cooling efficiency.",
+      "confidence": 0.991,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "13",
+          "label": "CARDINAL",
+          "start_char": 133,
+          "end_char": 135
+        },
+        {
+          "text": "three-acre",
+          "label": "QUANTITY",
+          "start_char": 4,
+          "end_char": 14
+        },
+        {
+          "text": "two",
+          "label": "CARDINAL",
+          "start_char": 38,
+          "end_char": 41
+        },
+        {
+          "text": "greenery",
+          "label": "ORG",
+          "start_char": 99,
+          "end_char": 107
+        },
+        {
+          "text": "Santa Clara",
+          "label": "GPE",
+          "start_char": 7,
+          "end_char": 18
+        },
+        {
+          "text": "Voyager",
+          "label": "PRODUCT",
+          "start_char": 37,
+          "end_char": 44
+        },
+        {
+          "text": "LEED Gold",
+          "label": "WORK_OF_ART",
+          "start_char": 72,
+          "end_char": 81
+        },
+        {
+          "text": "30x",
+          "label": "CARDINAL",
+          "start_char": 73,
+          "end_char": 76
+        },
+        {
+          "text": "25x",
+          "label": "CARDINAL",
+          "start_char": 96,
+          "end_char": 99
+        },
+        {
+          "text": "300x",
+          "label": "PRODUCT",
+          "start_char": 128,
+          "end_char": 132
+        }
+      ],
+      "quantities": [
+        {
+          "value": "13",
+          "unit": "",
+          "text": "13"
+        },
+        {
+          "value": "three-acre",
+          "unit": "",
+          "text": "three-acre"
+        },
+        {
+          "value": "two",
+          "unit": "",
+          "text": "two"
+        },
+        {
+          "value": "30",
+          "unit": "x",
+          "text": "30x"
+        },
+        {
+          "value": "25",
+          "unit": "x",
+          "text": "25x"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "water demand and potable water use for \nsewage conveyance when compared with\nNVIDIA Sustainability | Energy, Efficiency, and Climate\n13\nwater in cooling towers and landscape irrigation\nsystems and capture rainwater in bioswales.",
+          "confidence": 0.6011,
+          "sentence_offset": 0
+        },
+        {
+          "claim_text": "The three-acre park that connects the two\nbuildings is planted with drought-tolerant trees\nand the greenery is irrigated by reclaimed water.",
+          "confidence": 0.9669,
+          "sentence_offset": 229
+        },
+        {
+          "claim_text": "At our Santa Clara headquarters, our Voyager and Endeavor buildings are LEED Gold certified and connected by a three-acre park that’s irrigated with reclaimed water and shaded by a trellis that houses solar panels.",
+          "confidence": 0.9176,
+          "sentence_offset": 517
+        },
+        {
+          "claim_text": "We’re introducing closed-loop liquid cooling\nsystems across our data centers to reduce\nwater usage and improve cooling efficiency.",
+          "confidence": 0.991,
+          "sentence_offset": 732
+        },
+        {
+          "claim_text": "It packs unprecedented compute\ndensity into each server rack, delivering\n30x higher throughput, 25x more energy\nefficiency, and 300x more water efficiency\nthan traditional air-cooled architectures.",
+          "confidence": 0.6178,
+          "sentence_offset": 1273
+        }
+      ]
+    },
+    {
+      "group_id": "63f2e461-d194-48dc-8feb-07041a1194b6",
+      "element_id": "p14_68",
+      "page": 14,
+      "num_sentences": 1,
+      "claim_text": "Additionally, we have increased\nour focus on diversity recruiting",
+      "representative_sentence": "Additionally, we have increased\nour focus on diversity recruiting",
+      "confidence": 0.8811,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Energy and Environment",
+        "Waste Management"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "Additionally, we have increased\nour focus on diversity recruiting",
+          "confidence": 0.8811,
+          "sentence_offset": 337
+        }
+      ]
+    },
+    {
+      "group_id": "bfe087b1-7340-4a92-aa34-dc8e77d884c8",
+      "element_id": "p17_88",
+      "page": 17,
+      "num_sentences": 1,
+      "claim_text": "Our allyship program is established and facilitated by employees to build a network\nof allies who model inclusive behaviors, amplify the work of others, and advocate for\nchanges that lead to increased equity.",
+      "representative_sentence": "Our allyship program is established and facilitated by employees to build a network\nof allies who model inclusive behaviors, amplify the work of others, and advocate for\nchanges that lead to increased equity.",
+      "confidence": 0.9627,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Community Resource Groups",
+        "Allyship"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "Our allyship program is established and facilitated by employees to build a network\nof allies who model inclusive behaviors, amplify the work of others, and advocate for\nchanges that lead to increased equity.",
+          "confidence": 0.9627,
+          "sentence_offset": 0
+        }
+      ]
+    },
+    {
+      "group_id": "c6709717-a4f3-416e-ba6e-f74c2dd68305",
+      "element_id": "p18_93",
+      "page": 18,
+      "num_sentences": 2,
+      "claim_text": "We support, contribute\nNVIDIA Sustainability | Product Value Chain\n18\nvalidate the source of minerals used in our\nproducts, aiming to ensure that they come\nfrom socially responsible sources and don’t\ncontribute to human conflict. Our goal is\nto use only conflict-free gold, tantalum,\ntungsten, and tin (3TG) in our products and to\nachieve 100% Responsible Minerals Assurance\nProcess-compliant 3TG processing facilities.",
+      "representative_sentence": "We support, contribute\nNVIDIA Sustainability | Product Value Chain\n18\nvalidate the source of minerals used in our\nproducts, aiming to ensure that they come\nfrom socially responsible sources and don’t\ncontribute to human conflict.",
+      "confidence": 0.9793,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Community Resource Groups",
+        "Leadership"
+      ],
+      "element_role": "context",
+      "entities": [
+        {
+          "text": "18",
+          "label": "CARDINAL",
+          "start_char": 67,
+          "end_char": 69
+        },
+        {
+          "text": "100%",
+          "label": "PERCENT",
+          "start_char": 109,
+          "end_char": 113
+        },
+        {
+          "text": "3TG",
+          "label": "CARDINAL",
+          "start_char": 163,
+          "end_char": 166
+        }
+      ],
+      "quantities": [
+        {
+          "value": "18",
+          "unit": "",
+          "text": "18"
+        },
+        {
+          "value": "100",
+          "unit": "%",
+          "text": "100%"
+        },
+        {
+          "value": "3",
+          "unit": "TG",
+          "text": "3TG"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "We support, contribute\nNVIDIA Sustainability | Product Value Chain\n18\nvalidate the source of minerals used in our\nproducts, aiming to ensure that they come\nfrom socially responsible sources and don’t\ncontribute to human conflict.",
+          "confidence": 0.9793,
+          "sentence_offset": 62
+        },
+        {
+          "claim_text": "Our goal is\nto use only conflict-free gold, tantalum,\ntungsten, and tin (3TG) in our products and to\nachieve 100% Responsible Minerals Assurance\nProcess-compliant 3TG processing facilities.",
+          "confidence": 0.9182,
+          "sentence_offset": 292
+        }
+      ]
+    },
+    {
+      "group_id": "5f05bed4-428b-47af-b8cf-5fa5130f4930",
+      "element_id": "p20_105",
+      "page": 20,
+      "num_sentences": 2,
+      "claim_text": "We continue to optimize the balance\nbetween ensuring that customers receive\nproducts in a protected, like-new condition\nwhile also minimizing our impact on the\nenvironment. We actively seek opportunities\nand implement appropriate solutions \nto reduce our usage of non-recyclable \nmaterials and packaging materials in general,\nMessage From \nOur CEO\nIntroduction\nEnergy, Efficiency, \nand Climate\nPeople, Diversity, \nand Inclusion\nResponsible \nBusiness\nProduct Value \nChain",
+      "representative_sentence": "We continue to optimize the balance\nbetween ensuring that customers receive\nproducts in a protected, like-new condition\nwhile also minimizing our impact on the\nenvironment.",
+      "confidence": 0.9866,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "Packaging"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "Inclusion\nResponsible \nBusiness\nProduct Value \nChain",
+          "label": "ORG",
+          "start_char": 245,
+          "end_char": 297
+        }
+      ],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "We continue to optimize the balance\nbetween ensuring that customers receive\nproducts in a protected, like-new condition\nwhile also minimizing our impact on the\nenvironment.",
+          "confidence": 0.9866,
+          "sentence_offset": 0
+        },
+        {
+          "claim_text": "We actively seek opportunities\nand implement appropriate solutions \nto reduce our usage of non-recyclable \nmaterials and packaging materials in general,\nMessage From \nOur CEO\nIntroduction\nEnergy, Efficiency, \nand Climate\nPeople, Diversity, \nand Inclusion\nResponsible \nBusiness\nProduct Value \nChain",
+          "confidence": 0.948,
+          "sentence_offset": 173
+        }
+      ]
+    },
+    {
+      "group_id": "b62f4638-11e4-4fad-842f-fb48d5b00083",
+      "element_id": "p20_103",
+      "page": 20,
+      "num_sentences": 1,
+      "claim_text": "We accomplished our goal to engage\nmanufacturing suppliers to effect supplier\nadoption of science-based targets.",
+      "representative_sentence": "We accomplished our goal to engage\nmanufacturing suppliers to effect supplier\nadoption of science-based targets.",
+      "confidence": 0.8558,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "Manufacturing"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "We accomplished our goal to engage\nmanufacturing suppliers to effect supplier\nadoption of science-based targets.",
+          "confidence": 0.8558,
+          "sentence_offset": 595
+        }
+      ]
+    },
+    {
+      "group_id": "474180fc-1555-4d75-a7a3-7f7ed1bf25f6",
+      "element_id": "p21_108",
+      "page": 21,
+      "num_sentences": 1,
+      "claim_text": "We plan, pack, and execute our raw\nmaterial, work-in-progress, and finished\ngoods shipments to optimize transport\nand logistics, which results in reduced fuel\nuse and less impact on the environment.",
+      "representative_sentence": "We plan, pack, and execute our raw\nmaterial, work-in-progress, and finished\ngoods shipments to optimize transport\nand logistics, which results in reduced fuel\nuse and less impact on the environment.",
+      "confidence": 0.9809,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "Transport and Logistics"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "We plan, pack, and execute our raw\nmaterial, work-in-progress, and finished\ngoods shipments to optimize transport\nand logistics, which results in reduced fuel\nuse and less impact on the environment.",
+          "confidence": 0.9809,
+          "sentence_offset": 0
+        }
+      ]
+    },
+    {
+      "group_id": "afb10eb3-68b4-447b-ad2b-b77a0d82c423",
+      "element_id": "p21_110",
+      "page": 21,
+      "num_sentences": 1,
+      "claim_text": "In key regions such as the\nU.S. and Europe, we’ve established recycling\nprograms in partnership with reputable\nthird parties and provide information to\nconsumers about how to recycle our branded\nproducts through labeling and our website.",
+      "representative_sentence": "In key regions such as the\nU.S. and Europe, we’ve established recycling\nprograms in partnership with reputable\nthird parties and provide information to\nconsumers about how to recycle our branded\nproducts through labeling and our website.",
+      "confidence": 0.9625,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Product Environmental Impact",
+        "End-of-Life Management"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "U.S.",
+          "label": "GPE",
+          "start_char": 27,
+          "end_char": 31
+        },
+        {
+          "text": "Europe",
+          "label": "LOC",
+          "start_char": 36,
+          "end_char": 42
+        },
+        {
+          "text": "third",
+          "label": "ORDINAL",
+          "start_char": 111,
+          "end_char": 116
+        }
+      ],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "In key regions such as the\nU.S. and Europe, we’ve established recycling\nprograms in partnership with reputable\nthird parties and provide information to\nconsumers about how to recycle our branded\nproducts through labeling and our website.",
+          "confidence": 0.9625,
+          "sentence_offset": 179
+        }
+      ]
+    },
+    {
+      "group_id": "1de6aa77-b96b-4fe0-b2d5-bd1688fba9fb",
+      "element_id": "p22_117",
+      "page": 22,
+      "num_sentences": 1,
+      "claim_text": "In addition to employee cybersecurity\ntrainings, our Santa Clara headquarters is\ncertified to ISO 27001.",
+      "representative_sentence": "In addition to employee cybersecurity\ntrainings, our Santa Clara headquarters is\ncertified to ISO 27001.",
+      "confidence": 0.843,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Our Code",
+        "Ethics and Cybersecurity"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "Santa Clara",
+          "label": "GPE",
+          "start_char": 53,
+          "end_char": 64
+        },
+        {
+          "text": "ISO 27001",
+          "label": "PRODUCT",
+          "start_char": 94,
+          "end_char": 103
+        }
+      ],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "In addition to employee cybersecurity\ntrainings, our Santa Clara headquarters is\ncertified to ISO 27001.",
+          "confidence": 0.843,
+          "sentence_offset": 536
+        }
+      ]
+    },
+    {
+      "group_id": "bd09bd46-bc7c-420a-94a7-4568863bbc4e",
+      "element_id": "p26_144",
+      "page": 26,
+      "num_sentences": 1,
+      "claim_text": "We believe AI will enhance human welfare and\nrespects human rights in numerous ways.",
+      "representative_sentence": "We believe AI will enhance human welfare and\nrespects human rights in numerous ways.",
+      "confidence": 0.6284,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "Human Rights",
+        "Product Due Diligence"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "AI",
+          "label": "GPE",
+          "start_char": 11,
+          "end_char": 13
+        }
+      ],
+      "quantities": [],
+      "constituent_claims": [
+        {
+          "claim_text": "We believe AI will enhance human welfare and\nrespects human rights in numerous ways.",
+          "confidence": 0.6284,
+          "sentence_offset": 0
+        }
+      ]
+    },
+    {
+      "group_id": "2d1fc26a-a404-447c-bd42-4408bbdd3f76",
+      "element_id": "p39_166",
+      "page": 39,
+      "num_sentences": 3,
+      "claim_text": "We continue to align our business activities to the UN Sustainable Development Goals. To manage the GHG emissions footprint of our data centers, labs, and offices, we focus on \nsiting expansions strategically, managing our operations efficiently, and sourcing renewable \nenergy. We achieved our goal of 100% renewable electricity, reducing our GHG footprint to zero\nNVIDIA Sustainability | Sustainability Indicators\n39\nNVIDIA supported Evo 2, the largest publicly available AI model for genomic data, that was built on \nthe NVIDIA DGX Cloud platform in a collaboration led by nonprofit biomedical research organization \nArc Institute and Stanford University.",
+      "representative_sentence": "To manage the GHG emissions footprint of our data centers, labs, and offices, we focus on \nsiting expansions strategically, managing our operations efficiently, and sourcing renewable \nenergy.",
+      "confidence": 0.9858,
+      "section_path": [
+        "In FY25, NVIDIA achieved: 100%",
+        "U.N. Sustainable Development Goals"
+      ],
+      "element_role": "claim_candidate",
+      "entities": [
+        {
+          "text": "the UN Sustainable Development Goals",
+          "label": "ORG",
+          "start_char": 48,
+          "end_char": 84
+        },
+        {
+          "text": "GHG",
+          "label": "ORG",
+          "start_char": 14,
+          "end_char": 17
+        },
+        {
+          "text": "100%",
+          "label": "PERCENT",
+          "start_char": 24,
+          "end_char": 28
+        },
+        {
+          "text": "zero",
+          "label": "CARDINAL",
+          "start_char": 82,
+          "end_char": 86
+        },
+        {
+          "text": "39",
+          "label": "CARDINAL",
+          "start_char": 137,
+          "end_char": 139
+        },
+        {
+          "text": "2",
+          "label": "CARDINAL",
+          "start_char": 161,
+          "end_char": 162
+        },
+        {
+          "text": "DGX Cloud",
+          "label": "PERSON",
+          "start_char": 252,
+          "end_char": 261
+        },
+        {
+          "text": "Arc Institute",
+          "label": "ORG",
+          "start_char": 341,
+          "end_char": 354
+        },
+        {
+          "text": "Stanford University",
+          "label": "ORG",
+          "start_char": 359,
+          "end_char": 378
+        }
+      ],
+      "quantities": [
+        {
+          "value": "100",
+          "unit": "%",
+          "text": "100%"
+        },
+        {
+          "value": "zero",
+          "unit": "",
+          "text": "zero"
+        },
+        {
+          "value": "39",
+          "unit": "",
+          "text": "39"
+        },
+        {
+          "value": "2",
+          "unit": "",
+          "text": "2"
+        }
+      ],
+      "constituent_claims": [
+        {
+          "claim_text": "We continue to align our business activities to the UN Sustainable Development Goals.",
+          "confidence": 0.9642,
+          "sentence_offset": 0
+        },
+        {
+          "claim_text": "To manage the GHG emissions footprint of our data centers, labs, and offices, we focus on \nsiting expansions strategically, managing our operations efficiently, and sourcing renewable \nenergy.",
+          "confidence": 0.9858,
+          "sentence_offset": 1831
+        },
+        {
+          "claim_text": "We achieved our goal of 100% renewable electricity, reducing our GHG footprint to zero\nNVIDIA Sustainability | Sustainability Indicators\n39\nNVIDIA supported Evo 2, the largest publicly available AI model for genomic data, that was built on \nthe NVIDIA DGX Cloud platform in a collaboration led by nonprofit biomedical research organization \nArc Institute and Stanford University.",
+          "confidence": 0.9285,
+          "sentence_offset": 2024
+        }
+      ]
+    }
+  ]
+}

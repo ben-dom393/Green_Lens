@@ -71,10 +71,18 @@ EVIDENCE FROM DOCUMENT:
 REGULATORY CONTEXT:
 {regulatory}
 
-Respond ONLY with valid JSON:
+{artifact_note}Respond ONLY with valid JSON:
 {{"verdict": "flagged" or "pass" or "needs_verification", "confidence": 0.0-1.0, "reasoning": "2-3 sentence explanation", "highlight_spans": ["exact text spans to highlight"], "suggestion": "what would make this claim acceptable", "evidence_used": ["which evidence influenced decision"], "severity": "high" or "medium" or "low"}}""",
 
-    "no_proof": """Evaluate whether this environmental claim has adequate supporting evidence.
+    "no_proof": """Evaluate whether this environmental claim has adequate supporting evidence in the document.
+
+IMPORTANT GUIDELINES:
+- "No Proof" means the company makes a green claim but provides NO evidence, data, or third-party verification to back it up.
+- If evidence passages are found in the document that relate to the claim, the claim likely HAS some proof — even if the proof checklist coverage is low.
+- Proof checklist coverage of 0% often means the automated system couldn't match the claim to a known claim type — it does NOT mean there is zero evidence. READ the actual evidence passages below to judge.
+- Claims that reference specific standards (SBTi, ISO, LEED), provide numbers/percentages, or cite third-party verification generally have SOME proof and should PASS or get needs_verification.
+- Only flag "no proof" if the claim makes a substantive assertion with genuinely NO supporting data, metrics, methodology, or verification anywhere in the document.
+- A claim saying "we reduced emissions by 50%" with supporting evidence in the document = PASS, even if checklist coverage is 0%.
 
 CLAIM: "{claim_text}"
 PAGE: {page} | SECTION: {section_path}
@@ -82,21 +90,26 @@ PAGE: {page} | SECTION: {section_path}
 MODEL SIGNALS:
 - ClimateBERT fact-check: {fact_check_results}
 - DeBERTa NLI: {nli_results}
-- Proof checklist coverage: {checklist_coverage}
+- Proof checklist coverage: {checklist_coverage} (NOTE: 0% may mean claim type not matched, not absence of evidence)
 - Missing evidence fields: {missing_fields}
 - TCFD category: {tcfd_category}
 - Evidence passages found: {evidence_count}
 
-EVIDENCE FROM DOCUMENT:
+EVIDENCE FROM DOCUMENT (read these carefully):
 {evidence}
 
 REGULATORY CONTEXT:
 {regulatory}
 
-Respond ONLY with valid JSON:
+{artifact_note}Respond ONLY with valid JSON:
 {{"verdict": "flagged" or "pass" or "needs_verification", "confidence": 0.0-1.0, "reasoning": "2-3 sentence explanation", "highlight_spans": ["exact text spans to highlight"], "suggestion": "what would make this claim acceptable", "evidence_used": ["which evidence influenced decision"], "severity": "high" or "medium" or "low"}}""",
 
-    "irrelevant_claims": """Evaluate whether this environmental claim is actually just compliance with existing law (making it irrelevant as a voluntary green effort).
+    "irrelevant_claims": """Evaluate whether this environmental claim is greenwashing because it highlights something that is ALREADY LEGALLY REQUIRED or involves a SUBSTANCE ALREADY BANNED BY LAW.
+
+IMPORTANT DISTINCTION:
+- "Irrelevant" in the Seven Sins of Greenwashing means claiming credit for something the company MUST do by law anyway (e.g., "we don't use CFCs" when CFCs are banned, or "we comply with EU emissions standards" as if it's voluntary).
+- Voluntary industry standards like SBTi, ISO certifications, or best practices are NOT irrelevant — companies choose to adopt them. These should generally PASS.
+- Only flag claims where the company is taking credit for legal compliance as if it were a voluntary environmental achievement.
 
 CLAIM: "{claim_text}"
 PAGE: {page} | SECTION: {section_path}
@@ -108,10 +121,18 @@ MODEL SIGNALS:
 REGULATORY CONTEXT:
 {regulatory}
 
-Respond ONLY with valid JSON:
+{artifact_note}Respond ONLY with valid JSON:
 {{"verdict": "flagged" or "pass" or "needs_verification", "confidence": 0.0-1.0, "reasoning": "2-3 sentence explanation", "highlight_spans": ["exact text spans to highlight"], "suggestion": "what would make this claim acceptable", "evidence_used": ["which evidence influenced decision"], "severity": "high" or "medium" or "low"}}""",
 
-    "lesser_of_two_evils": """Evaluate whether this green claim is proportional to the company's actual environmental impact, or is it distracting from larger harms (lesser of two evils).
+    "lesser_of_two_evils": """Evaluate whether this green claim is a "lesser of two evils" greenwashing tactic — promoting a relatively minor environmental benefit to DISTRACT from the company's much larger environmental harms.
+
+IMPORTANT GUIDELINES:
+- This is NOT about whether a claim is vague or unproven (other modules check that).
+- A claim is "lesser of two evils" ONLY if it deliberately highlights a trivial green action while the company's core business causes significant, unaddressed environmental damage.
+- Companies in ANY sector can legitimately report on their sustainability efforts. Reporting on renewable energy, waste reduction, or emissions targets is NORMAL corporate sustainability reporting, not distraction.
+- Only flag if the claim is clearly disproportionate — e.g., an oil company emphasizing biodegradable coffee cups while ignoring fossil fuel emissions.
+- Claims with specific metrics, third-party verification, or addressing material topics for their sector should generally PASS.
+- Non-environmental claims (diversity, cybersecurity) appearing in an environmental section may be irrelevant but are NOT "lesser of two evils."
 
 CLAIM: "{claim_text}"
 PAGE: {page} | SECTION: {section_path}
@@ -127,19 +148,26 @@ MODEL SIGNALS:
 EVIDENCE FROM DOCUMENT:
 {evidence}
 
-Respond ONLY with valid JSON:
+{artifact_note}Respond ONLY with valid JSON:
 {{"verdict": "flagged" or "pass" or "needs_verification", "confidence": 0.0-1.0, "reasoning": "2-3 sentence explanation", "highlight_spans": ["exact text spans to highlight"], "suggestion": "what would make this claim acceptable", "evidence_used": ["which evidence influenced decision"], "severity": "high" or "medium" or "low"}}""",
 
-    "hidden_tradeoffs": """Evaluate whether this claim cherry-picks a minor green attribute while the company's major environmental impacts go unaddressed.
+    "hidden_tradeoffs": """Evaluate whether this claim hides a significant environmental tradeoff.
+
+IMPORTANT GUIDELINES:
+- "Hidden Tradeoff" means the claim highlights ONE environmental benefit while concealing a RELATED environmental cost. For example: "our product uses recycled packaging" while the manufacturing process produces toxic waste.
+- This is about TRADEOFFS WITHIN THE CLAIM'S OWN SCOPE, not about whether the overall report covers all topics. A single claim does NOT need to address every material topic — that's the report's job, not each claim's.
+- Only flag if the claim ACTIVELY CONCEALS a tradeoff directly related to what it discusses.
+- Scope-narrowing language (e.g., "at our headquarters", "in select regions", "pilot program") may indicate hidden tradeoffs IF it obscures a larger unaddressed impact.
+- A claim about renewable energy is NOT hiding tradeoffs just because the company also has e-waste issues — those are separate topics.
+- When in doubt, PASS. Most legitimate sustainability claims are not hiding tradeoffs.
 
 CLAIM: "{claim_text}"
 PAGE: {page} | SECTION: {section_path}
 
 MODEL SIGNALS:
 - Sector: {sector}
-- Expected material topics for this sector: {expected_topics}
-- Topics found in document: {found_topics}
-- Missing material topics: {missing_topics}
+- Document-level topic coverage: {found_topics} out of {expected_topics} material topics addressed in this report
+- Missing material topics (document-level, NOT this claim's responsibility): {missing_topics}
 - TCFD coverage: {tcfd_coverage}
 - Claim focuses on: {claim_focus}
 - Scope narrowing detected: {scope_narrowing}
@@ -147,7 +175,7 @@ MODEL SIGNALS:
 EVIDENCE FROM DOCUMENT:
 {evidence}
 
-Respond ONLY with valid JSON:
+{artifact_note}Respond ONLY with valid JSON:
 {{"verdict": "flagged" or "pass" or "needs_verification", "confidence": 0.0-1.0, "reasoning": "2-3 sentence explanation", "highlight_spans": ["exact text spans to highlight"], "suggestion": "what would make this claim acceptable", "evidence_used": ["which evidence influenced decision"], "severity": "high" or "medium" or "low"}}""",
 
     "fake_labels": """Evaluate whether the certification or eco-label referenced in this claim is legitimate, self-created, or misleading.
@@ -165,7 +193,7 @@ MODEL SIGNALS:
 REGULATORY CONTEXT:
 {regulatory}
 
-Respond ONLY with valid JSON:
+{artifact_note}Respond ONLY with valid JSON:
 {{"verdict": "flagged" or "pass" or "needs_verification", "confidence": 0.0-1.0, "reasoning": "2-3 sentence explanation", "highlight_spans": ["exact text spans to highlight"], "suggestion": "what would make this claim acceptable", "evidence_used": ["which evidence influenced decision"], "severity": "high" or "medium" or "low"}}""",
 
     "fibbing": """Evaluate whether this claim is factually false, internally contradicted, or implausibly absolute based on in-document evidence.
@@ -187,7 +215,7 @@ CONTRADICTING PASSAGES FROM SAME REPORT:
 SUPPORTING EVIDENCE:
 {evidence}
 
-Respond ONLY with valid JSON:
+{artifact_note}Respond ONLY with valid JSON:
 {{"verdict": "flagged" or "pass" or "needs_verification", "confidence": 0.0-1.0, "reasoning": "2-3 sentence explanation", "highlight_spans": ["exact text spans to highlight"], "suggestion": "what would make this claim acceptable", "evidence_used": ["which evidence influenced decision"], "severity": "high" or "medium" or "low"}}""",
 }
 
@@ -200,12 +228,9 @@ class LLMJudge:
         self._available: bool | None = None
 
     def is_available(self) -> bool:
-        """Check if any LLM backend is reachable."""
+        """Check if Groq API key is set."""
         if self._available is None:
-            self._available = (
-                self._client._check_ollama()
-                or bool(os.environ.get("GROQ_API_KEY"))
-            )
+            self._available = bool(os.environ.get("GROQ_API_KEY"))
         return self._available
 
     def judge_claim(
@@ -233,7 +258,7 @@ class LLMJudge:
         if evidence:
             parts = []
             for i, ev in enumerate(evidence[:5], 1):
-                text = ev.get("text", str(ev))[:300]
+                text = ev.get("text", str(ev))[:1000]
                 page = ev.get("page", "?")
                 parts.append(f"[{i}] (p.{page}) {text}")
             evidence_text = "\n".join(parts)
@@ -245,9 +270,21 @@ class LLMJudge:
             for r in kb_context["regulatory"][:3]:
                 doc = r.get("document_name", r.get("source", "unknown"))
                 pg = r.get("page", "?")
-                txt = r.get("text", "")[:200]
+                txt = r.get("text", "")[:500]
                 reg_parts.append(f"[{doc}, p.{pg}] {txt}")
             regulatory_text = "\n".join(reg_parts)
+
+        # Build artifact advisory note (if any artifact signals present)
+        artifact_signals = signals.get("artifact_signals", [])
+        if artifact_signals:
+            artifact_note = (
+                "NOTE: The claim text may contain PDF parsing artifacts "
+                f"({', '.join(artifact_signals)}). These are noise from "
+                "PDF extraction — ignore them when evaluating the claim's "
+                "substance, but note if they make the claim hard to assess.\n\n"
+            )
+        else:
+            artifact_note = ""
 
         # Merge all template variables
         template_vars = {
@@ -256,6 +293,7 @@ class LLMJudge:
             "section_path": " > ".join(signals.get("section_path", [])) or "N/A",
             "evidence": evidence_text,
             "regulatory": regulatory_text,
+            "artifact_note": artifact_note,
         }
         # Add all signal values (module-specific)
         for k, v in signals.items():

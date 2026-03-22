@@ -37,7 +37,12 @@ _RE_GREEN_BUZZWORDS = re.compile(
 )
 
 # Patterns that indicate specificity (numbers, methodology, etc.)
-_RE_HAS_NUMBERS = re.compile(r"\b\d[\d,.]*\s*(%|percent|tonnes?|tons?|kg|GW|MW|kW)\b")
+_RE_HAS_NUMBERS = re.compile(
+    r"\b\d[\d,.]*\s*"
+    r"(%|percent|tonnes?|tons?|kg|GW|MW|kW|MWh|GWh|TWh|x\b|X\b|times)"
+    r"|\b\d{2,}[\d,.]*\b"        # any number with 2+ digits (e.g. 100, 67, 500)
+    r"|\b\d+\.\d+\b"             # decimal numbers (e.g. 1.5, 0.41)
+)
 _RE_HAS_METHODOLOGY = re.compile(
     r"\b("
     r"GHG Protocol|ISO\s*1[4-9]\d{3}|ISO\s*50001|TCFD|CDP|SBTi|"

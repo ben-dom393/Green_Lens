@@ -14,7 +14,7 @@ Green_Lens/
 │   │   ├── claim_extractor.py  # ClimateBERT claim extraction + spaCy NER
 │   │   ├── pdf_parser.py       # PyMuPDF PDF parsing (text + tables)
 │   │   ├── llm/
-│   │   │   ├── client.py       # Ollama/Groq LLM client
+│   │   │   ├── client.py       # Groq API client (rate-limit retry)
 │   │   │   ├── judge.py        # LLM Judge (verdict decisions)
 │   │   │   └── explainer.py    # (deprecated) template explanations
 │   │   ├── modules/
@@ -58,6 +58,7 @@ Green_Lens/
 cd backend
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
+export GROQ_API_KEY="your-groq-api-key"
 uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
