@@ -16,7 +16,6 @@ bm25s
 PyStemmer
 
 # LLM
-ollama
 httpx
 
 # Data
@@ -28,6 +27,5 @@ pydantic-settings
 bertopic
 keybert
 
-# PDF parsing (teammate handles, but needed for integration)
-# unstructured
-# pymupdf
+# PDF parsing
+pymupdf
