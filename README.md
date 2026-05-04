@@ -135,3 +135,7 @@ Scores are aggregated per-sin across all claims using materiality-weighted avera
 | `/api/report/{id}/summary` | GET | Get report summary |
 | `/api/reports` | GET | List all completed reports |
 | `/health` | GET | Health check |
+
+## License
+
+Licensed under the [Apache License 2.0](LICENSE). Copyright 2026 ben-dom393 and salt0401.
