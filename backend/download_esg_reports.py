@@ -11,8 +11,7 @@ import requests
 from pathlib import Path
 from urllib.parse import unquote
 
-# Target directory
-OUTPUT_DIR = Path(r"C:\Users\owen3\OneDrive\Desktop\Warwick CS\Spark the Globe\Green_Lens\ESG report")
+OUTPUT_DIR = Path(__file__).resolve().parent.parent / "ESG report"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Common headers to avoid being blocked

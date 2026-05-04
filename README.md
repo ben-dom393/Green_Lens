@@ -4,22 +4,28 @@ Greenwashing Detection Platform for ESG Reports. Analyzes environmental claims u
 
 ## Quick Start
 
-### 1. Backend
+### 1. API Key
+
+Copy `.env.example` to `.env` at the repo root and fill in your Groq API key (free at https://console.groq.com). The backend auto-loads `.env` on startup via `python-dotenv`.
+
+```bash
+cd Green_Lens
+cp .env.example .env
+# Edit .env: replace the placeholder with your real key
+```
+
+### 2. Backend
 
 ```bash
 cd Green_Lens/backend
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
-```
-
-Set your Groq API key and start the server:
-
-```bash
-export GROQ_API_KEY="your-groq-api-key"
 uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
-### 2. Frontend (separate terminal)
+> Prefer not to use `.env`? `export GROQ_API_KEY="gsk_..."` works too — shell env vars take precedence over `.env`.
+
+### 3. Frontend (separate terminal)
 
 ```bash
 cd Green_Lens/frontend
